@@ -6,38 +6,76 @@ body{
 }
 
 nav{
-    background-color: #979595;
-    color: #fff;
-    padding: 10px;
-    height: 5vh;
+    height: 3vh;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
 }
 
-.info-btns > button{
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+nav > button {
+    margin-right: 20px;
+    margin-top: 20px;
 }
 
-.title{
-    font-size: 25px;
+.title {
+    width: fit-content;
+    margin: auto;
+    margin-top: 3vh;
+}
+
+.title > h1 {
+    font-size: 40px;
     font-weight: bold;
     color: #000;
-}   
+    margin-top: 0;
+    margin-bottom: 10px;
+}  
+
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2vw;
+}
 
 .game-container{
     display: flex;
     justify-content: center;
+    height: 100%;
+    margin-top: 5vh;
+}
+
+.config-container{
+    width: fit-content;
+    height: fit-content;
+    padding: 20px;
+    background-color: rgb(153, 168, 181);
+}
+
+.game-modes{
+    display: flex;
+    justify-content: center;
     align-items: center;
-    height: 95vh;
+    gap: 5vw;
+    margin-bottom: 30px;
+}
+
+.passive-mode{
+    cursor: pointer;
+    
+    &:hover{
+        color: #f0f0f0;
+    }
+}
+
+h3{
+    margin: 0;
+}
+
+.input-group{
+    margin-top: 20px;
 }
 
 .start-btn{
-    padding: 10px;
-    background-color: #979595;
-    color: #fff;
-    border: none;
-    cursor: pointer;
+    margin: 20px auto 0 auto;
 }
