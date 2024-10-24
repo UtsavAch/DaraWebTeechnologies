@@ -1,5 +1,5 @@
-const rows = 9;
-const cols = 9;
+const rows = 7;
+const cols = 7;
 const table = document.getElementById("myTable");
 const usefulCells = []; // List to store useful cell tuples
 

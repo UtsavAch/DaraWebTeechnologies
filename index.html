@@ -5,10 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nine Men's Morris Table</title>
     <link rel="stylesheet" href="style-board.css" />
+    <link rel="stylesheet" href="style-message.css" />
   </head>
   <body>
     <div id="board-container">
       <table id="myTable" border="1"></table>
+      <!-- ------Message Log------ -->
+      <div id="message-log">
+        <button class="log-toggle">Toggle</button>
+        <ul id="message-log-container">
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+          <li class="message-item">This is a message</li>
+        </ul>
+      </div>
+      <!-- Players -->
+      <div id="players-container">
+        <div id="player-one">--Player One Name--</div>
+        <div id="player-two">--Player Two Name--</div>
+      </div>
+      <!-- difficulty div -->
+      <div id="Difficulty level">--Difficulty Level--</div>
+      <!-- ------Temporary message------ -->
+      <div id="temporary-message">This is a message from the board.</div>
     </div>
   </body>
   <script src="board.js"></script>
