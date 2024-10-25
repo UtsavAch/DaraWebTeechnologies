@@ -1,5 +1,5 @@
 body{
-    font-family: Arial, sans-serif;
+    font-family: Poppins, sans-serif;
     background-color: #f0f0f0;
     margin: 0;
     padding: 0;
@@ -25,7 +25,7 @@ nav > button {
 
 .title > h1 {
     font-size: 40px;
-    font-weight: bold;
+    font-weight: 600;
     color: #000;
     margin-top: 0;
     margin-bottom: 10px;
@@ -35,7 +35,16 @@ nav > button {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 2vw;
+    gap: 1vw;
+}
+
+.icon-btn{
+    cursor: pointer;
+    transition: ease-in 0.07s;
+    &:hover{
+        scale: 1.1;
+        transition: ease-in 0.07s;
+    }
 }
 
 .game-container{
@@ -49,7 +58,8 @@ nav > button {
     width: fit-content;
     height: fit-content;
     padding: 20px;
-    background-color: rgb(153, 168, 181);
+    border: #000 2px solid;
+    border-radius: 20px;
 }
 
 .game-modes{
@@ -58,13 +68,17 @@ nav > button {
     align-items: center;
     gap: 5vw;
     margin-bottom: 30px;
+    color: black;
 }
 
 .passive-mode{
     cursor: pointer;
-    
+    color: rgb(92, 92, 92);
+    transition: ease-in-out 0.07s;
     &:hover{
-        color: #f0f0f0;
+        color: black;
+        scale: 1.05;
+        transition: ease-in-out 0.07s;
     }
 }
 
@@ -72,10 +86,69 @@ h3{
     margin: 0;
 }
 
+#multiplayer-view{
+    display: none;
+}
+
+input{
+    padding: 5px;
+    border-radius: 7px;
+    border: 1px solid #000;
+    margin-left: 10px;
+    &:focus{
+        outline: 1px solid #000;
+    }
+}
+
 .input-group{
     margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    & > label {
+        width: 40%;
+    }
+    & > input {
+        width: 60%;
+    }
+}
+
+.radio-group{
+    margin-top: 20px;
+    width: 100%;
+    & #difficulty-radio{
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 10px;
+        & input{
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    & #player-radio{
+        margin-top: 10px;
+        & input{
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+}
+
+.actions{
+    width: 100%;
 }
 
 .start-btn{
-    margin: 20px auto 0 auto;
+   margin-top: 20px;
+   border: none;
+   background-color: #000;
+   border-radius: 5px;
+   color: white;
+   padding: 5px 10px;
+   font-family: Poppins, sans-serif;
+   font-size: 15px;
+   font-weight: 600;
 }
