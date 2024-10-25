@@ -60,6 +60,7 @@ nav > button {
     padding: 20px;
     border: #000 2px solid;
     border-radius: 20px;
+    text-align: center;
 }
 
 .game-modes{
@@ -86,6 +87,7 @@ h3{
     margin: 0;
 }
 
+
 #multiplayer-view{
     display: none;
 }
@@ -101,6 +103,7 @@ input{
 }
 
 .input-group{
+    text-align: justify;
     margin-top: 20px;
     width: 100%;
     display: flex;
@@ -114,6 +117,7 @@ input{
 }
 
 .radio-group{
+    text-align: justify;
     margin-top: 20px;
     width: 100%;
     & #difficulty-radio{
@@ -151,4 +155,63 @@ input{
    font-family: Poppins, sans-serif;
    font-size: 15px;
    font-weight: 600;
+   cursor: pointer;
+   transition: ease-in-out 0.07s;
+
+    &:hover{
+         background-color: #333;
+         scale: 1.05;
+         transition: ease-in-out 0.07s;
+    }
+}
+
+#login-view{
+    display: none;
+}
+
+#login-form{
+    display: none;
+}
+
+#register-form{
+    display: none;
+} 
+
+.basic-btn{
+   border: none;
+   background-color: #727272;
+   border-radius: 5px;
+   color: white;
+   padding: 5px 10px;
+   font-family: Poppins, sans-serif;
+   font-size: 15px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: ease-in-out 0.07s;
+
+    &:hover{
+         background-color: #565656;
+         scale: 1.05;
+         transition: ease-in-out 0.07s;
+    }
+}
+
+.submit-btn{
+    margin-top: 20px;
+    border: none;
+    background-color: #000;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+    font-family: Poppins, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: ease-in-out 0.07s;
+ 
+     &:hover{
+          background-color: #333;
+          scale: 1.05;
+          transition: ease-in-out 0.07s;
+     }
 }
