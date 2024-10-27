@@ -1,0 +1,36 @@
+#players-container {
+  display: none;
+  flex-direction: column;
+  text-align: center;
+  height: 100%;
+  width: 300px;
+}
+
+#versus-img {
+  height: 120px;
+}
+
+.player-name {
+  text-transform: uppercase;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.pieces-container {
+  height: 35px;
+  border: 2px solid #000;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 8px;
+  position: relative;
+  box-sizing: border-box;
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2),
+    inset -1px -1px 3px rgba(255, 255, 255, 0.8);
+}
+
+.active-pieces-container {
+  background: rgba(255, 255, 0, 0.6);
+}
