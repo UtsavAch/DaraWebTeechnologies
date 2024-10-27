@@ -1,117 +1,231 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="styles.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=help,leaderboard" />
-        <title>Nine Men's Morris</title>
-    </head>
-    <body>
-        <nav>
-            <!--<button class="basic-btn">Login</button>-->
-        </nav>
-        <section class="title">
-            <h1>Nine Men's Morris</h1>
-            <div class="info">
-                <span class="material-symbols-outlined icon-btn">
-                    leaderboard
-                </span>
-                <span class="material-symbols-outlined icon-btn">
-                    help
-                </span>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/styles-main.css" />
+    <link rel="stylesheet" href="styles/styles-config.css" />
+    <link rel="stylesheet" href="styles/styles-board.css" />
+    <link rel="stylesheet" href="styles/styles-notification.css" />
+    <link rel="stylesheet" href="styles/styles-players.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+    />
+    <title>Nine Men's Morris</title>
+  </head>
+  <body>
+    <!-- ---Audios and sounds--- -->
+    <!-- Audios from freemusicarchive.org -->
+    <section id="audio-section">
+      <audio
+        id="background-music"
+        src="/audios/background-music.mp3"
+        loop
+      ></audio>
+      <audio id="battle-music" src="/audios/battle-music.mp3" loop></audio>
+      <audio id="button-click" src="/audios/button-click.mp3"></audio>
+    </section>
+    <nav>
+      <!--<button class="basic-btn">Login</button>-->
+    </nav>
+    <section class="title">
+      <h1>Nine Men's Morris</h1>
+      <div class="info">
+        <span class="material-symbols-outlined icon-btn btn">
+          leaderboard
+        </span>
+        <span class="material-symbols-outlined icon-btn btn"> help </span>
+        <span id="volume-up-btn" class="material-symbols-outlined icon-btn btn">
+          volume_up
+        </span>
+        <span
+          id="volume-off-btn"
+          class="material-symbols-outlined icon-btn btn"
+        >
+          volume_off
+        </span>
+      </div>
+    </section>
+    <main id="main-container">
+      <!-- ---Notification--- -->
+      <section id="notification-container">
+        <p id="notification-message">Hey there! What's going on?</p>
+        <!--Gif is from iconscout-->
+        <img id="notification-img" src="/images/SpookyCat.gif" />
+      </section>
+      <!-- ---Configuration--- -->
+      <section id="game-container" class="game-container">
+        <div class="config-container">
+          <div class="game-modes">
+            <h3 id="singleplayer-btn" class="btn">Singleplayer</h3>
+            <h3 id="multiplayer-btn" class="passive-mode btn">Multiplayer</h3>
+          </div>
+          <div id="singleplayer-view">
+            <div class="input-group">
+              <label for="name">Name:</label>
+              <input type="text" id="name" name="name" />
             </div>
-        </section>
-        <section class="game-container">
-            <div class="config-container">
-                <div class="game-modes">
-                    <h3 id="singleplayer-btn">Singleplayer</h3>
-                    <h3 id="multiplayer-btn" class="passive-mode">Multiplayer</h3>
-                </div>
-                <div id="singleplayer-view">
-                    <div class="input-group">
-                        <label for="name">Name:</label>
-                        <input type="text" id="name" name="name">
-                    </div>
-                    <div class="input-group">
-                        <label for="size">Board size:</label>
-                        <input type="number" id="size" name="name" max="10">
-                    </div>
-                    <div class="radio-group">
-                        <label for="difficulty">Difficulty:</label>
-                        <div id="difficulty-radio" class="radio-options">
-                            <div>
-                                <input type="radio" id="easy" name="difficulty" value="easy">
-                                <label for="easy">Easy</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="medium" name="difficulty" value="medium">
-                                <label for="medium">Medium</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="hard" name="difficulty" value="hard">
-                                <label for="hard">Hard</label> 
-                            </div>
-                        </div>
-                    </div>
-                    <button id="start-singleplayer-btn" class="start-btn">Start Game</button>
-                </div>
-                <div id="login-view">
-                    <p>To play multiplayer, you should login first.</p>
-                    <button id="login-btn" class="basic-btn">Login</button>
-                    <p>You don't have an account?</p>
-                    <button id="register-btn" class="basic-btn">Register</button>
-                    <div id="login-form">
-                        <div class="input-group">
-                            <label for="l-username">Username:</label>
-                            <input type="text" id="l-username" name="l-username">
-                        </div>
-                        <div class="input-group">
-                            <label for="l-password">Password:</label>
-                            <input type="password" id="l-password" name="l-password">
-                        </div>
-                        <button id="login-submit" class="submit-btn">Login</button>
-                    </div>
-                    <div id="register-form">
-                        <div class="input-group">
-                            <label for="r-username">Username:</label>
-                            <input type="text" id="r-username" name="r-username">
-                        </div>
-                        <div class="input-group">
-                            <label for="r-password">Password:</label>
-                            <input type="password" id="r-password" name="r-password">
-                        </div>
-                        <button id="register-submit" class="submit-btn">Register</button>
-                    </div>
-                </div>
-                <div id="multiplayer-view">
-                    <div class="input-group">
-                        <label for="first">First Player:</label>
-                        <input type="text" id="first" name="first">
-                    </div>
-                    <div class="input-group">
-                        <label for="second">Second Player:</label>
-                        <input type="text" id="second" name="second">
-                    </div>
-                    <div class="input-group">
-                        <label for="size">Board size:</label>
-                        <input type="number" id="size" name="name" max="10">
-                    </div>
-                    <div class="radio-group">
-                        <label for="game-order">Who starts the game?</label>
-                        <div id="player-radio">
-                            <input type="radio" id="p1" name="game-order" value="p1">
-                            <label for="p1">First Player</label><br>
-                            <input type="radio" id="p2" name="game-order" value="p2">
-                            <label for="p2">Second Player</label><br>
-                        </div>
-                    </div>
-                    <button class="start-btn">Start Game</button>
-                </div>
+            <div class="input-group">
+              <label for="size">Board size:</label>
+              <input type="number" id="size" name="name" max="10" />
             </div>
-        </section>
-    </body>
-    <script src="config.js"></script>
+            <div class="radio-group">
+              <label for="difficulty">Difficulty:</label>
+              <div id="difficulty-radio" class="radio-options">
+                <div>
+                  <input
+                    type="radio"
+                    id="easy"
+                    name="difficulty"
+                    value="easy"
+                  />
+                  <label for="easy">Easy</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="medium"
+                    name="difficulty"
+                    value="medium"
+                  />
+                  <label for="medium">Medium</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="hard"
+                    name="difficulty"
+                    value="hard"
+                  />
+                  <label for="hard">Hard</label>
+                </div>
+              </div>
+            </div>
+            <button id="start-singleplayer-btn" class="start-btn btn">
+              Start Game
+            </button>
+          </div>
+          <div id="login-view">
+            <p>To play multiplayer, you should login first.</p>
+            <button id="login-btn" class="basic-btn btn">Login</button>
+            <p>You don't have an account?</p>
+            <button id="register-btn" class="basic-btn btn">Register</button>
+            <div id="login-form">
+              <div class="input-group">
+                <label for="l-username">Username:</label>
+                <input type="text" id="l-username" name="l-username" />
+              </div>
+              <div class="input-group">
+                <label for="l-password">Password:</label>
+                <input type="password" id="l-password" name="l-password" />
+              </div>
+              <button id="login-submit" class="submit-btn btn">Login</button>
+            </div>
+            <div id="register-form">
+              <div class="input-group">
+                <label for="r-username">Username:</label>
+                <input type="text" id="r-username" name="r-username" />
+              </div>
+              <div class="input-group">
+                <label for="r-password">Password:</label>
+                <input type="password" id="r-password" name="r-password" />
+              </div>
+              <button id="register-submit" class="submit-btn btn">
+                Register
+              </button>
+            </div>
+          </div>
+          <div id="multiplayer-view">
+            <div class="input-group">
+              <label for="first">First Player:</label>
+              <input type="text" id="first" name="first" />
+            </div>
+            <div class="input-group">
+              <label for="second">Second Player:</label>
+              <input type="text" id="second" name="second" />
+            </div>
+            <div class="input-group">
+              <label for="size">Board size:</label>
+              <input type="number" id="size" name="name" max="10" />
+            </div>
+            <div class="radio-group">
+              <label for="game-order">Who starts the game?</label>
+              <div id="player-radio">
+                <input type="radio" id="p1" name="game-order" value="p1" />
+                <label for="p1">First Player</label><br />
+                <input type="radio" id="p2" name="game-order" value="p2" />
+                <label for="p2">Second Player</label><br />
+              </div>
+            </div>
+            <button id="start-multiplayer-btn" class="start-btn btn">
+              Start Game
+            </button>
+          </div>
+        </div>
+      </section>
+      <!-- ----Game Board---- -->
+      <section id="board-container">
+        <div id="table-container">
+          <table id="myTable" border="1"></table>
+        </div>
+      </section>
+      <!-- ---Players--- -->
+      <section id="players-container">
+        <div id="player-one-container">
+          <div
+            id="player-one-pieces"
+            class="pieces-container active-pieces-container"
+          >
+            OOOOOOOOOO
+          </div>
+          <div id="player-one-name" class="player-name">Andre</div>
+        </div>
+        <img id="versus-img" src="/images/Star.gif" />
+        <div id="player-two-container">
+          <div id="player-two-name" class="player-name">Virag</div>
+          <div id="player-two-pieces" class="pieces-container">OOOOOOOOOO</div>
+        </div>
+      </section>
+    </main>
+    <!-- Game board buttons -->
+    <div id="board-btns-container">
+      <span id="replay-game-btn" class="material-symbols-outlined icon-btn btn">
+        replay
+      </span>
+      <span id="close-game-btn" class="material-symbols-outlined icon-btn btn">
+        close
+      </span>
+    </div>
+    <!-- Confirmation overlay -->
+    <div id="confirm-exit-container" class="overlay">
+      <div id="confirm-exit">
+        <p>Are you sure?</p>
+        <div id="confirm-exit-btns-container">
+          <span
+            id="overlay-cancel-btn"
+            class="material-symbols-outlined icon-btn btn"
+          >
+            close
+          </span>
+          <span
+            id="overlay-confirm-btn"
+            class="material-symbols-outlined icon-btn btn"
+          >
+            check
+          </span>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/scripts/config.js"></script>
+  <script src="/scripts/board.js"></script>
+  <script src="/scripts/board-lines.js"></script>
+  <script src="/scripts/button-events.js"></script>
+  <script src="/scripts/sounds.js"></script>
 </html>
