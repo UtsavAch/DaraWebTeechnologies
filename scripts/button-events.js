@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const closeGameButton = document.getElementById("close-game-btn");
   const overlayCancelButton = document.getElementById("overlay-cancel-btn");
   const overlayConfirmButton = document.getElementById("overlay-confirm-btn");
+  const helpButton = document.getElementById("help-btn");
+  const closeHelpButton = document.getElementById("close-help-btn");
 
   const gameContainer = document.getElementById("game-container");
   const boardContainer = document.getElementById("board-container");
@@ -16,6 +18,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const confirmExitContainer = document.getElementById(
     "confirm-exit-container"
   );
+  const helpOverlay = document.getElementById("help-container");
 
   startSingleplayerButton.addEventListener("click", () => {
     console.log("Start button clicked");
@@ -47,5 +50,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gameContainer.style.display = "flex";
     playersContainer.style.display = "none";
     boardButtonsContainer.style.display = "none";
+  });
+
+  helpButton.addEventListener("click", () => {
+    helpOverlay.style.display = "block";
+  });
+
+  closeHelpButton.addEventListener("click", () => {
+    helpOverlay.style.display = "none";
   });
 });

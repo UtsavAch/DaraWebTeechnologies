@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles/styles-main.css" />
+    <link rel="stylesheet" href="styles/styles-help-stats.css" />
     <link rel="stylesheet" href="styles/styles-config.css" />
     <link rel="stylesheet" href="styles/styles-board.css" />
     <link rel="stylesheet" href="styles/styles-notification.css" />
@@ -21,35 +22,38 @@
 
     <!--SECTION BELLOW FOR INSTRUCTIONS TOGGLE -->
     <style>
-        .help-overlay {
-            display: none; /* hidden inicially */
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1; /* without it the cat would be above the instructions */
-        }
+      .help-overlay {
+        display: none; /* hidden inicially */
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1; /* without it the cat would be above the instructions */
+      }
 
-        .help-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /*it fixes it in the center inside the container*/
-            background-color: #fff;
-            padding: 20px;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+      .help-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(
+          -50%,
+          -50%
+        ); /*it fixes it in the center inside the container*/
+        background-color: #fff;
+        padding: 20px;
+        width: 80%;
+        max-width: 500px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
 
-        #close-help-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 8px 16px;
-            cursor: pointer;
-        }
+      #close-help-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        cursor: pointer;
+      }
     </style>
     <!--SECTION ABOVE FOR INSTRUCTIONS TOGGLE -->
   </head>
@@ -57,18 +61,36 @@
   <!--SECTION BELLOW FOR INSTRUCTIONS TOGGLE -->
   <div id="help-container" class="help-overlay">
     <div class="help-content">
-        <h3>Nine Men's Morris Rules</h3>
-        <p>There are <b>3*n men</b> (pieces) for each player, where <u>n is the number of squares on the board.</u> By default, there are 3 squares, so 9 men.</p>
-        <p>The game is composed of 2 phases.</p>
-        <ol type="I">
-            <li>Phase:</li>
-            <ul><li>Placing men on vacant points</li></ul>
-            <li>Phase:</li>
-            <ul><li>Moving men to adjacent points</li></ul>
-        </ol>
-        <p><u>Players try to form 'mills'</u> - <b>3 of their own men lined horizontally or vertically</b> - allowing a player to remove an opponent's piece from the game.</p>
-        <p>A player <b>wins</b> by reducing the opponent to two men OR by leaving them without a legal move.</p>
-        <p><b>SPECIAL RULE:</b> Once a player is reduced to 3 men, they can move to any free location.</p>
+      <h3>Nine Men's Morris Rules</h3>
+      <p>
+        There are <b>3*n men</b> (pieces) for each player, where
+        <u>n is the number of squares on the board.</u> By default, there are 3
+        squares, so 9 men.
+      </p>
+      <p>The game is composed of 2 phases.</p>
+      <ol type="I">
+        <li>Phase:</li>
+        <ul>
+          <li>Placing men on vacant points</li>
+        </ul>
+        <li>Phase:</li>
+        <ul>
+          <li>Moving men to adjacent points</li>
+        </ul>
+      </ol>
+      <p>
+        <u>Players try to form 'mills'</u> -
+        <b>3 of their own men lined horizontally or vertically</b> - allowing a
+        player to remove an opponent's piece from the game.
+      </p>
+      <p>
+        A player <b>wins</b> by reducing the opponent to two men OR by leaving
+        them without a legal move.
+      </p>
+      <p>
+        <b>SPECIAL RULE:</b> Once a player is reduced to 3 men, they can move to
+        any free location.
+      </p>
       <button id="close-help-btn" onclick="toggleHelp()">X</button>
     </div>
   </div>
@@ -92,10 +114,15 @@
     <section class="title">
       <h1>Nine Men's Morris</h1>
       <div class="info">
-        <span class="material-symbols-outlined icon-btn btn">
+        <span
+          id="leaderboard-btn"
+          class="material-symbols-outlined icon-btn btn"
+        >
           leaderboard
         </span>
-        <span class="material-symbols-outlined icon-btn btn" onclick="toggleHelp()">help</span>
+        <span id="help-btn" class="material-symbols-outlined icon-btn btn"
+          >help</span
+        >
         <span id="volume-up-btn" class="material-symbols-outlined icon-btn btn">
           volume_up
         </span>
@@ -107,6 +134,48 @@
         </span>
       </div>
     </section>
+    <!--Help Container -->
+    <section id="help-container" class="overlay">
+      <div class="help-content">
+        <h3>Nine Men's Morris Rules</h3>
+        <p>
+          There are <b>3*n men</b> (pieces) for each player, where
+          <u>n is the number of squares on the board.</u> By default, there are
+          3 squares, so 9 men.
+        </p>
+        <p>The game is composed of 2 phases.</p>
+        <ol type="I">
+          <li>Phase:</li>
+          <ul>
+            <li>Placing men on vacant points</li>
+          </ul>
+          <li>Phase:</li>
+          <ul>
+            <li>Moving men to adjacent points</li>
+          </ul>
+        </ol>
+        <p>
+          <u>Players try to form 'mills'</u> -
+          <b>3 of their own men lined horizontally or vertically</b> - allowing
+          a player to remove an opponent's piece from the game.
+        </p>
+        <p>
+          A player <b>wins</b> by reducing the opponent to two men OR by leaving
+          them without a legal move.
+        </p>
+        <p>
+          <b>SPECIAL RULE:</b> Once a player is reduced to 3 men, they can move
+          to any free location.
+        </p>
+        <span
+          id="close-help-btn"
+          class="material-symbols-outlined icon-btn btn"
+        >
+          close
+        </span>
+      </div>
+    </section>
+    <!-- MAIN -->
     <main id="main-container">
       <!-- ---Notification--- -->
       <section id="notification-container">
@@ -286,8 +355,10 @@
   <!--CODE BELLOW FOR INSTRUCTIONS TOGGLE-->
   <script>
     function toggleHelp() {
-        const helpOverlay = document.getElementById("help-container");
-        helpOverlay.style.display = helpOverlay.style.display === "block" ? "none" : "block";}
+      const helpOverlay = document.getElementById("help-container");
+      helpOverlay.style.display =
+        helpOverlay.style.display === "block" ? "none" : "block";
+    }
   </script>
-  <!--CODE ABOVE FOR INCTRUCTIONS TOGGLE--> 
+  <!--CODE ABOVE FOR INCTRUCTIONS TOGGLE-->
 </html>
