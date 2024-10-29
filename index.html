@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="styles/styles-main.css" />
+    <link rel="stylesheet" href="styles/styles-help-stats.css" />
     <link rel="stylesheet" href="styles/styles-config.css" />
     <link rel="stylesheet" href="styles/styles-board.css" />
     <link rel="stylesheet" href="styles/styles-notification.css" />
@@ -37,10 +38,15 @@
     <section class="title">
       <h1>Nine Men's Morris</h1>
       <div class="info">
-        <span class="material-symbols-outlined icon-btn btn">
+        <span
+          id="leaderboard-btn"
+          class="material-symbols-outlined icon-btn btn"
+        >
           leaderboard
         </span>
-        <span class="material-symbols-outlined icon-btn btn"> help </span>
+        <span id="help-btn" class="material-symbols-outlined icon-btn btn"
+          >help</span
+        >
         <span id="volume-up-btn" class="material-symbols-outlined icon-btn btn">
           volume_up
         </span>
@@ -52,6 +58,48 @@
         </span>
       </div>
     </section>
+    <!--Help Container -->
+    <section id="help-container" class="overlay">
+      <div class="help-content">
+        <h3>Nine Men's Morris Rules</h3>
+        <p>
+          There are <b>3*n men</b> (pieces) for each player, where
+          <u>n is the number of squares on the board.</u> By default, there are
+          3 squares, so 9 men.
+        </p>
+        <p>The game is composed of 2 phases.</p>
+        <ol type="I">
+          <li>Phase:</li>
+          <ul>
+            <li>Placing men on vacant points</li>
+          </ul>
+          <li>Phase:</li>
+          <ul>
+            <li>Moving men to adjacent points</li>
+          </ul>
+        </ol>
+        <p>
+          <u>Players try to form 'mills'</u> -
+          <b>3 of their own men lined horizontally or vertically</b> - allowing
+          a player to remove an opponent's piece from the game.
+        </p>
+        <p>
+          A player <b>wins</b> by reducing the opponent to two men OR by leaving
+          them without a legal move.
+        </p>
+        <p>
+          <b>SPECIAL RULE:</b> Once a player is reduced to 3 men, they can move
+          to any free location.
+        </p>
+        <span
+          id="close-help-btn"
+          class="material-symbols-outlined icon-btn btn"
+        >
+          close
+        </span>
+      </div>
+    </section>
+    <!-- MAIN -->
     <main id="main-container">
       <!-- ---Notification--- -->
       <section id="notification-container">
