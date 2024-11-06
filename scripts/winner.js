@@ -1,5 +1,5 @@
 function winner(board, player) {
-  //player can be "p1" or "p2"
+  //player can be "player1" or "player2"
   //Will return true if the player has won, else false
   let isWinner = false; //If the player is winning, change the value to true
   return isWinner;

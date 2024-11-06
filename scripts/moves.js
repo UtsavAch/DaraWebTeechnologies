@@ -1,4 +1,5 @@
-function firstPhaseMove(board) {
+function firstPhaseMove(board, player) {
+  //player can be "player1" or "player2"
   //Will return the (best cell) to make a move in the given state of the board
   const emptyCells = [];
 
@@ -15,7 +16,8 @@ function firstPhaseMove(board) {
   return bestCell;
 }
 
-function secondPhaseMove(board) {
+function secondPhaseMove(board, player) {
+  //player can be "player1" or "player2"
   //Will return the (best piece and the best cell it can move) in the given state of the board
   return bestPiece, bestCell; //Best piece is also a cell occupied by the best piece - so return the cell index
 }
@@ -29,5 +31,5 @@ const exampleBoard = [
 // Each inner array represent the squares of the board from outermost to the innermost board
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
 
-const bestMove = firstPhaseMove(exampleBoard);
+const bestMove = firstPhaseMove(exampleBoard, _);
 console.log("First phase move -> " + bestMove);
