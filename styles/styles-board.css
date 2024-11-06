@@ -109,3 +109,18 @@
   display: none;
   width: 300px;
 }
+
+.piece {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+.piece_p1 {
+  background-color: #46769b;
+}
+
+.piece_p2 {
+  background-color: #bb3f3f;
+}
