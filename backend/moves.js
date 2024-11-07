@@ -34,20 +34,29 @@ function canMove(location, board){
   ];
 
   for (let [dr, dc] of directions) {
-    const newRow = row + dr;
-    const newCol = col + dc;
+    let newRow = row + dr;
+    let newCol = col + dc;
+
+    // horizontal movement with ciclical conenction in rows
+    if (dr === 0) {
+      newCol = (newCol + board[0].length) % board[0].length;  
+    }
+
+    // verifies if a position is inside the limits and is empty
+    // limits vertical movement to lines that are not divisable by 2
     if (
       newRow >= 0 &&
       newRow < board.length &&
       newCol >= 0 &&
       newCol < board[0].length &&
-      board[newRow][newCol] === "e"
+      board[newRow][newCol] === "e" &&
+      (dr === 0 || col % 2 !== 0)  // Permite movimento vertical apenas se coluna ímpar
     ) {
       possibleLocations.push([newRow, newCol]);
     }
   }
 
-  return possibleLocations.length > 0 ? possibleLocations : false;
+  return possibleLocations; // Retorna as células vazias adjacentes
 }
 
 function secondPhaseMove(board, player) {
@@ -58,23 +67,24 @@ function secondPhaseMove(board, player) {
   let bestPiece = null;
   let bestCell = null;
 
+    //pieces that can be moved
     const movablePieces = playerMens.filter(piece => canMove(piece, board));
-    console.log(movablePieces);
+    //console.log(movablePieces); //debug
 
     if (movablePieces.length > 0) {
-      // chose random piece
+      // chose random piece that can move
       bestPiece = movablePieces[Math.floor(Math.random() * movablePieces.length)];
       
-      // valid moves
+      // valid moves of the best piece
       const possibleMoves = canMove(bestPiece, board);
-      
+      console.log(bestPiece, possibleMoves)
       // choses rendom move
       bestCell = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
     }
 
 
 
-  return bestPiece, bestCell; //Best piece is also a cell occupied by the best piece - so return the cell index
+  return [bestPiece, bestCell]; //Best piece is also a cell occupied by the best piece - so return the cell index
 }
 
 const exampleBoard = [
