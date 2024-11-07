@@ -36,18 +36,17 @@ for (let i = 1; i <= rows; i++) {
 }
 
 //////////////////////////////////////
-const board = [];
+const board = []; //Important
 for (let i = 0; i < boardDimension; i++) {
   board[i] = [];
   for (let j = 0; j < 8; j++) {
     board[i][j] = "e"; //Can be e(empty), p1(player1), p2(player3)
   }
 }
-console.log(board);
 
 ////
-noOfPiecesP1 = 3 * boardDimension;
-noOfPiecesP2 = 3 * boardDimension;
+noOfPiecesP1 = 3 * boardDimension; //Important
+noOfPiecesP2 = 3 * boardDimension; //Important
 
 const playerOnePiecesContainer = document.getElementById(
   "player-one-pieces-container"
@@ -66,8 +65,38 @@ for (let i = 1; i <= 3 * boardDimension; i++) {
   playerOnePiecesContainer.appendChild(piece1);
   playerTwoPiecesContainer.appendChild(piece2);
 }
+/////////
+//A function to generate index matrix
+function generateSquares(n) {
+  const squares = [];
+  const size = n * 2 + 1;
 
-console.log(noOfPiecesP1);
-console.log(noOfPiecesP2);
+  let a = 1;
+  let b = size;
+  let c = n;
+  while (a <= n) {
+    for (let i = 1; i <= c; i++) {
+      const square = [];
+      for (let j = a; j <= b; j += c) {
+        square.push([a, j]);
+      }
+      square.push([n + 1, b]);
+      for (let j = b; j >= a; j -= c) {
+        square.push([b, j]);
+      }
+      square.push([n + 1, a]);
+      squares.push(square);
+      a += 1;
+      b -= 1;
+      c -= 1;
+    }
+  }
 
-console.log("Useful Cells (excluding central):", usefulCells);
+  return squares;
+}
+const boardIndex = generateSquares(4);
+////////
+console.log(board); // Board- a matrix of concentric squares, with cells filled or empty
+console.log(boardIndex); // boardIndex- a matrix with index of the cells of the concentric squares
+console.log(noOfPiecesP1); // No. of pieces for player1
+console.log(noOfPiecesP2); // No. of pieces for player2
