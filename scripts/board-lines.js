@@ -3,6 +3,7 @@
 // That is to create a pattern of lines
 // ## DO NOT CHANGE THIS CODE ##
 /////////////////////////////////////////////////
+import { rows, cols, centralRow, centralCol } from "./board.js";
 
 function removeBorders(cellId, borders) {
   const cell = document.getElementById(cellId);
@@ -16,23 +17,23 @@ function removeBorders(cellId, borders) {
 
 //////// BOTTOM-TOP-LEFT-RIGHT
 for (let i = centralRow; i <= rows; i++) {
-  id = `cell-${i}-${i}`;
-  borders = ["bottom", "top", "left", "right"];
+  let id = `cell-${i}-${i}`;
+  let borders = ["bottom", "top", "left", "right"];
   removeBorders(id, borders);
 }
 
 //////// BOTTOM-RIGHT
 for (let i = 1; i < centralRow; i++) {
-  id = `cell-${i}-${i}`;
-  borders = ["bottom", "right"];
+  let id = `cell-${i}-${i}`;
+  let borders = ["bottom", "right"];
   removeBorders(id, borders);
 }
 
 // Remove borders for the central row (except for the central cell)
 for (let col = 1; col <= cols; col++) {
   if (col !== centralCol) {
-    id = `cell-${centralRow}-${col}`;
-    borders = ["bottom", "right"];
+    let id = `cell-${centralRow}-${col}`;
+    let borders = ["bottom", "right"];
     removeBorders(id, borders);
   }
 }
@@ -40,27 +41,27 @@ for (let col = 1; col <= cols; col++) {
 // Remove borders for the central column (except for the central cell)
 for (let row = 1; row <= rows; row++) {
   if (row !== centralRow) {
-    id = `cell-${row}-${centralCol}`;
-    borders = ["bottom", "right"];
+    let id = `cell-${row}-${centralCol}`;
+    let borders = ["bottom", "right"];
     removeBorders(id, borders);
   }
 }
 
 ///////BOTTOM-LEFT-RIGHT
 for (let i = 1; i < rows; i++) {
-  id = `cell-${rows}-${i}`;
-  borders = ["bottom", "left", "right"];
+  let id = `cell-${rows}-${i}`;
+  let borders = ["bottom", "left", "right"];
   removeBorders(id, borders);
 }
 
 {
-  a = 2;
-  b = cols;
+  let a = 2;
+  let b = cols;
   for (let i = 1; i < centralCol - 1; i++) {
     for (let j = a; j < b; j++) {
       if (j != centralCol) {
-        id = `cell-${i}-${j}`;
-        borders = ["bottom", "left", "right"];
+        let id = `cell-${i}-${j}`;
+        let borders = ["bottom", "left", "right"];
         removeBorders(id, borders);
       }
     }
@@ -71,19 +72,19 @@ for (let i = 1; i < rows; i++) {
 
 //Around the center
 {
-  id = `cell-${centralRow - 1}-${centralCol}`;
-  borders = ["bottom", "left", "right"];
+  let id = `cell-${centralRow - 1}-${centralCol}`;
+  let borders = ["bottom", "left", "right"];
   removeBorders(id, borders);
 }
 
 {
-  a = 2;
-  b = cols - 1;
+  let a = 2;
+  let b = cols - 1;
   for (let i = cols - 1; i > centralCol; i--) {
     for (let j = a; j < b; j++) {
       if (j != centralCol) {
-        id = `cell-${i}-${j}`;
-        borders = ["bottom", "left", "right"];
+        let id = `cell-${i}-${j}`;
+        let borders = ["bottom", "left", "right"];
         removeBorders(id, borders);
       }
     }
@@ -94,19 +95,19 @@ for (let i = 1; i < rows; i++) {
 
 //////// BOTTOM-TOP-RIGHT
 for (let i = 1; i < cols; i++) {
-  id = `cell-${i}-${cols}`;
-  borders = ["bottom", "top", "right"];
+  let id = `cell-${i}-${cols}`;
+  let borders = ["bottom", "top", "right"];
   removeBorders(id, borders);
 }
 
 {
-  a = 2;
-  b = rows;
+  let a = 2;
+  let b = rows;
   for (let i = 1; i < centralRow - 1; i++) {
     for (let j = a; j < b; j++) {
       if (j != centralRow) {
-        id = `cell-${j}-${i}`;
-        borders = ["bottom", "top", "right"];
+        let id = `cell-${j}-${i}`;
+        let borders = ["bottom", "top", "right"];
         removeBorders(id, borders);
       }
     }
@@ -117,19 +118,19 @@ for (let i = 1; i < cols; i++) {
 
 //Around the center
 {
-  id = `cell-${centralRow}-${centralCol - 1}`;
-  borders = ["bottom", "top", "right"];
+  let id = `cell-${centralRow}-${centralCol - 1}`;
+  let borders = ["bottom", "top", "right"];
   removeBorders(id, borders);
 }
 
 {
-  a = 2;
-  b = rows - 1;
+  let a = 2;
+  let b = rows - 1;
   for (let i = cols - 1; i > centralRow; i--) {
     for (let j = a; j < b; j++) {
       if (j != centralRow) {
-        id = `cell-${j}-${i}`;
-        borders = ["bottom", "top", "right"];
+        let id = `cell-${j}-${i}`;
+        let borders = ["bottom", "top", "right"];
         removeBorders(id, borders);
       }
     }

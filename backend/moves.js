@@ -12,7 +12,7 @@ function locate(board, state) {
   return location;
 }
 
-function firstPhaseMove(board, player) {
+export function firstPhaseMove(board, player) {
   //player can be "player1" or "player2"
   //Will return the (best cell) to make a move in the given state of the board
   const emptyCells = locate(board, "e");
@@ -51,7 +51,7 @@ function canMove(location, board) {
   return possibleLocations.length > 0 ? possibleLocations : false;
 }
 
-function secondPhaseMove(board, player) {
+export function secondPhaseMove(board, player) {
   //player can be "player1" or "player2"
   //Will return the (best piece and the best cell it can move) in the given state of the board
   const playerMens = locate(board, player);
@@ -86,10 +86,10 @@ const exampleBoard = [
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
 
 const bestMove = firstPhaseMove(exampleBoard, "p1");
-console.log("First phase move -> " + bestMove);
+// console.log("First phase move -> " + bestMove);
 const p1cells = locate(exampleBoard, "p1");
 const move = secondPhaseMove(exampleBoard, "p1");
-console.log("Seconf phase move -> " + move);
+// console.log("Seconf phase move -> " + move);
 
 /*
 

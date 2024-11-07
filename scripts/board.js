@@ -1,12 +1,12 @@
-const boardDimension = 4;
+const boardDimension = 3;
 
-const rows = boardDimension * 2 + 1;
-const cols = boardDimension * 2 + 1;
+export const rows = boardDimension * 2 + 1;
+export const cols = boardDimension * 2 + 1;
 const table = document.getElementById("myTable");
 const usefulCells = [];
 
-const centralRow = Math.ceil(rows / 2);
-const centralCol = Math.ceil(cols / 2);
+export const centralRow = Math.ceil(rows / 2);
+export const centralCol = Math.ceil(cols / 2);
 
 for (let i = 1; i <= rows; i++) {
   let row = document.createElement("tr");
@@ -45,8 +45,8 @@ for (let i = 0; i < boardDimension; i++) {
 }
 
 ////
-noOfPiecesP1 = 3 * boardDimension; //Important
-noOfPiecesP2 = 3 * boardDimension; //Important
+let noOfPiecesP1 = 3 * boardDimension; //Important
+let noOfPiecesP2 = 3 * boardDimension; //Important
 
 const playerOnePiecesContainer = document.getElementById(
   "player-one-pieces-container"
@@ -94,9 +94,26 @@ function generateSquares(n) {
 
   return squares;
 }
-const boardIndex = generateSquares(4);
+const boardIndex = generateSquares(boardDimension);
 ////////
+console.log(usefulCells); // The cells from the table that are useful
 console.log(board); // Board- a matrix of concentric squares, with cells filled or empty
 console.log(boardIndex); // boardIndex- a matrix with index of the cells of the concentric squares
 console.log(noOfPiecesP1); // No. of pieces for player1
 console.log(noOfPiecesP2); // No. of pieces for player2
+
+/////////////////////////////////////////////////////////////////
+/////////// GAME LOGIC ////////////
+/////////////////////////////////////////////////////////////////
+
+//Importing moves and winner functions
+import { firstPhaseMove, secondPhaseMove } from "../backend/moves.js";
+import { winner, makesMill } from "../backend/winner.js";
+
+const player1 = "playerOne";
+const player2 = "computer";
+// const player2 = "playerTwo";
+
+if (player2 === "computer") {
+  console.log(firstPhaseMove(board, player1));
+}
