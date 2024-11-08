@@ -146,11 +146,11 @@
           <div id="singleplayer-view">
             <div class="input-group">
               <label for="name">Name:</label>
-              <input type="text" id="name" name="name" />
+              <input type="text" id="name" name="name" required/>
             </div>
             <div class="input-group">
               <label for="size">Board size:</label>
-              <input type="number" id="size" name="name" max="10" />
+              <input type="number" id="size" name="size" max="10" min="2" />
             </div>
             <div class="radio-group">
               <label for="difficulty">Difficulty:</label>
@@ -183,6 +183,8 @@
                   <label for="hard">Hard</label>
                 </div>
               </div>
+            </div>
+            <div id="error-messages-single" class="error-messages">
             </div>
             <button id="start-singleplayer-btn" class="start-btn btn">
               Start Game
