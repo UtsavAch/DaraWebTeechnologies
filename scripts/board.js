@@ -1,4 +1,4 @@
-const boardDimension = 3;
+let boardDimension = 3;
 
 export const rows = boardDimension * 2 + 1;
 export const cols = boardDimension * 2 + 1;
@@ -118,12 +118,24 @@ const player2 = "computer";
 ///////CurrentPlayer
 let CurrentPlayer = player1;
 
+//SWITCHING BETWEEN TWO PLAYERS
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
-    console.log(cellDiv.id);
+    // Check if the cell is already occupied
+    if (cellDiv.style.backgroundColor) return; // Skip if already colored
+
+    // Set the background color based on the current player
+    if (CurrentPlayer === player1) {
+      cellDiv.style.backgroundColor = "#46769b";
+      console.log(`Current Player: ${CurrentPlayer}`);
+      console.log(`Clicked CellDiv ID: ${cellDiv.id}`);
+    } else {
+      cellDiv.style.backgroundColor = "#bb3f3f";
+      console.log(`Current Player: ${CurrentPlayer}`);
+      console.log(`Clicked CellDiv ID: ${cellDiv.id}`);
+    }
+
+    // Switch to the other player
+    CurrentPlayer = CurrentPlayer === player1 ? player2 : player1;
   });
 });
-
-if (player2 === "computer") {
-  console.log(firstPhaseMove(board, player1));
-}
