@@ -162,6 +162,9 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       console.log(`Pieces on board: ${piecesOnBoardP1}`);
       console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
 
+      playerTwoPiecesContainer.classList.add("active-pieces-container");
+      playerOnePiecesContainer.classList.remove("active-pieces-container");
+
       if (player2 === "computer") {
         ////IF PLAYER TWO IS A COMPUTER
         setTimeout(() => {
@@ -189,9 +192,13 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           console.log(`Remaining no of piece: ${noOfPiecesP2}`);
           console.log(`Pieces on board: ${piecesOnBoardP2}`);
 
-          CurrentPlayer = CurrentPlayer === player1 ? player2 : player1;
+          playerOnePiecesContainer.classList.add("active-pieces-container");
+          playerTwoPiecesContainer.classList.remove("active-pieces-container");
+
+          CurrentPlayer = player1;
         }, 500);
       }
+      CurrentPlayer = player2;
     } else {
       if (player2 === "playerTwo") {
         ////IF PLAYER TWO NOT A COMPUTER
@@ -218,22 +225,14 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
         console.log(`Current Player: ${CurrentPlayer}`);
         console.log(`Remaining no of piece: ${noOfPiecesP2}`);
         console.log(`Pieces on board: ${piecesOnBoardP2}`);
+
+        playerOnePiecesContainer.classList.add("active-pieces-container");
+        playerTwoPiecesContainer.classList.remove("active-pieces-container");
+        CurrentPlayer = player1;
       }
     }
 
-    // Update the active-pieces-container class based on the current player
-    if (CurrentPlayer === player1) {
-      playerTwoPiecesContainer.classList.add("active-pieces-container");
-      playerOnePiecesContainer.classList.remove("active-pieces-container");
-    } else {
-      playerOnePiecesContainer.classList.add("active-pieces-container");
-      playerTwoPiecesContainer.classList.remove("active-pieces-container");
-    }
-
     console.log(board);
-
-    // Switch to the other player
-    CurrentPlayer = CurrentPlayer === player1 ? player2 : player1;
   });
 });
 
