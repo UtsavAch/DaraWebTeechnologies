@@ -7,8 +7,10 @@
   padding: 20px;
   width: 80%;
   max-width: 500px;
+  max-height: 500px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: auto;
 }
 
 #help-container #close-help-btn, #leaderboard-container #close-leaderboard-btn {

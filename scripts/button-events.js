@@ -27,9 +27,104 @@ document.addEventListener("DOMContentLoaded", (event) => {
   );
   const helpOverlay = document.getElementById("help-container");
 
+// player management
+  class Player {
+    constructor(name) {
+        this.name = name;
+        this.totalWins = 0;  // Total wins across all board sizes
+        this.victoriesByBoardSize = {
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+        };  // Object to store wins for each board size
+    }
 
-  // Display leaderboard header (no data yet)
+    // Method to add a win for a specific board size
+    addWin(boardSize) {
+        if (boardSize >= 2 && boardSize <= 5) {
+            this.victoriesByBoardSize[boardSize]++;
+            this.totalWins++;
+        } else {
+            console.log("Invalid board size. Must be between 2 and 5.");
+        }
+    }
+
+    // Method to get the number of wins for a specific board size
+    getWinsByBoardSize(boardSize) {
+        if (boardSize >= 2 && boardSize <= 5) {
+            return this.victoriesByBoardSize[boardSize];
+        } else {
+            console.log("Invalid board size. Must be between 2 and 5.");
+            return 0;
+        }
+    }
+  }
+
+// Leaderboard management
+class Leaderboard {
+    constructor() {
+        this.players = [];
+    }
+
+    // Add a new player to the leaderboard
+    addPlayer(player) {
+      const existingPlayer = this.players.find(p => p.name === player.name);
+
+      if (existingPlayer){
+        console.log("Jogador já existe: " + player.name);
+        return false;
+      }
+
+      this.players.push(player);
+      console.log("Jogador adicionado: " + player.name);
+      return true;
+    }
+
+    // Get the top players sorted by total wins
+    getTopPlayers() {
+        return this.players.sort((a, b) => b.totalWins - a.totalWins);
+    }
+
+    // Display the leaderboard
+    displayLeaderboard() {
+        const tableBody = document.querySelector("#leaderboard-table tbody");
+
+        console.log("Table Body:", tableBody); // Debug
+
+        tableBody.innerHTML = "";
+
+        const topPlayers = this.getTopPlayers();
+        console.log("Top Players:", topPlayers); // Debug
+
+        topPlayers.forEach(player => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = player.name;
+            row.appendChild(nameCell);
+
+            for(let size = 2; size <= 5; size++){
+                const winCell = document.createElement("td");
+                winCell.textContent = player.victoriesByBoardSize[size];
+                row.appendChild(winCell);
+
+            }
+
+            const totalWinsCell = document.createElement("td");
+            totalWinsCell.textContent = player.totalWins;
+            row.appendChild(totalWinsCell);
+
+            tableBody.appendChild(row);
+        });
+    }
+  }
+
+  const leaderboard = new Leaderboard();
+
+  // Display leaderboard header
   leaderboardButton.addEventListener("click", () => {
+    leaderboard.displayLeaderboard(); // displays the leaderboard with players
     leaderboardContainer.style.display = "block"; // Show leaderboard
   });
 
@@ -42,6 +137,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     console.log("Start button clicked");
     var validation = validateSinglePlayerInput();
     if(validation){
+
+      const playerName = document.getElementById("name").value;
+      const player = new Player(playerName);
+      leaderboard.addPlayer(player);
+      console.log("Player added:", player); //debug
+
       gameContainer.style.display = "none";
       boardContainer.style.display = "block";
       playersContainer.style.display = "block";
@@ -90,7 +191,7 @@ function validateSinglePlayerInput(){
       message.push("Please enter player name");
   }
   var size = document.getElementById("size").value;
-  if(size < 2 || size > 10 ){
+  if(size < 2 || size > 5 ){
       message.push("Please enter a valid board size");
   }
   var easy = document.getElementById("easy");
@@ -99,10 +200,14 @@ function validateSinglePlayerInput(){
   if(!easy.checked && !medium.checked && !hard.checked){
     message.push("Please select a difficulty level");
   }
+
+  var error = document.getElementById("error-messages-single");
+  
+  // Clear any existing messages (it must be here where it was before was not working)
+  error.innerHTML = "";
+
   console.log(message);
   if(message.length > 0){
-      var error = document.getElementById("error-messages-single");
-      error.innerHTML = "";
       message.forEach(element => {
           var p = document.createElement("p");
           var text = document.createTextNode(element);
