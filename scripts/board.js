@@ -128,55 +128,85 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
     // Check if the cell is already occupied
     if (cellDiv.style.backgroundColor) return; // Skip if already colored
 
-    // Check if the current player has pieces remaining
-    if (
-      (CurrentPlayer === player1 && noOfPiecesP1 === 0) ||
-      (CurrentPlayer === player2 && noOfPiecesP2 === 0)
-    ) {
-      console.log(`${CurrentPlayer} has no pieces left to place.`);
-      return; // Stop if the player has no pieces left
-    }
-
     // Extract row and column from cellDiv.id
     const [, , row, col] = cellDiv.id.split("-").map(Number); // Convert row and col to numbers
     const cellPosition = [row, col];
 
-    // Set the background color based on the current player
-    if (CurrentPlayer === player1) {
-      cellDiv.style.backgroundColor = "#46769b";
-      noOfPiecesP1 -= 1;
-      piecesOnBoardP1 += 1;
+    // Check if the current player has pieces remaining
+    if (
+      (CurrentPlayer === player1 && noOfPiecesP1 > 0) ||
+      (CurrentPlayer === player2 && noOfPiecesP2 > 0)
+      //// FIRST PHASE LOGIC HERE
+    ) {
+      if (CurrentPlayer === player1) {
+        cellDiv.style.backgroundColor = "#46769b";
+        noOfPiecesP1 -= 1;
+        piecesOnBoardP1 += 1;
 
-      // Remove the last piece from player one's container
-      const p1Pieces = document.querySelectorAll(".piece_p1");
-      if (p1Pieces.length > 0) {
-        playerOnePiecesContainer.removeChild(p1Pieces[p1Pieces.length - 1]);
-      }
+        // Remove the last piece from player one's container
+        const p1Pieces = document.querySelectorAll(".piece_p1");
+        if (p1Pieces.length > 0) {
+          playerOnePiecesContainer.removeChild(p1Pieces[p1Pieces.length - 1]);
+        }
 
-      ///Setting empty cell in the board to "p1"
-      const [rowBoard, colBoard] = findTuplePosition(boardIndex, cellPosition);
-      board[rowBoard][colBoard] = "p1";
+        ///Setting empty cell in the board to "p1"
+        const [rowBoard, colBoard] = findTuplePosition(
+          boardIndex,
+          cellPosition
+        );
+        board[rowBoard][colBoard] = "p1";
 
-      console.log(`Current Player: ${CurrentPlayer}`);
-      console.log(`Remaining no of piece: ${noOfPiecesP1}`);
-      console.log(`Pieces on board: ${piecesOnBoardP1}`);
-      console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
+        console.log(`Current Player: ${CurrentPlayer}`);
+        console.log(`Remaining no of piece: ${noOfPiecesP1}`);
+        console.log(`Pieces on board: ${piecesOnBoardP1}`);
+        console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
 
-      playerTwoPiecesContainer.classList.add("active-pieces-container");
-      playerOnePiecesContainer.classList.remove("active-pieces-container");
+        playerTwoPiecesContainer.classList.add("active-pieces-container");
+        playerOnePiecesContainer.classList.remove("active-pieces-container");
 
-      if (player2 === "computer") {
-        ////IF PLAYER TWO IS A COMPUTER
-        setTimeout(() => {
-          console.log("This is from computer");
-          const [rowBoard, colBoard] = firstPhaseMove(board, "e");
-          ///Setting empty cell in the board to "p1"
-          board[rowBoard][colBoard] = "p2";
+        if (player2 === "computer") {
+          ////IF PLAYER TWO IS A COMPUTER
+          setTimeout(() => {
+            console.log("This is from computer");
+            const [rowBoard, colBoard] = firstPhaseMove(board, "e");
+            ///Setting empty cell in the board to "p2"
+            board[rowBoard][colBoard] = "p2";
 
-          const cellDivPosition = boardIndex[rowBoard][colBoard];
-          const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
-          const cellDiv = document.getElementById(cellDivId);
+            const cellDivPosition = boardIndex[rowBoard][colBoard];
+            const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
+            const cellDiv = document.getElementById(cellDivId);
+            cellDiv.style.backgroundColor = "#bb3f3f";
+
+            ///CODE USED BOTH FOR COMPUTER AND PLAYERTWO
+            noOfPiecesP2 -= 1;
+            piecesOnBoardP2 += 1;
+
+            // Remove the last piece from player two's container
+            const p2Pieces = document.querySelectorAll(".piece_p2");
+            if (p2Pieces.length > 0) {
+              playerTwoPiecesContainer.removeChild(
+                p2Pieces[p2Pieces.length - 1]
+              );
+            }
+
+            console.log(`Current Player: ${CurrentPlayer}`);
+            console.log(`Remaining no of piece: ${noOfPiecesP2}`);
+            console.log(`Pieces on board: ${piecesOnBoardP2}`);
+
+            playerOnePiecesContainer.classList.add("active-pieces-container");
+            playerTwoPiecesContainer.classList.remove(
+              "active-pieces-container"
+            );
+
+            CurrentPlayer = player1;
+          }, 500);
+        }
+        CurrentPlayer = player2;
+      } else {
+        if (player2 === "playerTwo") {
+          ////IF PLAYER TWO NOT A COMPUTER
           cellDiv.style.backgroundColor = "#bb3f3f";
+          console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
 
           ///CODE USED BOTH FOR COMPUTER AND PLAYERTWO
           noOfPiecesP2 -= 1;
@@ -188,48 +218,31 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             playerTwoPiecesContainer.removeChild(p2Pieces[p2Pieces.length - 1]);
           }
 
+          ///Setting empty cell in the board to "p2"
+          const [rowBoard, colBoard] = findTuplePosition(
+            boardIndex,
+            cellPosition
+          );
+          board[rowBoard][colBoard] = "p2";
+
           console.log(`Current Player: ${CurrentPlayer}`);
           console.log(`Remaining no of piece: ${noOfPiecesP2}`);
           console.log(`Pieces on board: ${piecesOnBoardP2}`);
 
           playerOnePiecesContainer.classList.add("active-pieces-container");
           playerTwoPiecesContainer.classList.remove("active-pieces-container");
-
           CurrentPlayer = player1;
-        }, 500);
-      }
-      CurrentPlayer = player2;
-    } else {
-      if (player2 === "playerTwo") {
-        ////IF PLAYER TWO NOT A COMPUTER
-        cellDiv.style.backgroundColor = "#bb3f3f";
-        console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
-
-        ///CODE USED BOTH FOR COMPUTER AND PLAYERTWO
-        noOfPiecesP2 -= 1;
-        piecesOnBoardP2 += 1;
-
-        // Remove the last piece from player two's container
-        const p2Pieces = document.querySelectorAll(".piece_p2");
-        if (p2Pieces.length > 0) {
-          playerTwoPiecesContainer.removeChild(p2Pieces[p2Pieces.length - 1]);
         }
-
-        ///Setting empty cell in the board to "p2"
-        const [rowBoard, colBoard] = findTuplePosition(
-          boardIndex,
-          cellPosition
-        );
-        board[rowBoard][colBoard] = "p2";
-
-        console.log(`Current Player: ${CurrentPlayer}`);
-        console.log(`Remaining no of piece: ${noOfPiecesP2}`);
-        console.log(`Pieces on board: ${piecesOnBoardP2}`);
-
-        playerOnePiecesContainer.classList.add("active-pieces-container");
-        playerTwoPiecesContainer.classList.remove("active-pieces-container");
-        CurrentPlayer = player1;
       }
+    } else if (
+      (CurrentPlayer === player1 &&
+        noOfPiecesP1 === 0 &&
+        piecesOnBoardP1 > 0) ||
+      (CurrentPlayer === player2 && noOfPiecesP2 === 0 && piecesOnBoardP2 > 0)
+      //// SECOND PHASE LOGIC HERE
+    ) {
+      console.log("Phase two has started!! ");
+      console.log(`${CurrentPlayer} is the current player`);
     }
 
     console.log(board);
