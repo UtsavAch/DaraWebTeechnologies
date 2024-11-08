@@ -1,4 +1,4 @@
-let boardDimension = 3;
+const boardDimension = 3;
 
 export const rows = boardDimension * 2 + 1;
 export const cols = boardDimension * 2 + 1;
@@ -126,7 +126,7 @@ let CurrentPlayer = player1;
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
     // Check if the cell is already occupied
-    if (cellDiv.style.backgroundColor) return;
+    if (cellDiv.style.backgroundColor) return; // Skip if already colored
 
     // Check if the current player has pieces remaining
     if (
@@ -134,9 +134,14 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       (CurrentPlayer === player2 && noOfPiecesP2 === 0)
     ) {
       console.log(`${CurrentPlayer} has no pieces left to place.`);
-      return;
+      return; // Stop if the player has no pieces left
     }
 
+    // Extract row and column from cellDiv.id
+    const [, , row, col] = cellDiv.id.split("-").map(Number); // Convert row and col to numbers
+    const cellPosition = [row, col];
+
+    // Set the background color based on the current player
     if (CurrentPlayer === player1) {
       cellDiv.style.backgroundColor = "#46769b";
       noOfPiecesP1 -= 1;
@@ -151,7 +156,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       console.log(`Current Player: ${CurrentPlayer}`);
       console.log(`Remaining no of piece: ${noOfPiecesP1}`);
       console.log(`Pieces on board: ${piecesOnBoardP1}`);
-      console.log(`Clicked CellDiv ID: ${cellDiv.id}`);
+      console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
     } else {
       cellDiv.style.backgroundColor = "#bb3f3f";
       noOfPiecesP2 -= 1;
@@ -166,7 +171,16 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       console.log(`Current Player: ${CurrentPlayer}`);
       console.log(`Remaining no of piece: ${noOfPiecesP2}`);
       console.log(`Pieces on board: ${piecesOnBoardP2}`);
-      console.log(`Clicked CellDiv ID: ${cellDiv.id}`);
+      console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
+    }
+
+    // Update the active-pieces-container class based on the current player
+    if (CurrentPlayer === player1) {
+      playerTwoPiecesContainer.classList.add("active-pieces-container");
+      playerOnePiecesContainer.classList.remove("active-pieces-container");
+    } else {
+      playerOnePiecesContainer.classList.add("active-pieces-container");
+      playerTwoPiecesContainer.classList.remove("active-pieces-container");
     }
 
     // Switch to the other player
