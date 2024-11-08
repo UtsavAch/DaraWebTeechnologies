@@ -1,4 +1,4 @@
-const boardDimension = 3;
+const boardDimension = 4;
 
 export const rows = boardDimension * 2 + 1;
 export const cols = boardDimension * 2 + 1;
@@ -153,25 +153,72 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
         playerOnePiecesContainer.removeChild(p1Pieces[p1Pieces.length - 1]);
       }
 
+      ///Setting empty cell in the board to "p1"
+      const [rowBoard, colBoard] = findTuplePosition(boardIndex, cellPosition);
+      board[rowBoard][colBoard] = "p1";
+
       console.log(`Current Player: ${CurrentPlayer}`);
       console.log(`Remaining no of piece: ${noOfPiecesP1}`);
       console.log(`Pieces on board: ${piecesOnBoardP1}`);
       console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
-    } else {
-      cellDiv.style.backgroundColor = "#bb3f3f";
-      noOfPiecesP2 -= 1;
-      piecesOnBoardP2 += 1;
 
-      // Remove the last piece from player two's container
-      const p2Pieces = document.querySelectorAll(".piece_p2");
-      if (p2Pieces.length > 0) {
-        playerTwoPiecesContainer.removeChild(p2Pieces[p2Pieces.length - 1]);
+      if (player2 === "computer") {
+        ////IF PLAYER TWO IS A COMPUTER
+        setTimeout(() => {
+          console.log("This is from computer");
+          const [rowBoard, colBoard] = firstPhaseMove(board, "e");
+          ///Setting empty cell in the board to "p1"
+          board[rowBoard][colBoard] = "p2";
+
+          const cellDivPosition = boardIndex[rowBoard][colBoard];
+          const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
+          const cellDiv = document.getElementById(cellDivId);
+          cellDiv.style.backgroundColor = "#bb3f3f";
+
+          ///CODE USED BOTH FOR COMPUTER AND PLAYERTWO
+          noOfPiecesP2 -= 1;
+          piecesOnBoardP2 += 1;
+
+          // Remove the last piece from player two's container
+          const p2Pieces = document.querySelectorAll(".piece_p2");
+          if (p2Pieces.length > 0) {
+            playerTwoPiecesContainer.removeChild(p2Pieces[p2Pieces.length - 1]);
+          }
+
+          console.log(`Current Player: ${CurrentPlayer}`);
+          console.log(`Remaining no of piece: ${noOfPiecesP2}`);
+          console.log(`Pieces on board: ${piecesOnBoardP2}`);
+
+          CurrentPlayer = CurrentPlayer === player1 ? player2 : player1;
+        }, 500);
       }
+    } else {
+      if (player2 === "playerTwo") {
+        ////IF PLAYER TWO NOT A COMPUTER
+        cellDiv.style.backgroundColor = "#bb3f3f";
+        console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
 
-      console.log(`Current Player: ${CurrentPlayer}`);
-      console.log(`Remaining no of piece: ${noOfPiecesP2}`);
-      console.log(`Pieces on board: ${piecesOnBoardP2}`);
-      console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
+        ///CODE USED BOTH FOR COMPUTER AND PLAYERTWO
+        noOfPiecesP2 -= 1;
+        piecesOnBoardP2 += 1;
+
+        // Remove the last piece from player two's container
+        const p2Pieces = document.querySelectorAll(".piece_p2");
+        if (p2Pieces.length > 0) {
+          playerTwoPiecesContainer.removeChild(p2Pieces[p2Pieces.length - 1]);
+        }
+
+        ///Setting empty cell in the board to "p2"
+        const [rowBoard, colBoard] = findTuplePosition(
+          boardIndex,
+          cellPosition
+        );
+        board[rowBoard][colBoard] = "p2";
+
+        console.log(`Current Player: ${CurrentPlayer}`);
+        console.log(`Remaining no of piece: ${noOfPiecesP2}`);
+        console.log(`Pieces on board: ${piecesOnBoardP2}`);
+      }
     }
 
     // Update the active-pieces-container class based on the current player
@@ -183,7 +230,26 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       playerTwoPiecesContainer.classList.remove("active-pieces-container");
     }
 
+    console.log(board);
+
     // Switch to the other player
     CurrentPlayer = CurrentPlayer === player1 ? player2 : player1;
   });
 });
+
+//////HELPER FUNCTIONS
+function findTuplePosition(array, tuple) {
+  for (let outerIndex = 0; outerIndex < array.length; outerIndex++) {
+    for (
+      let innerIndex = 0;
+      innerIndex < array[outerIndex].length;
+      innerIndex++
+    ) {
+      const currentTuple = array[outerIndex][innerIndex];
+      if (currentTuple[0] === tuple[0] && currentTuple[1] === tuple[1]) {
+        return [outerIndex, innerIndex];
+      }
+    }
+  }
+  return null;
+}
