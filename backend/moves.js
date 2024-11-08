@@ -12,10 +12,10 @@ function locate(board, state) {
   return location;
 }
 
-export function firstPhaseMove(board, player) {
+export function firstPhaseMove(board, state) {
   //player can be "player1" or "player2"
   //Will return the (best cell) to make a move in the given state of the board
-  const emptyCells = locate(board, "e");
+  const emptyCells = locate(board, state);
 
   // Return a random empty cell
   const bestCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
@@ -68,6 +68,15 @@ export function secondPhaseMove(board, player) {
   let bestPiece = null;
   let bestCell = null;
 
+  if (playerMens.length === 3){
+    bestCell = firstPhaseMove(board, "e");
+    bestPiece = playerMens[Math.floor(Math.random() * playerMens.length)]
+
+    return  [bestPiece, bestCell];
+  }
+
+  
+
   //pieces that can be moved
   const movablePieces = playerMens.filter((piece) => canMove(piece, board));
   //console.log(movablePieces); //debug
@@ -78,7 +87,7 @@ export function secondPhaseMove(board, player) {
 
     // valid moves of the best piece
     const possibleMoves = canMove(bestPiece, board);
-    console.log(bestPiece, possibleMoves);
+    //console.log(bestPiece, possibleMoves); //debug
     // choses rendom move
     bestCell = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
   }
@@ -95,7 +104,7 @@ const exampleBoard = [
 // Each inner array represent the squares of the board from outermost to the innermost board
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
 
-const bestMove = firstPhaseMove(exampleBoard, "p1");
+const bestMove = firstPhaseMove(exampleBoard, "e");
 console.log("First phase move -> " + bestMove);
 const p1cells = locate(exampleBoard, "p1");
 const move = secondPhaseMove(exampleBoard, "p1");

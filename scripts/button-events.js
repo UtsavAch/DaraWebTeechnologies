@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const leaderboardButton = document.getElementById("leaderboard-btn");
   const closeLeaderboardButton = document.getElementById("close-leaderboard-btn");
   const leaderboardContainer = document.getElementById("leaderboard-container");
-  const leaderboardTableBody = document.querySelector("#leaderboard-table tbody");
 
 
 
