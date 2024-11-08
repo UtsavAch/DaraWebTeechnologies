@@ -18,6 +18,7 @@ for (let i = 1; i <= rows; i++) {
 
     let cellDiv = document.createElement("div");
     cellDiv.className = "cell-div";
+    cellDiv.id = `cell-div-${i}-${j}`;
 
     // Identify useful cells and exclude the central cell
     if (
@@ -113,6 +114,15 @@ import { winner, makesMill } from "../backend/winner.js";
 const player1 = "playerOne";
 const player2 = "computer";
 // const player2 = "playerTwo";
+
+///////CurrentPlayer
+let CurrentPlayer = player1;
+
+document.querySelectorAll(".cell-div").forEach((cellDiv) => {
+  cellDiv.addEventListener("click", () => {
+    console.log(cellDiv.id);
+  });
+});
 
 if (player2 === "computer") {
   console.log(firstPhaseMove(board, player1));
