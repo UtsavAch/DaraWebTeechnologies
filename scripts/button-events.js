@@ -41,10 +41,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   startSingleplayerButton.addEventListener("click", () => {
     console.log("Start button clicked");
-    gameContainer.style.display = "none";
-    boardContainer.style.display = "block";
-    playersContainer.style.display = "block";
-    boardButtonsContainer.style.display = "flex";
+    var validation = validateSinglePlayerInput();
+    if(validation){
+      gameContainer.style.display = "none";
+      boardContainer.style.display = "block";
+      playersContainer.style.display = "block";
+      boardButtonsContainer.style.display = "flex";
+    }
   });
 
   startMultiplayerButton.addEventListener("click", () => {
@@ -79,3 +82,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
     helpOverlay.style.display = "none";
   });
 });
+
+
+function validateSinglePlayerInput(){
+  var message = [];
+  var player = document.getElementById("name").value;
+  if(player == ""){
+      message.push("Please enter player name");
+  }
+  var size = document.getElementById("size").value;
+  if(size < 2 || size > 10 ){
+      message.push("Please enter a valid board size");
+  }
+  var easy = document.getElementById("easy");
+  var medium = document.getElementById("medium");
+  var hard = document.getElementById("hard");
+  if(!easy.checked && !medium.checked && !hard.checked){
+    message.push("Please select a difficulty level");
+  }
+  console.log(message);
+  if(message.length > 0){
+      var error = document.getElementById("error-messages-single");
+      error.innerHTML = "";
+      message.forEach(element => {
+          var p = document.createElement("p");
+          var text = document.createTextNode(element);
+          p.appendChild(text);
+          error.appendChild(p);
+      });
+      return false;
+  }
+  return true;
+}

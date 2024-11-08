@@ -213,3 +213,10 @@ input {
     transition: ease-in-out 0.07s;
   }
 }
+
+.error-messages{
+  color:rgb(130, 0, 0);
+  & > p {
+    margin-bottom: 0;
+  }
+}
