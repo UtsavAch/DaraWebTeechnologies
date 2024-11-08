@@ -50,13 +50,13 @@ function canMove(location, board){
       newCol >= 0 &&
       newCol < board[0].length &&
       board[newRow][newCol] === "e" &&
-      (dr === 0 || col % 2 !== 0)  // Permite movimento vertical apenas se coluna ímpar
+      (dr === 0 || col % 2 !== 0)  
     ) {
       possibleLocations.push([newRow, newCol]);
     }
   }
 
-  return possibleLocations; // Retorna as células vazias adjacentes
+  return possibleLocations; 
 }
 
 function secondPhaseMove(board, player) {
