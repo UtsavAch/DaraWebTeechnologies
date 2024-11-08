@@ -1,4 +1,4 @@
-.help-content {
+.help-content, .leaderboard-content  {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -11,11 +11,27 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#help-container #close-help-btn {
+#help-container #close-help-btn, #leaderboard-container #close-leaderboard-btn {
   position: absolute;
   top: 10px;
   right: 10px;
   padding: 8px 16px;
   cursor: pointer;
   font-weight: bold;
+}
+
+#leaderboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#leaderboard-table th,
+#leaderboard-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#leaderboard-table th {
+  background-color: #f4f4f4;
 }

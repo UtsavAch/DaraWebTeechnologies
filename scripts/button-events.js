@@ -1,4 +1,12 @@
 document.addEventListener("DOMContentLoaded", (event) => {
+
+  const leaderboardButton = document.getElementById("leaderboard-btn");
+  const closeLeaderboardButton = document.getElementById("close-leaderboard-btn");
+  const leaderboardContainer = document.getElementById("leaderboard-container");
+  const leaderboardTableBody = document.querySelector("#leaderboard-table tbody");
+
+
+
   const startSingleplayerButton = document.getElementById(
     "start-singleplayer-btn"
   );
@@ -19,6 +27,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     "confirm-exit-container"
   );
   const helpOverlay = document.getElementById("help-container");
+
+
+  // Display leaderboard header (no data yet)
+  leaderboardButton.addEventListener("click", () => {
+    leaderboardContainer.style.display = "block"; // Show leaderboard
+  });
+
+  // Close leaderboard when the close button is clicked
+  closeLeaderboardButton.addEventListener("click", () => {
+    leaderboardContainer.style.display = "none"; // Hide leaderboard
+  });
 
   startSingleplayerButton.addEventListener("click", () => {
     console.log("Start button clicked");
