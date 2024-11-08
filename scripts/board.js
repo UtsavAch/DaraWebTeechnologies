@@ -122,15 +122,19 @@ const player2 = "computer";
 ///////CurrentPlayer
 let CurrentPlayer = player1;
 
+//Last move of the players
+let lastMovePlayer1 = [];
+let lastMovePlayer2 = [];
+
 //SWITCHING BETWEEN TWO PLAYERS
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
-    // Check if the cell is already occupied
-    if (cellDiv.style.backgroundColor) return; // Skip if already colored
-
     // Extract row and column from cellDiv.id
     const [, , row, col] = cellDiv.id.split("-").map(Number); // Convert row and col to numbers
     const cellPosition = [row, col];
+
+    const [rowBoard, colBoard] = findTuplePosition(boardIndex, cellPosition);
+    if (board[rowBoard][colBoard] !== "e") return; // Skip if already occupied
 
     // Check if the current player has pieces remaining
     if (
@@ -155,6 +159,13 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           cellPosition
         );
         board[rowBoard][colBoard] = "p1";
+        lastMovePlayer1 = [rowBoard, colBoard];
+
+        //Check if the playerOne makes mill
+        console.log(
+          "Does playerOne makes mill? " +
+            makesMill(board, "p1", lastMovePlayer1)
+        );
 
         console.log(`Current Player: ${CurrentPlayer}`);
         console.log(`Remaining no of piece: ${noOfPiecesP1}`);
@@ -171,6 +182,13 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             const [rowBoard, colBoard] = firstPhaseMove(board, "e");
             ///Setting empty cell in the board to "p2"
             board[rowBoard][colBoard] = "p2";
+            lastMovePlayer2 = [rowBoard, colBoard];
+
+            //Check if the playerTwo makes mill
+            console.log(
+              "Does playerTwo makes mill? " +
+                makesMill(board, "p2", lastMovePlayer2)
+            );
 
             const cellDivPosition = boardIndex[rowBoard][colBoard];
             const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
@@ -224,6 +242,12 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             cellPosition
           );
           board[rowBoard][colBoard] = "p2";
+
+          //Check if the playerTwo makes mill
+          console.log(
+            "Does playerTwo makes mill? " +
+              makesMill(board, "p2", lastMovePlayer2)
+          );
 
           console.log(`Current Player: ${CurrentPlayer}`);
           console.log(`Remaining no of piece: ${noOfPiecesP2}`);
