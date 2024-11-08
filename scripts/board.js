@@ -48,6 +48,8 @@ for (let i = 0; i < boardDimension; i++) {
 ////
 let noOfPiecesP1 = 3 * boardDimension; //Important
 let noOfPiecesP2 = 3 * boardDimension; //Important
+let piecesOnBoardP1 = 0; //Important (Pieces that the player1 has put on the board)
+let piecesOnBoardP2 = 0; //Important (Pieces that the player2 has put on the board)
 
 const playerOnePiecesContainer = document.getElementById(
   "player-one-pieces-container"
@@ -102,6 +104,8 @@ console.log(board); // Board- a matrix of concentric squares, with cells filled 
 console.log(boardIndex); // boardIndex- a matrix with index of the cells of the concentric squares
 console.log(noOfPiecesP1); // No. of pieces for player1
 console.log(noOfPiecesP2); // No. of pieces for player2
+console.log(piecesOnBoardP1); // No. of pieces for player1
+console.log(noOfPiecesP2); // No. of pieces for player2
 
 /////////////////////////////////////////////////////////////////
 /////////// GAME LOGIC ////////////
@@ -122,16 +126,46 @@ let CurrentPlayer = player1;
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
     // Check if the cell is already occupied
-    if (cellDiv.style.backgroundColor) return; // Skip if already colored
+    if (cellDiv.style.backgroundColor) return;
 
-    // Set the background color based on the current player
+    // Check if the current player has pieces remaining
+    if (
+      (CurrentPlayer === player1 && noOfPiecesP1 === 0) ||
+      (CurrentPlayer === player2 && noOfPiecesP2 === 0)
+    ) {
+      console.log(`${CurrentPlayer} has no pieces left to place.`);
+      return;
+    }
+
     if (CurrentPlayer === player1) {
       cellDiv.style.backgroundColor = "#46769b";
+      noOfPiecesP1 -= 1;
+      piecesOnBoardP1 += 1;
+
+      // Remove the last piece from player one's container
+      const p1Pieces = document.querySelectorAll(".piece_p1");
+      if (p1Pieces.length > 0) {
+        playerOnePiecesContainer.removeChild(p1Pieces[p1Pieces.length - 1]);
+      }
+
       console.log(`Current Player: ${CurrentPlayer}`);
+      console.log(`Remaining no of piece: ${noOfPiecesP1}`);
+      console.log(`Pieces on board: ${piecesOnBoardP1}`);
       console.log(`Clicked CellDiv ID: ${cellDiv.id}`);
     } else {
       cellDiv.style.backgroundColor = "#bb3f3f";
+      noOfPiecesP2 -= 1;
+      piecesOnBoardP2 += 1;
+
+      // Remove the last piece from player two's container
+      const p2Pieces = document.querySelectorAll(".piece_p2");
+      if (p2Pieces.length > 0) {
+        playerTwoPiecesContainer.removeChild(p2Pieces[p2Pieces.length - 1]);
+      }
+
       console.log(`Current Player: ${CurrentPlayer}`);
+      console.log(`Remaining no of piece: ${noOfPiecesP2}`);
+      console.log(`Pieces on board: ${piecesOnBoardP2}`);
       console.log(`Clicked CellDiv ID: ${cellDiv.id}`);
     }
 
