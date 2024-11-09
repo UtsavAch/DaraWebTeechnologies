@@ -22,7 +22,7 @@ export function firstPhaseMove(board, state) {
   return bestCell;
 }
 
-function canMove(location, board) {
+export function canMove(location, board) {
   const possibleLocations = [];
   const row = location[0];
   const col = location[1];

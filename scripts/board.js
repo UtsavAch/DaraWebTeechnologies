@@ -107,6 +107,7 @@ const boardIndex = generateSquares(boardDimension);
 import {
   firstPhaseMove,
   secondPhaseMove,
+  canMove,
   selectOpponentPosition,
 } from "../backend/moves.js";
 import { winner, makesMill } from "../backend/winner.js";
@@ -117,6 +118,8 @@ const player2 = "computer";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
+//////If the game is in first or second phase
+let isSecondPhase = false;
 
 //Last move of the players
 let lastMovePlayer1 = [];
@@ -130,7 +133,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
     const cellPosition = [row, col];
 
     const [rowBoard, colBoard] = findTuplePosition(boardIndex, cellPosition);
-    if (board[rowBoard][colBoard] !== "e") return; // Skip if already occupied
+    if (!isSecondPhase && board[rowBoard][colBoard] !== "e") return; // Skip if occupied in first phase
 
     // Check if the current player has pieces remaining
     if (
@@ -165,12 +168,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           console.log("PlayerOne makes mill");
         }
         ////////////////
-
-        console.log(`Current Player: ${CurrentPlayer}`);
-        console.log(`Remaining no of piece: ${noOfPiecesP1}`);
-        console.log(`Pieces on board: ${piecesOnBoardP1}`);
-        console.log(`Clicked Cell Position: ${cellPosition}`); // Log as tuple
-
         playerTwoPiecesContainer.classList.add("active-pieces-container");
         playerOnePiecesContainer.classList.remove("active-pieces-container");
 
@@ -195,7 +192,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
                 const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
                 const cellDiv = document.getElementById(cellDivId);
                 cellDiv.style.backgroundColor = "#fff";
-                console.log(board);
                 board[remRow][remCol] = "e";
                 piecesOnBoardP1 -= 1;
               }, 500);
@@ -218,10 +214,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
                 p2Pieces[p2Pieces.length - 1]
               );
             }
-
-            console.log(`Current Player: ${CurrentPlayer}`);
-            console.log(`Remaining no of piece: ${noOfPiecesP2}`);
-            console.log(`Pieces on board: ${piecesOnBoardP2}`);
 
             playerOnePiecesContainer.classList.add("active-pieces-container");
             playerTwoPiecesContainer.classList.remove(
@@ -264,11 +256,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             console.log("PlayerTwo makes mill");
           }
           ////////////////
-
-          console.log(`Current Player: ${CurrentPlayer}`);
-          console.log(`Remaining no of piece: ${noOfPiecesP2}`);
-          console.log(`Pieces on board: ${piecesOnBoardP2}`);
-
           playerOnePiecesContainer.classList.add("active-pieces-container");
           playerTwoPiecesContainer.classList.remove("active-pieces-container");
           CurrentPlayer = player1;
@@ -281,11 +268,39 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       (CurrentPlayer === player2 && noOfPiecesP2 === 0 && piecesOnBoardP2 > 0)
       //// SECOND PHASE LOGIC HERE
     ) {
+      isSecondPhase = true;
       console.log("Phase two has started!! ");
       console.log(`${CurrentPlayer} is the current player`);
-    }
+      if (CurrentPlayer === player1) {
+        /////SECOND PHASE LOGIC FOR PLAYER ONE
 
-    console.log(board);
+        //Step 1: The player can only select the pieces which he can move
+        console.log(
+          "Yes, this cell can be moved" + canMove([rowBoard, colBoard], board)
+        );
+        //Step 2: The player then can select the positions where he can move the selected piece
+        //Step 3: Now set the position of the selected piece to "e"
+        //Step 4: Set the position he moved to "p1"
+        //Step 5: Check if he made a mill
+
+        // Function that takes a (board, index_of_selected piece)
+        // Se if that piece can be moved
+        // If it can move then
+        if (player2 === "computer") {
+          setTimeout(() => {
+            /////SECOND PHASE LOGIC FOR COMPUTER
+            CurrentPlayer = player1;
+          }, 500);
+        }
+        CurrentPlayer = player1;
+      } else {
+        if (player2 === "playerTwo") {
+          /////SECOND PHASE LOGIC FOR PLAYER TWO
+          CurrentPlayer = player1;
+        }
+      }
+    }
+    //console.log(board);
   });
 });
 
