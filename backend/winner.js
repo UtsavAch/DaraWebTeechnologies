@@ -1,4 +1,4 @@
-export function winner(board, player) {
+ function winner(board, player) {
   //player can be "player1" or "player2"
   //Will return true if the player has won, else false
   let p1Count = 0;
@@ -26,10 +26,10 @@ export function winner(board, player) {
 }
 
 const exampleBoard = [
-  ["e", "e", "p1", "e", "p2", "e", "e", "p2"],
-  ["p1", "p1", "e", "e", "p2", "e", "e", "e"],
-  ["e", "e", "e", "e", "e", "e", "p1", "e"],
-  ["e", "p1", "e", "p2", "e", "e", "p2", "e"],
+  ["e", "p1", "p1", "e", "p2", "e", "e", "p2"],
+  ["e", "p1", "e", "p1", "p1", "p1", "e", "e"],
+  ["e", "p1", "e", "e", "e", "e", "p1", "e"],
+  ["e", "e", "e", "p2", "e", "e", "p2", "e"],
 ];
 // Each inner array represent the squares of the board from outermost to the innermost board
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
@@ -98,7 +98,7 @@ const exampleBoard = [
 //   return false;
 // }
 
-export function makesMill(board, player, lastMove) {
+ function makesMill(board, player, lastMove) {
   //It works but the algorithm is not correct, need to implement correctly
   const [squareIndex, posIndex] = lastMove;
 
@@ -174,3 +174,56 @@ export function makesMill(board, player, lastMove) {
 
   return false;
 }
+
+
+// Mill checker, the row an col represent the cell it moved to so the board is alredy updated
+function checkForMill(board, player, row, col) {
+  const numRows = board.length;
+  const numCols = board[0].length;
+
+  // Check Horizontal Mill (cyclic within the row)
+  function checkHorizontalMill(row, col) {
+    // Horizontal mill possibilities centered around the move
+    const left = (col - 1 + numCols) % numCols;
+    const right = (col + 1) % numCols;
+
+    // Check if this move completes a horizontal mill
+    return (
+      (board[row][left] === player && board[row][right] === player) ||
+      (board[row][(col + 2) % numCols] === player && board[row][right] === player) ||
+      (board[row][left] === player && board[row][(col - 2 + numCols) % numCols] === player)
+    );
+  }
+
+  // Helper to check specific vertical mill around the latest move
+  function checkVerticalMill(row, col) {
+    if (col % 2 === 1) { // Only vertical mills on odd columns
+      const up = row - 1;
+      const down = row + 1;
+
+
+      // Check if this move completes a vertical mill
+      return (
+        (up >= 0 && down < numRows && board[up][col] === player && board[down][col] === player) ||
+        (down + 1 < numRows && board[row][col] === player && board[down][col] === player && board[down + 1][col] === player) ||
+        (up - 1 >= 0 && board[row][col] === player && board[up][col] === player && board[up - 1][col] === player)
+      );
+    }
+    return false;
+  }
+
+  // Check if a mill is formed
+  const hasHorizontalMill = checkHorizontalMill(row, col);
+  const hasVerticalMill = checkVerticalMill(row, col);
+
+  //console.log("horizonmtal: ",hasHorizontalMill);
+  //console.log("vertical: ",hasVerticalMill);
+
+  return hasHorizontalMill || hasVerticalMill;
+}
+
+// Example usage
+const player = "p1";
+const row = 1; // Row index where the last piece was placed
+const col = 1; // Column index where the last piece was placed
+console.log(checkForMill(exampleBoard, player, row, col)); // Returns true if a mill is formed, false otherwise
