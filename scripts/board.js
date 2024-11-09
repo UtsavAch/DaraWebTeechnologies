@@ -124,6 +124,7 @@ let isSecondPhase = false;
 //Last move of the players
 let lastMovePlayer1 = [];
 let lastMovePlayer2 = [];
+const canMoveInArray = []; ////IMPORTANT IN SECOND PHASE
 
 //SWITCHING BETWEEN TWO PLAYERS
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
@@ -174,7 +175,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
         if (player2 === "computer") {
           ////IF PLAYER TWO IS A COMPUTER
           setTimeout(() => {
-            console.log("This is from computer");
             const [rowBoard, colBoard] = firstPhaseMove(board, "e");
             ///Setting empty cell in the board to "p2"
             board[rowBoard][colBoard] = "p2";
@@ -271,32 +271,64 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       isSecondPhase = true;
       console.log("Phase two has started!! ");
       console.log(`${CurrentPlayer} is the current player`);
+
       if (CurrentPlayer === player1) {
         /////SECOND PHASE LOGIC FOR PLAYER ONE
-
+        let player1MadeMove = false;
         //Step 1: The player can only select the pieces which he can move
-        console.log(
-          "Yes, this cell can be moved" + canMove([rowBoard, colBoard], board)
-        );
+        const playerCanMove =
+          canMove([rowBoard, colBoard], board).length > 0 &&
+          isPlayerInCell(board, "p1", [rowBoard, colBoard]);
+
+        if (playerCanMove) {
+          lastMovePlayer1 = [rowBoard, colBoard];
+          const moves = canMove([rowBoard, colBoard], board);
+          canMoveInArray.push(...moves);
+        }
         //Step 2: The player then can select the positions where he can move the selected piece
         //Step 3: Now set the position of the selected piece to "e"
         //Step 4: Set the position he moved to "p1"
         //Step 5: Check if he made a mill
-
-        // Function that takes a (board, index_of_selected piece)
-        // Se if that piece can be moved
-        // If it can move then
+        if (isTupleInArray(canMoveInArray, [rowBoard, colBoard])) {
+          console.log(
+            "From player1 phase two, player1 clicked:- " +
+              cellPosition +
+              " Board Position " +
+              [rowBoard, colBoard]
+          );
+          const lastMovePos =
+            boardIndex[lastMovePlayer1[0]][lastMovePlayer1[1]];
+          const fromDiv = `cell-div-${lastMovePos[0]}-${lastMovePos[1]}`;
+          const toDiv = `cell-div-${cellPosition[0]}-${cellPosition[1]}`;
+          document.getElementById(fromDiv).style.backgroundColor = "#fff";
+          document.getElementById(toDiv).style.backgroundColor = "#46769b";
+          console.log(board);
+          board[rowBoard][colBoard] = "p1";
+          board[lastMovePlayer1[0]][lastMovePlayer1[1]] = "e";
+          console.log("From Div " + fromDiv + " To div " + toDiv);
+          player1MadeMove = true;
+        }
         if (player2 === "computer") {
           setTimeout(() => {
             /////SECOND PHASE LOGIC FOR COMPUTER
-            CurrentPlayer = player1;
+            console.log("Now computer makes PhaseTwo move");
+            let player2MadeMove = false;
+            if (player2MadeMove) {
+              CurrentPlayer = player1;
+            }
           }, 500);
         }
-        CurrentPlayer = player1;
+        ///Only set player2 to current player if player1 has made a move
+        if (player1MadeMove) {
+          CurrentPlayer = player2;
+        }
       } else {
         if (player2 === "playerTwo") {
           /////SECOND PHASE LOGIC FOR PLAYER TWO
-          CurrentPlayer = player1;
+          let player2MadeMove = false;
+          if (player2MadeMove) {
+            CurrentPlayer = player1;
+          }
         }
       }
     }
@@ -320,4 +352,22 @@ function findTuplePosition(array, tuple) {
     }
   }
   return null;
+}
+
+//Check if the provided player is in given index
+function isPlayerInCell(board, player, index) {
+  const [row, col] = index;
+
+  // Ensure the index is within bounds
+  if (row >= 0 && row < board.length && col >= 0 && col < board[0].length) {
+    return board[row][col] === player;
+  }
+
+  // If index is out of bounds, return false
+  return false;
+}
+
+//To check if a tuple is present in a given array
+function isTupleInArray(array, tuple) {
+  return array.some((item) => item[0] === tuple[0] && item[1] === tuple[1]);
 }
