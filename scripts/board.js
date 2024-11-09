@@ -113,8 +113,8 @@ import {
 import { winner, makesMill } from "../backend/winner.js";
 
 const player1 = "playerOne";
-const player2 = "computer";
-// const player2 = "playerTwo";
+// const player2 = "computer";
+const player2 = "playerTwo";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
@@ -306,6 +306,9 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           board[rowBoard][colBoard] = "p1";
           board[lastMovePlayer1[0]][lastMovePlayer1[1]] = "e";
           console.log("From Div " + fromDiv + " To div " + toDiv);
+          ///Resetting canMoveInArray and lastMovePlayer1 to empty
+          canMoveInArray.length = 0;
+          lastMovePlayer1.length = 0;
           player1MadeMove = true;
         }
         if (player2 === "computer") {
@@ -326,6 +329,44 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
         if (player2 === "playerTwo") {
           /////SECOND PHASE LOGIC FOR PLAYER TWO
           let player2MadeMove = false;
+
+          //Step 1: The player can only select the pieces which he can move
+          const playerCanMove =
+            canMove([rowBoard, colBoard], board).length > 0 &&
+            isPlayerInCell(board, "p2", [rowBoard, colBoard]);
+
+          if (playerCanMove) {
+            lastMovePlayer2 = [rowBoard, colBoard];
+            const moves = canMove([rowBoard, colBoard], board);
+            canMoveInArray.push(...moves);
+          }
+          //Step 2: The player then can select the positions where he can move the selected piece
+          //Step 3: Now set the position of the selected piece to "e"
+          //Step 4: Set the position he moved to "p1"
+          //Step 5: Check if he made a mill
+          if (isTupleInArray(canMoveInArray, [rowBoard, colBoard])) {
+            console.log(
+              "From player2 phase two, player2 clicked:- " +
+                cellPosition +
+                " Board Position " +
+                [rowBoard, colBoard]
+            );
+            const lastMovePos =
+              boardIndex[lastMovePlayer2[0]][lastMovePlayer2[1]];
+            const fromDiv = `cell-div-${lastMovePos[0]}-${lastMovePos[1]}`;
+            const toDiv = `cell-div-${cellPosition[0]}-${cellPosition[1]}`;
+            document.getElementById(fromDiv).style.backgroundColor = "#fff";
+            document.getElementById(toDiv).style.backgroundColor = "#bb3f3f";
+            console.log(board);
+            board[rowBoard][colBoard] = "p2";
+            board[lastMovePlayer2[0]][lastMovePlayer2[1]] = "e";
+            console.log("From Div " + fromDiv + " To div " + toDiv);
+            ///Resetting canMoveInArray and lastMovePlayer1 to empty
+            canMoveInArray.length = 0;
+            lastMovePlayer2.length = 0;
+            player2MadeMove = true;
+          }
+
           if (player2MadeMove) {
             CurrentPlayer = player1;
           }
