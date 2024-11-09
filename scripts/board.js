@@ -311,7 +311,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           lastMovePlayer1.length = 0;
           player1MadeMove = true;
         }
-        if (player2 === "computer") {
+        if (player2 === "computer" && player1MadeMove) {
           setTimeout(() => {
             /////SECOND PHASE LOGIC FOR COMPUTER
             console.log("Now computer makes PhaseTwo move");
@@ -322,9 +322,11 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             );
 
             const [fromDivPos, toDivPos] = secondPhaseMove(board, "p2");
+            const fromDivPosBoard = boardIndex[fromDivPos[0]][fromDivPos[1]];
+            const toDivPosBoard = boardIndex[toDivPos[0]][toDivPos[1]];
 
-            const fromDiv = `cell-div-${fromDivPos[0]}-${fromDivPos[1]}`;
-            const toDiv = `cell-div-${toDivPos[0]}-${toDivPos[1]}`;
+            const fromDiv = `cell-div-${fromDivPosBoard[0]}-${fromDivPosBoard[1]}`;
+            const toDiv = `cell-div-${toDivPosBoard[0]}-${toDivPosBoard[1]}`;
             document.getElementById(fromDiv).style.backgroundColor = "#fff";
             document.getElementById(toDiv).style.backgroundColor = "#bb3f3f";
             board[toDivPos[0]][toDivPos[1]] = "p2";
