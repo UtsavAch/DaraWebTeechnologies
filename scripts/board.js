@@ -1,4 +1,4 @@
-const boardDimension = 2;
+const boardDimension = 4;
 
 export const rows = boardDimension * 2 + 1;
 export const cols = boardDimension * 2 + 1;
@@ -182,7 +182,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             lastMovePlayer2 = [rowBoard, colBoard];
 
             //////////////////////////////
-            //Check if playerTwo makes mill
+            //Check if playerTwo(Computer) makes mill
             const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
             if (makesMillP2) {
               setTimeout(() => {
@@ -330,6 +330,8 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
               const fromDivPosBoard = boardIndex[fromDivPos[0]][fromDivPos[1]];
               const toDivPosBoard = boardIndex[toDivPos[0]][toDivPos[1]];
 
+              lastMovePlayer2 = [fromDivPos[0], fromDivPos[1]];
+
               const fromDiv = `cell-div-${fromDivPosBoard[0]}-${fromDivPosBoard[1]}`;
               const toDiv = `cell-div-${toDivPosBoard[0]}-${toDivPosBoard[1]}`;
               document.getElementById(fromDiv).style.backgroundColor = "#fff";
@@ -340,6 +342,24 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
                 "Comp move: From Div " + fromDiv + " To div " + toDiv
               );
             }, 500);
+
+            //////////////////////////////
+            //Check if playerTwo(Computer) makes mill
+            const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
+            if (makesMillP2) {
+              setTimeout(() => {
+                console.log("PlayerTwo makes mill - phaseTwo");
+                const [remRow, remCol] = selectOpponentPosition(board, "p2");
+                const cellDivPosition = boardIndex[remRow][remCol];
+                const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
+                const cellDiv = document.getElementById(cellDivId);
+                cellDiv.style.backgroundColor = "#fff";
+                board[remRow][remCol] = "e";
+                piecesOnBoardP1 -= 1;
+              }, 500);
+            }
+            ////////////////
+            lastMovePlayer2.length = 0;
 
             player2MadeMove = true;
 
