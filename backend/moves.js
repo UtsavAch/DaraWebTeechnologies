@@ -98,7 +98,7 @@ export function selectOpponentPosition(board, player) {
   const opponent = player === "p1" ? "p2" : "p1";
 
   // Collect positions of the opponent's pieces
-  const opponentPositions = locate(board,opponent);
+  const opponentPositions = locate(board, opponent);
   // unecessary locate function does this
   //for (let row = 0; row < board.length; row++) {
   //  for (let col = 0; col < board[row].length; col++) {

@@ -310,6 +310,9 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           canMoveInArray.length = 0;
           lastMovePlayer1.length = 0;
           player1MadeMove = true;
+          //////////////////////
+          playerOnePiecesContainer.classList.remove("active-pieces-container");
+          playerTwoPiecesContainer.classList.add("active-pieces-container");
         }
         if (player2 === "computer" && player1MadeMove) {
           setTimeout(() => {
@@ -318,22 +321,37 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             let player2MadeMove = false;
 
             console.log(
-              "Move of the computer SecondPhase" + secondPhaseMove(board, "p2")
+              "Move of the computer SecondPhase " + secondPhaseMove(board, "p2")
             );
+            console.log(board);
 
-            const [fromDivPos, toDivPos] = secondPhaseMove(board, "p2");
-            const fromDivPosBoard = boardIndex[fromDivPos[0]][fromDivPos[1]];
-            const toDivPosBoard = boardIndex[toDivPos[0]][toDivPos[1]];
+            setTimeout(() => {
+              const [fromDivPos, toDivPos] = secondPhaseMove(board, "p2");
+              const fromDivPosBoard = boardIndex[fromDivPos[0]][fromDivPos[1]];
+              const toDivPosBoard = boardIndex[toDivPos[0]][toDivPos[1]];
 
-            const fromDiv = `cell-div-${fromDivPosBoard[0]}-${fromDivPosBoard[1]}`;
-            const toDiv = `cell-div-${toDivPosBoard[0]}-${toDivPosBoard[1]}`;
-            document.getElementById(fromDiv).style.backgroundColor = "#fff";
-            document.getElementById(toDiv).style.backgroundColor = "#bb3f3f";
-            board[toDivPos[0]][toDivPos[1]] = "p2";
-            board[fromDivPos[0]][fromDivPos[1]] = "e";
-            console.log("Comp move: From Div " + fromDiv + " To div " + toDiv);
+              const fromDiv = `cell-div-${fromDivPosBoard[0]}-${fromDivPosBoard[1]}`;
+              const toDiv = `cell-div-${toDivPosBoard[0]}-${toDivPosBoard[1]}`;
+              document.getElementById(fromDiv).style.backgroundColor = "#fff";
+              document.getElementById(toDiv).style.backgroundColor = "#bb3f3f";
+              board[toDivPos[0]][toDivPos[1]] = "p2";
+              board[fromDivPos[0]][fromDivPos[1]] = "e";
+              console.log(
+                "Comp move: From Div " + fromDiv + " To div " + toDiv
+              );
+            }, 500);
 
             player2MadeMove = true;
+
+            playerOnePiecesContainer.classList.add("active-pieces-container");
+            playerTwoPiecesContainer.classList.remove(
+              "active-pieces-container"
+            );
+
+            playerOnePiecesContainer.classList.add("active-pieces-container");
+            playerTwoPiecesContainer.classList.remove(
+              "active-pieces-container"
+            );
 
             if (player2MadeMove) {
               CurrentPlayer = player1;
@@ -385,13 +403,16 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             player2MadeMove = true;
           }
 
+          playerOnePiecesContainer.classList.add("active-pieces-container");
+          playerTwoPiecesContainer.classList.remove("active-pieces-container");
+
           if (player2MadeMove) {
             CurrentPlayer = player1;
           }
         }
       }
     }
-    //console.log(board);
+    console.log(board);
   });
 });
 
