@@ -98,21 +98,17 @@ function generateSquares(n) {
   return squares;
 }
 const boardIndex = generateSquares(boardDimension);
-////////
-console.log(usefulCells); // The cells from the table that are useful
-console.log(board); // Board- a matrix of concentric squares, with cells filled or empty
-console.log(boardIndex); // boardIndex- a matrix with index of the cells of the concentric squares
-console.log(noOfPiecesP1); // No. of pieces for player1
-console.log(noOfPiecesP2); // No. of pieces for player2
-console.log(piecesOnBoardP1); // No. of pieces for player1
-console.log(noOfPiecesP2); // No. of pieces for player2
 
 /////////////////////////////////////////////////////////////////
 /////////// GAME LOGIC ////////////
 /////////////////////////////////////////////////////////////////
 
 //Importing moves and winner functions
-import { firstPhaseMove, secondPhaseMove } from "../backend/moves.js";
+import {
+  firstPhaseMove,
+  secondPhaseMove,
+  selectOpponentPosition,
+} from "../backend/moves.js";
 import { winner, makesMill } from "../backend/winner.js";
 
 const player1 = "playerOne";
@@ -159,13 +155,16 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           cellPosition
         );
         board[rowBoard][colBoard] = "p1";
+
         lastMovePlayer1 = [rowBoard, colBoard];
 
-        //Check if the playerOne makes mill
-        console.log(
-          "Does playerOne makes mill? " +
-            makesMill(board, "p1", lastMovePlayer1)
-        );
+        //////////////////////////////
+        //Check if playerOne makes mill
+        const makesMillP1 = makesMill(board, "p1", lastMovePlayer1);
+        if (makesMillP1) {
+          console.log("PlayerOne makes mill");
+        }
+        ////////////////
 
         console.log(`Current Player: ${CurrentPlayer}`);
         console.log(`Remaining no of piece: ${noOfPiecesP1}`);
@@ -182,13 +181,26 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             const [rowBoard, colBoard] = firstPhaseMove(board, "e");
             ///Setting empty cell in the board to "p2"
             board[rowBoard][colBoard] = "p2";
+
             lastMovePlayer2 = [rowBoard, colBoard];
 
-            //Check if the playerTwo makes mill
-            console.log(
-              "Does playerTwo makes mill? " +
-                makesMill(board, "p2", lastMovePlayer2)
-            );
+            //////////////////////////////
+            //Check if playerTwo makes mill
+            const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
+            if (makesMillP2) {
+              setTimeout(() => {
+                console.log("PlayerTwo makes mill");
+                const [remRow, remCol] = selectOpponentPosition(board, "p2");
+                const cellDivPosition = boardIndex[remRow][remCol];
+                const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
+                const cellDiv = document.getElementById(cellDivId);
+                cellDiv.style.backgroundColor = "#fff";
+                console.log(board);
+                board[remRow][remCol] = "e";
+                piecesOnBoardP1 -= 1;
+              }, 500);
+            }
+            ////////////////
 
             const cellDivPosition = boardIndex[rowBoard][colBoard];
             const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
@@ -243,11 +255,15 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           );
           board[rowBoard][colBoard] = "p2";
 
-          //Check if the playerTwo makes mill
-          console.log(
-            "Does playerTwo makes mill? " +
-              makesMill(board, "p2", lastMovePlayer2)
-          );
+          lastMovePlayer2 = [rowBoard, colBoard];
+
+          //////////////////////////////
+          //Check if playerTwo makes mill
+          const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
+          if (makesMillP2) {
+            console.log("PlayerTwo makes mill");
+          }
+          ////////////////
 
           console.log(`Current Player: ${CurrentPlayer}`);
           console.log(`Remaining no of piece: ${noOfPiecesP2}`);
@@ -273,6 +289,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   });
 });
 
+/////////////////////////////////////////////////////////////////////////
 //////HELPER FUNCTIONS
 function findTuplePosition(array, tuple) {
   for (let outerIndex = 0; outerIndex < array.length; outerIndex++) {
