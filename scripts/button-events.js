@@ -190,7 +190,7 @@ function validateSinglePlayerInput(){
   if(player == ""){
       message.push("Please enter player name");
   }
-  var size = document.getElementById("singleplayer-size").value;
+  var size = document.getElementById("size").value;
   if(size < 2 || size > 5 ){
       message.push("Please enter a valid board size");
   }
