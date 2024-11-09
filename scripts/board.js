@@ -113,8 +113,8 @@ import {
 import { winner, makesMill } from "../backend/winner.js";
 
 const player1 = "playerOne";
-// const player2 = "computer";
-const player2 = "playerTwo";
+const player2 = "computer";
+// const player2 = "playerTwo";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
@@ -316,6 +316,23 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             /////SECOND PHASE LOGIC FOR COMPUTER
             console.log("Now computer makes PhaseTwo move");
             let player2MadeMove = false;
+
+            console.log(
+              "Move of the computer SecondPhase" + secondPhaseMove(board, "p2")
+            );
+
+            const [fromDivPos, toDivPos] = secondPhaseMove(board, "p2");
+
+            const fromDiv = `cell-div-${fromDivPos[0]}-${fromDivPos[1]}`;
+            const toDiv = `cell-div-${toDivPos[0]}-${toDivPos[1]}`;
+            document.getElementById(fromDiv).style.backgroundColor = "#fff";
+            document.getElementById(toDiv).style.backgroundColor = "#bb3f3f";
+            board[toDivPos[0]][toDivPos[1]] = "p2";
+            board[fromDivPos[0]][fromDivPos[1]] = "e";
+            console.log("Comp move: From Div " + fromDiv + " To div " + toDiv);
+
+            player2MadeMove = true;
+
             if (player2MadeMove) {
               CurrentPlayer = player1;
             }
@@ -357,7 +374,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             const toDiv = `cell-div-${cellPosition[0]}-${cellPosition[1]}`;
             document.getElementById(fromDiv).style.backgroundColor = "#fff";
             document.getElementById(toDiv).style.backgroundColor = "#bb3f3f";
-            console.log(board);
             board[rowBoard][colBoard] = "p2";
             board[lastMovePlayer2[0]][lastMovePlayer2[1]] = "e";
             console.log("From Div " + fromDiv + " To div " + toDiv);
