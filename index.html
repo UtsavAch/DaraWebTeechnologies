@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="eng">
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <link rel="stylesheet" href="styles/styles-main.css" />
     <link rel="stylesheet" href="styles/styles-help-stats.css" />
     <link rel="stylesheet" href="styles/styles-config.css" />
@@ -149,7 +149,7 @@
             </div>
             <div class="input-group">
               <label for="size">Board size:</label>
-              <input type="number" id="size" name="size" min="2" max="5" />
+              <input type="number" id="singleplayer-size" name="size" min="2" max="5" />
             </div>
             <div class="radio-group">
               <label for="difficulty">Difficulty:</label>
@@ -229,7 +229,7 @@
             </div>
             <div class="input-group">
               <label for="size">Board size:</label>
-              <input type="number" id="size" name="name" max="10" />
+              <input type="number" id="multiplayer-size" name="name" max="10" />
             </div>
             <div class="radio-group">
               <label for="game-order">Who starts the game?</label>
@@ -249,7 +249,7 @@
       <!-- ----Game Board---- -->
       <section id="board-container">
         <div id="table-container">
-          <table id="myTable"></table>
+          <table id="myTable" border="1"></table>
         </div>
       </section>
       <!-- ---Players--- -->
