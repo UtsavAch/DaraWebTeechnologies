@@ -56,6 +56,7 @@ export function canMove(location, board) {
       possibleLocations.push([newRow, newCol]);
     }
   }
+  //console.log(possibleLocations);
 
   return possibleLocations;
 }
@@ -64,6 +65,8 @@ export function secondPhaseMove(board, player) {
   //player can be "player1" or "player2"
   //Will return the (best piece and the best cell it can move) in the given state of the board
   const playerMens = locate(board, player);
+
+  //console.log("Board:",board);
 
   let bestPiece = null;
   let bestCell = null;
@@ -74,9 +77,16 @@ export function secondPhaseMove(board, player) {
 
     return [bestPiece, bestCell];
   }
+  //console.log("Players pieces",playerMens);
 
   //pieces that can be moved
-  const movablePieces = playerMens.filter((piece) => canMove(piece, board));
+  const movablePieces = [];
+  playerMens.forEach((piece) => {
+    const possibleMoves = canMove(piece, board);
+    if (possibleMoves.length > 0) {
+      movablePieces.push(piece); 
+    }
+  });
   //console.log(movablePieces); //debug
 
   if (movablePieces.length > 0) {
@@ -85,7 +95,9 @@ export function secondPhaseMove(board, player) {
 
     // valid moves of the best piece
     const possibleMoves = canMove(bestPiece, board);
+
     //console.log(bestPiece, possibleMoves); //debug
+
     // choses rendom move
     bestCell = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
   }
@@ -98,7 +110,7 @@ export function selectOpponentPosition(board, player) {
   const opponent = player === "p1" ? "p2" : "p1";
 
   // Collect positions of the opponent's pieces
-  const opponentPositions = locate(board, opponent);
+  const opponentPositions = locate(board,opponent);
   // unecessary locate function does this
   //for (let row = 0; row < board.length; row++) {
   //  for (let col = 0; col < board[row].length; col++) {

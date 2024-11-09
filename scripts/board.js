@@ -1,4 +1,4 @@
-const boardDimension = 4;
+const boardDimension = 2;
 
 export const rows = boardDimension * 2 + 1;
 export const cols = boardDimension * 2 + 1;
