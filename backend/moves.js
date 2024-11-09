@@ -22,7 +22,7 @@ export function firstPhaseMove(board, state) {
   return bestCell;
 }
 
-function canMove(location, board) {
+export function canMove(location, board) {
   const possibleLocations = [];
   const row = location[0];
   const col = location[1];
@@ -68,14 +68,12 @@ export function secondPhaseMove(board, player) {
   let bestPiece = null;
   let bestCell = null;
 
-  if (playerMens.length === 3){
+  if (playerMens.length === 3) {
     bestCell = firstPhaseMove(board, "e");
-    bestPiece = playerMens[Math.floor(Math.random() * playerMens.length)]
+    bestPiece = playerMens[Math.floor(Math.random() * playerMens.length)];
 
-    return  [bestPiece, bestCell];
+    return [bestPiece, bestCell];
   }
-
-  
 
   //pieces that can be moved
   const movablePieces = playerMens.filter((piece) => canMove(piece, board));
@@ -95,6 +93,28 @@ export function secondPhaseMove(board, player) {
   return [bestPiece, bestCell]; //Best piece is also a cell occupied by the best piece - so return the cell index
 }
 
+export function selectOpponentPosition(board, player) {
+  // Determine the opponent
+  const opponent = player === "p1" ? "p2" : "p1";
+
+  // Collect positions of the opponent's pieces
+  const opponentPositions = [];
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[row].length; col++) {
+      if (board[row][col] === opponent) {
+        opponentPositions.push([row, col]);
+      }
+    }
+  }
+
+  // If no opponent positions found, return null or handle as needed
+  if (opponentPositions.length === 0) return null;
+
+  // Randomly select one of the opponent's positions
+  const randomIndex = Math.floor(Math.random() * opponentPositions.length);
+  return opponentPositions[randomIndex];
+}
+
 const exampleBoard = [
   ["e", "e", "p1", "e", "p2", "e", "e", "p2"],
   ["p1", "p1", "e", "e", "p2", "e", "e", "e"],
@@ -104,11 +124,13 @@ const exampleBoard = [
 // Each inner array represent the squares of the board from outermost to the innermost board
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
 
-const bestMove = firstPhaseMove(exampleBoard, "e");
-console.log("First phase move -> " + bestMove);
-const p1cells = locate(exampleBoard, "p1");
-const move = secondPhaseMove(exampleBoard, "p1");
-console.log("Seconf phase move -> " + move);
+// const bestMove = firstPhaseMove(exampleBoard, "e");
+// console.log("First phase move -> " + bestMove);
+// const p1cells = locate(exampleBoard, "p1");
+// const move = secondPhaseMove(exampleBoard, "p1");
+// console.log("Seconf phase move -> " + move);
+// console.log(selectOpponentPosition(exampleBoard, "p1")); // Should return a position with "p2"
+// console.log(selectOpponentPosition(exampleBoard, "p2")); // Should return a position with "p1"
 
 /*
 
