@@ -176,10 +176,13 @@ const exampleBoard = [
 }
 
 
-// Mill checker, the row an col represent the cell it moved to so the board is alredy updated
-function checkForMill(board, player, row, col) {
+// Mill checker, position is the new postion it moved to [row,col]
+function checkForMill(board, player, position) {
   const numRows = board.length;
   const numCols = board[0].length;
+
+  const row = position[0];
+  const col = position[1];
 
   // Check Horizontal Mill (cyclic within the row)
   function checkHorizontalMill(row, col) {
@@ -224,6 +227,5 @@ function checkForMill(board, player, row, col) {
 
 // Example usage
 const player = "p1";
-const row = 1; // Row index where the last piece was placed
-const col = 1; // Column index where the last piece was placed
-console.log(checkForMill(exampleBoard, player, row, col)); // Returns true if a mill is formed, false otherwise
+const position = [1,1]
+console.log(checkForMill(exampleBoard, player, position)); // Returns true if a mill is formed, false otherwise
