@@ -21,8 +21,8 @@ import {
 } from "../backend/helpers.js";
 
 ///////////////////////////////////
-let noOfPiecesP1 = 3 * boardDimension; //Important
-let noOfPiecesP2 = 3 * boardDimension; //Important
+let noOfPiecesP1 = 3 * boardDimension.dimension; //Important
+let noOfPiecesP2 = 3 * boardDimension.dimension; //Important
 let piecesOnBoardP1 = 0; //Important (Pieces that the player1 has put on the board)
 let piecesOnBoardP2 = 0; //Important (Pieces that the player2 has put on the board)
 
@@ -400,12 +400,12 @@ function handleMill(player, opponent, lastMove) {
 //RESETTING THE GAME
 export function resetBoard() {
   ////Resetting the no of pieces and pieces on board to initial values
-  noOfPiecesP1 = 3 * boardDimension;
-  noOfPiecesP2 = 3 * boardDimension;
+  noOfPiecesP1 = 3 * boardDimension.dimension;
+  noOfPiecesP2 = 3 * boardDimension.dimension;
   piecesOnBoardP1 = 0;
   piecesOnBoardP2 = 0;
   ////Resetting the board
-  for (let i = 0; i < boardDimension; i++) {
+  for (let i = 0; i < boardDimension.dimension; i++) {
     board[i] = [];
     for (let j = 0; j < 8; j++) {
       board[i][j] = "e";

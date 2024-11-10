@@ -1,5 +1,6 @@
 import { setNotificationMessage } from "./config.js";
 import { resetBoard } from "./game-logic.js";
+import { boardDimension } from "./board.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const leaderboardButton = document.getElementById("leaderboard-btn");
@@ -139,7 +140,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
     var validation = validateSinglePlayerInput();
     if (validation) {
       setNotificationMessage("Let the battle begin !");
+      event.preventDefault();
       const playerName = document.getElementById("name").value;
+      const dimension = document.getElementById("singleplayer-size").value;
+      const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+
+      boardDimension.dimension = parseInt(dimension);
+      const difficultyLevel = document.getElementById("display-difficulty");
+      difficultyLevel.textContent = "Difficulty: " + difficulty ;
+      const playerOne = document.getElementById("player-one-name");
+      playerOne.textContent = playerName;
+      const computer = document.getElementById("player-two-name");
+      computer.textContent = "Computer";
+
       const player = new Player(playerName);
       leaderboard.addPlayer(player);
       console.log("Player added:", player); //debug

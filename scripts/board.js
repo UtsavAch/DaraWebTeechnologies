@@ -1,7 +1,9 @@
-export const boardDimension = 4;
+export const boardDimension = {
+  dimension : 4,
+};
 
-export const rows = boardDimension * 2 + 1;
-export const cols = boardDimension * 2 + 1;
+export const rows = boardDimension.dimension * 2 + 1;
+export const cols = boardDimension.dimension * 2 + 1;
 const table = document.getElementById("myTable");
 const usefulCells = [];
 
@@ -43,7 +45,7 @@ export const playerTwoPiecesContainer = document.getElementById(
   "player-two-pieces-container"
 );
 
-for (let i = 1; i <= 3 * boardDimension; i++) {
+for (let i = 1; i <= 3 * boardDimension.dimension; i++) {
   const piece1 = document.createElement("span");
   const piece2 = document.createElement("span");
   piece1.id = `p1_${i}`;
@@ -85,11 +87,11 @@ function generateSquares(n) {
 
 //////////////////////////////////////
 export const board = []; //Important
-for (let i = 0; i < boardDimension; i++) {
+for (let i = 0; i < boardDimension.dimension; i++) {
   board[i] = [];
   for (let j = 0; j < 8; j++) {
     board[i][j] = "e"; //Can be e(empty), p1(player1), p2(player3)
   }
 }
 
-export const boardIndex = generateSquares(boardDimension);
+export const boardIndex = generateSquares(boardDimension.dimension);
