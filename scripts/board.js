@@ -38,6 +38,7 @@ export function updateBoard() {
 // Function to rebuild the board table (HTML structure)
 function rebuildBoard(numRows, numCols) {
   const table = document.getElementById("myTable");
+  table.innerHTML = ''; // Clear the existing table content
   
   const usefulCells = [];
   const centralRow = Math.ceil(numRows / 2);
