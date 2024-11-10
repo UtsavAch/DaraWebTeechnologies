@@ -1,18 +1,16 @@
 Validate the HTML:
     check border="1" error and for in labels...
 
-To not allow to have the same board as it was once it quits 
-
-To allow to restart the game
+Fix board size stuff
 
 To allow to count the wins of the player so it is added to leaderboard
 
+Change input to checkMills works correctly (GAME LOGIC IN overall)
+
 Messages:
     Saying its the player turn and machine
-    Made a mill and can capture
     Move not possible
     Winner message
-    Player quits
 
 
 Complete the game logic:
@@ -27,4 +25,3 @@ Object-orientated (not strictly necessary):
 AI:
     Either improve the random choices with somewhat smart choices, like it prioritizes a mill
     Or make minimax
-
