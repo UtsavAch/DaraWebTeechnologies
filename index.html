@@ -315,22 +315,42 @@
         </div>
       </div>
     </div>
-    <!-- Confirmation overlay -->
+    <!-- Winner overlay -->
     <div id="winner-container" class="overlay">
       <div id="winner-message">
-        <p>Someone won the game!</p>
+        <p id="announce-winner">Someone won the game!</p>
         <div id="confirm-exit-btns-container">
           <span
-            id="overlay-replay-btn"
+            id="overlay-replay-btn-winner"
             class="material-symbols-outlined icon-btn btn"
           >
             replay
           </span>
           <span
-            id="overlay-confirm-btn"
+            id="overlay-exit-btn-winner"
             class="material-symbols-outlined icon-btn btn"
           >
             close
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Replay overlay -->
+    <div id="replay-container" class="overlay">
+      <div id="replay-message">
+        <p>Do you want to replay?</p>
+        <div id="confirm-exit-btns-container">
+          <span
+            id="overlay-cancel-btn-replay"
+            class="material-symbols-outlined icon-btn btn"
+          >
+            close
+          </span>
+          <span
+            id="overlay-confirm-btn-replay"
+            class="material-symbols-outlined icon-btn btn"
+          >
+            check
           </span>
         </div>
       </div>

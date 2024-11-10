@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const closeGameButton = document.getElementById("close-game-btn");
   const overlayCancelButton = document.getElementById("overlay-cancel-btn");
   const overlayConfirmButton = document.getElementById("overlay-confirm-btn");
+  const replayGameButton = document.getElementById("replay-game-btn");
+  const overlayReplayCancelButton = document.getElementById(
+    "overlay-cancel-btn-replay"
+  );
+  const overlayWinnerReplayButton = document.getElementById(
+    "overlay-replay-btn-winner"
+  );
+  const overlayWinnerExitButton = document.getElementById(
+    "overlay-exit-btn-winner"
+  );
+  const overlayReplayConfirmButton = document.getElementById(
+    "overlay-confirm-btn-replay"
+  );
   const helpButton = document.getElementById("help-btn");
   const closeHelpButton = document.getElementById("close-help-btn");
 
@@ -27,6 +40,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const confirmExitContainer = document.getElementById(
     "confirm-exit-container"
   );
+  const replayContainer = document.getElementById("replay-container");
+  const winnerContainer = document.getElementById("winner-container");
   const helpOverlay = document.getElementById("help-container");
 
   // player management
@@ -168,6 +183,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
     confirmExitContainer.style.display = "none";
   });
 
+  replayGameButton.addEventListener("click", () => {
+    replayContainer.style.display = "flex";
+  });
+
+  overlayReplayCancelButton.addEventListener("click", () => {
+    replayContainer.style.display = "none";
+  });
+
+  overlayWinnerReplayButton.addEventListener("click", () => {
+    resetBoard();
+    setNotificationMessage("Get ready for a new battle :)");
+    winnerContainer.style.display = "none";
+  });
+
+  overlayWinnerExitButton.addEventListener("click", () => {
+    resetBoard();
+    setNotificationMessage("I hope you enjoyed the game :)");
+    winnerContainer.style.display = "none";
+    boardContainer.style.display = "none";
+    gameContainer.style.display = "flex";
+    playersContainer.style.display = "none";
+    boardButtonsContainer.style.display = "none";
+  });
+
   overlayConfirmButton.addEventListener("click", () => {
     resetBoard();
     setNotificationMessage("I hope you enjoyed the game :)");
@@ -176,6 +215,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gameContainer.style.display = "flex";
     playersContainer.style.display = "none";
     boardButtonsContainer.style.display = "none";
+  });
+
+  overlayReplayConfirmButton.addEventListener("click", () => {
+    resetBoard();
+    setNotificationMessage("Get ready for a new battle :)");
+    replayContainer.style.display = "none";
   });
 
   helpButton.addEventListener("click", () => {
