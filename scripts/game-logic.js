@@ -364,26 +364,27 @@ function handleMill(player, opponent, lastMove) {
   if (madeMill) {
     CurrentPlayer = player;
     console.log(`${player} makes mill`);
-
     const opponentPositionsBoard = locate(board, opponent);
+    // Track whether a piece has been removed
+    let pieceRemoved = false;
     for (let i = 0; i < opponentPositionsBoard.length; i++) {
       const opponentPosition =
         boardIndex[opponentPositionsBoard[i][0]][opponentPositionsBoard[i][1]];
       const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
       const cellDiv = document.getElementById(cellDivId);
-
       const handleClick = () => {
-        cellDiv.style.backgroundColor = "#fff";
-        board[opponentPositionsBoard[i][0]][opponentPositionsBoard[i][1]] = "e";
-
-        // Adjust piece count based on opponent
-        if (opponent === "p1") {
-          piecesOnBoardP1 -= 1;
-        } else if (opponent === "p2") {
-          piecesOnBoardP2 -= 1;
+        if (!pieceRemoved) {
+          cellDiv.style.backgroundColor = "#fff";
+          board[opponentPositionsBoard[i][0]][opponentPositionsBoard[i][1]] =
+            "e";
+          if (opponent === "p1") {
+            piecesOnBoardP1 -= 1;
+          } else if (opponent === "p2") {
+            piecesOnBoardP2 -= 1;
+          }
+          pieceRemoved = true;
+          cellDiv.removeEventListener("click", handleClick);
         }
-
-        cellDiv.removeEventListener("click", handleClick);
       };
 
       cellDiv.addEventListener("click", handleClick);
