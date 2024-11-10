@@ -54,11 +54,15 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       setNotificationMessage("Hurray, you won the game !!");
       const winnerContainer = document.getElementById("winner-container");
       winnerContainer.style.display = "flex";
+      const announceWinner = document.getElementById("announce-winner");
+      announceWinner.textContent = `${player1} won the game`;
       return;
     } else if (isSecondPhase && winner(board, "p2")) {
+      setNotificationMessage("Oh no! better luck next time !!");
       const winnerContainer = document.getElementById("winner-container");
       winnerContainer.style.display = "flex";
-      setNotificationMessage("Oh no! better luck next time !!");
+      const announceWinner = document.getElementById("announce-winner");
+      announceWinner.textContent = `${player2} won the game`;
       return;
     }
 

@@ -96,8 +96,13 @@
   display: none;
 }
 
+#replay-container {
+  display: none;
+}
+
 #confirm-exit,
-#winner-message {
+#winner-message,
+#replay-message {
   width: 350px;
   background-color: #f0f0f0;
   border-radius: 20px;
@@ -109,7 +114,8 @@
 }
 
 #confirm-exit p,
-#winner-message p {
+#winner-message p,
+#replay-message p {
   font-size: 20px;
   font-weight: 500;
 }
