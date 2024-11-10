@@ -48,6 +48,15 @@ const canMoveInArray = []; ////IMPORTANT IN SECOND PHASE
 //SWITCHING BETWEEN TWO PLAYERS
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
+    //Checking for the winner
+    if (isSecondPhase && winner(board, "p1")) {
+      console.log("Player one is the winner");
+      return;
+    } else if (isSecondPhase && winner(board, "p2")) {
+      console.log("Player two is the winner");
+      return;
+    }
+
     // Extract row and column from cellDiv.id
     const [, , row, col] = cellDiv.id.split("-").map(Number); // Convert row and col to numbers
     const cellPosition = [row, col];
@@ -213,21 +222,16 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           ///Resetting canMoveInArray and lastMovePlayer1 to empty
           canMoveInArray.length = 0;
           lastMovePlayer1.length = 0;
-          player1MadeMove = true;
 
           playerOnePiecesContainer.classList.remove("active-pieces-container");
           playerTwoPiecesContainer.classList.add("active-pieces-container");
+          player1MadeMove = true;
         }
         if (player2 === "computer" && player1MadeMove) {
           setTimeout(() => {
             /////SECOND PHASE LOGIC FOR COMPUTER
             console.log("Now computer makes PhaseTwo move");
             let player2MadeMove = false;
-
-            console.log(
-              "Move of the computer SecondPhase " + secondPhaseMove(board, "p2")
-            );
-            console.log(board);
 
             setTimeout(() => {
               const [fromDivPos, toDivPos] = secondPhaseMove(board, "p2");
@@ -289,10 +293,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             const moves = canMove([rowBoard, colBoard], board);
             canMoveInArray.push(...moves);
           }
-          //Step 2: The player then can select the positions where he can move the selected piece
-          //Step 3: Now set the position of the selected piece to "e"
-          //Step 4: Set the position he moved to "p1"
-          //Step 5: Check if he made a mill
           if (isTupleInArray(canMoveInArray, [rowBoard, colBoard])) {
             console.log(
               "From player2 phase two, player2 clicked:- " +
@@ -318,14 +318,13 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             ///Resetting canMoveInArray and lastMovePlayer1 to empty
             canMoveInArray.length = 0;
             lastMovePlayer2.length = 0;
-            player2MadeMove = true;
 
             playerOnePiecesContainer.classList.add("active-pieces-container");
             playerTwoPiecesContainer.classList.remove(
               "active-pieces-container"
             );
           }
-
+          player2MadeMove = true;
           if (player2MadeMove) {
             CurrentPlayer = player1;
           }

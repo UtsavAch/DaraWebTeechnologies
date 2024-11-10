@@ -15,10 +15,10 @@ export function winner(board, player) {
   let isWinner = false;
 
   switch (player) {
-    case "player1":
+    case "p1":
       if (p2Count < 3 && p1Count >= 3) isWinner = true;
       break;
-    case "player2":
+    case "p2":
       if (p1Count < 3 && p1Count >= 3) isWinner = true;
       break;
   }
