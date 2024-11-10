@@ -6,9 +6,11 @@
   background-color: #f0f0f0;
   padding: 20px;
   width: 80%;
-  max-width: 500px;
+  max-width: 550px;
+  max-height: 550px;
   border-radius: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: auto;
 }
 
 #help-container #close-help-btn, #leaderboard-container #close-leaderboard-btn {
@@ -34,4 +36,23 @@
 
 #leaderboard-table th {
   background-color: #f4f4f4;
+}
+
+
+.phases {
+  list-style-type: none; /* Removes the numbers from the ordered list */
+  padding-left: 0; /* Removes left padding from the ordered list */
+}
+
+.phase-item {
+  display: list-item;
+  margin-bottom: 10px;
+}
+
+.phase-title {
+  font-weight: bold;
+}
+
+.phase-item p {
+  margin-left: 20px; /* Indentation for sub-items */
 }

@@ -52,3 +52,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     multiPlayerView.style.display = "block";
   });
 });
+
+export function setNotificationMessage(message) {
+  const notificationElement = document.getElementById("notification-message");
+  notificationElement.textContent = message;
+}

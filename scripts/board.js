@@ -1,4 +1,4 @@
-const boardDimension = 3;
+export const boardDimension = 4;
 
 export const rows = boardDimension * 2 + 1;
 export const cols = boardDimension * 2 + 1;
@@ -36,23 +36,10 @@ for (let i = 1; i <= rows; i++) {
   table.appendChild(row);
 }
 
-//////////////////////////////////////
-const board = []; //Important
-for (let i = 0; i < boardDimension; i++) {
-  board[i] = [];
-  for (let j = 0; j < 8; j++) {
-    board[i][j] = "e"; //Can be e(empty), p1(player1), p2(player3)
-  }
-}
-
-////
-let noOfPiecesP1 = 3 * boardDimension; //Important
-let noOfPiecesP2 = 3 * boardDimension; //Important
-
-const playerOnePiecesContainer = document.getElementById(
+export const playerOnePiecesContainer = document.getElementById(
   "player-one-pieces-container"
 );
-const playerTwoPiecesContainer = document.getElementById(
+export const playerTwoPiecesContainer = document.getElementById(
   "player-two-pieces-container"
 );
 
@@ -95,35 +82,14 @@ function generateSquares(n) {
 
   return squares;
 }
-const boardIndex = generateSquares(boardDimension);
-////////
-console.log(usefulCells); // The cells from the table that are useful
-console.log(board); // Board- a matrix of concentric squares, with cells filled or empty
-console.log(boardIndex); // boardIndex- a matrix with index of the cells of the concentric squares
-console.log(noOfPiecesP1); // No. of pieces for player1
-console.log(noOfPiecesP2); // No. of pieces for player2
 
-/////////////////////////////////////////////////////////////////
-/////////// GAME LOGIC ////////////
-/////////////////////////////////////////////////////////////////
-
-//Importing moves and winner functions
-import { firstPhaseMove, secondPhaseMove } from "../backend/moves.js";
-import { winner, makesMill } from "../backend/winner.js";
-
-const player1 = "playerOne";
-const player2 = "computer";
-// const player2 = "playerTwo";
-
-///////CurrentPlayer
-let CurrentPlayer = player1;
-
-document.querySelectorAll(".cell-div").forEach((cellDiv) => {
-  cellDiv.addEventListener("click", () => {
-    console.log(cellDiv.id);
-  });
-});
-
-if (player2 === "computer") {
-  console.log(firstPhaseMove(board, player1));
+//////////////////////////////////////
+export const board = []; //Important
+for (let i = 0; i < boardDimension; i++) {
+  board[i] = [];
+  for (let j = 0; j < 8; j++) {
+    board[i][j] = "e"; //Can be e(empty), p1(player1), p2(player3)
+  }
 }
+
+export const boardIndex = generateSquares(boardDimension);
