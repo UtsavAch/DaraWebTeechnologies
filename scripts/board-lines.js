@@ -19,7 +19,7 @@ function removeBorders(cellId, borders) {
 }
 
 //////// BOTTOM-TOP-LEFT-RIGHT
-for (let i = centralRow; i <= rows; i++) {
+for (let i = centralRow; i <= rows(); i++) {
   let id = `cell-${i}-${i}`;
   let borders = ["bottom", "top", "left", "right"];
   removeBorders(id, borders);
@@ -33,7 +33,7 @@ for (let i = 1; i < centralRow; i++) {
 }
 
 // Remove borders for the central row (except for the central cell)
-for (let col = 1; col <= cols; col++) {
+for (let col = 1; col <= cols(); col++) {
   if (col !== centralCol) {
     let id = `cell-${centralRow}-${col}`;
     let borders = ["bottom", "right"];
@@ -42,7 +42,7 @@ for (let col = 1; col <= cols; col++) {
 }
 
 // Remove borders for the central column (except for the central cell)
-for (let row = 1; row <= rows; row++) {
+for (let row = 1; row <= rows(); row++) {
   if (row !== centralRow) {
     let id = `cell-${row}-${centralCol}`;
     let borders = ["bottom", "right"];
@@ -51,15 +51,15 @@ for (let row = 1; row <= rows; row++) {
 }
 
 ///////BOTTOM-LEFT-RIGHT
-for (let i = 1; i < rows; i++) {
-  let id = `cell-${rows}-${i}`;
+for (let i = 1; i < rows(); i++) {
+  let id = `cell-${rows()}-${i}`;
   let borders = ["bottom", "left", "right"];
   removeBorders(id, borders);
 }
 
 {
   let a = 2;
-  let b = cols;
+  let b = cols();
   for (let i = 1; i < centralCol - 1; i++) {
     for (let j = a; j < b; j++) {
       if (j != centralCol) {
@@ -82,8 +82,8 @@ for (let i = 1; i < rows; i++) {
 
 {
   let a = 2;
-  let b = cols - 1;
-  for (let i = cols - 1; i > centralCol; i--) {
+  let b = cols() - 1;
+  for (let i = cols() - 1; i > centralCol; i--) {
     for (let j = a; j < b; j++) {
       if (j != centralCol) {
         let id = `cell-${i}-${j}`;
@@ -97,15 +97,15 @@ for (let i = 1; i < rows; i++) {
 }
 
 //////// BOTTOM-TOP-RIGHT
-for (let i = 1; i < cols; i++) {
-  let id = `cell-${i}-${cols}`;
+for (let i = 1; i < cols(); i++) {
+  let id = `cell-${i}-${cols()}`;
   let borders = ["bottom", "top", "right"];
   removeBorders(id, borders);
 }
 
 {
   let a = 2;
-  let b = rows;
+  let b = rows();
   for (let i = 1; i < centralRow - 1; i++) {
     for (let j = a; j < b; j++) {
       if (j != centralRow) {
@@ -128,8 +128,8 @@ for (let i = 1; i < cols; i++) {
 
 {
   let a = 2;
-  let b = rows - 1;
-  for (let i = cols - 1; i > centralRow; i--) {
+  let b = rows() - 1;
+  for (let i = cols() - 1; i > centralRow; i--) {
     for (let j = a; j < b; j++) {
       if (j != centralRow) {
         let id = `cell-${j}-${i}`;
