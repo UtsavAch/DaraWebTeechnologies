@@ -75,13 +75,15 @@
   cursor: pointer;
   transition: ease-in-out 0.07s;
   font-weight: bold;
-
-  &:hover {
-    background-color: #333;
-    scale: 1.05;
-    transition: ease-in-out 0.07s;
-  }
 }
+
+#board-btns-container .icon-btn:hover,
+#confirm-exit-btns-container .icon-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);  /* Use transform instead of 'scale' for better compatibility */
+  transition: ease-in-out 0.07s;
+}
+
 
 /* Confirm exit */
 #confirm-exit-container {

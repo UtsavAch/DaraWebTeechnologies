@@ -40,11 +40,11 @@ nav > button {
 
 .icon-btn {
   cursor: pointer;
-  transition: ease-in 0.07s;
-  &:hover {
-    scale: 1.1;
-    transition: ease-in 0.07s;
-  }
+  transition: transform 0.07s ease-in; /* Apply transition to transform */
+}
+
+.icon-btn:hover {
+  transform: scale(1.1);  /* Apply scaling with transform */
 }
 
 .game-container {
@@ -74,12 +74,12 @@ nav > button {
 .passive-mode {
   cursor: pointer;
   color: rgb(92, 92, 92);
-  transition: ease-in-out 0.07s;
-  &:hover {
-    color: black;
-    scale: 1.05;
-    transition: ease-in-out 0.07s;
-  }
+  transition: color 0.07s ease-in-out, transform 0.07s ease-in-out;
+}
+
+.passive-mode:hover{
+  color: black;
+  transform: scale(1.05);
 }
 
 h3 {
@@ -95,10 +95,12 @@ input {
   border-radius: 7px;
   border: 1px solid #000;
   margin-left: 10px;
-  &:focus {
-    outline: 1px solid #000;
-  }
 }
+
+input:focus {
+  outline: 1px solid #000;
+}
+
 
 .input-group {
   text-align: justify;
@@ -106,38 +108,41 @@ input {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  & > label {
-    width: 40%;
-  }
-  & > input {
-    width: 60%;
-  }
 }
+
+.input-group > label {
+  width: 40%;
+}
+
+.input-group > input {
+  width: 60%;
+}
+
 
 .radio-group {
   text-align: justify;
   margin-top: 20px;
   width: 100%;
-  & #difficulty-radio {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 10px;
-    & input {
-      &:focus {
-        outline: none;
-      }
-    }
-  }
-
-  & #player-radio {
-    margin-top: 10px;
-    & input {
-      &:focus {
-        outline: none;
-      }
-    }
-  }
 }
+
+#difficulty-radio {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+#difficulty-radio input:focus {
+  outline: none;
+}
+
+#player-radio {
+  margin-top: 10px;
+}
+
+#player-radio input:focus {
+  outline: none;
+}
+
 
 .actions {
   width: 100%;
@@ -155,13 +160,15 @@ input {
   font-weight: 600;
   cursor: pointer;
   transition: ease-in-out 0.07s;
-
-  &:hover {
-    background-color: #333;
-    scale: 1.05;
-    transition: ease-in-out 0.07s;
-  }
 }
+
+.start-btn:hover {
+  background-color: #333;
+  transform: scale(1.05);
+  transition: ease-in-out 0.07s;
+}
+
+
 
 #login-view {
   display: none;
@@ -186,12 +193,12 @@ input {
   font-weight: 500;
   cursor: pointer;
   transition: ease-in-out 0.07s;
+}
 
-  &:hover {
-    background-color: #565656;
-    scale: 1.05;
-    transition: ease-in-out 0.07s;
-  }
+.basic-btn:hover{
+  background-color: #565656;
+  transform: scale(1.05);
+  transition: ease-in-out 0.07s;
 }
 
 .submit-btn {
@@ -206,17 +213,18 @@ input {
   font-weight: 600;
   cursor: pointer;
   transition: ease-in-out 0.07s;
-
-  &:hover {
-    background-color: #333;
-    scale: 1.05;
-    transition: ease-in-out 0.07s;
-  }
 }
 
-.error-messages{
-  color:rgb(130, 0, 0);
-  & > p {
-    margin-bottom: 0;
-  }
+.submit-btn:hover{
+  background-color: #333;
+  transform: scale(1.05);
+  transition: ease-in-out 0.07s;
+}
+
+.error-messages {
+  color: rgb(130, 0, 0);
+}
+
+.error-messages > p {
+  margin-bottom: 0;
 }
