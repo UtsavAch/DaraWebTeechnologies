@@ -1,6 +1,6 @@
 import { setNotificationMessage } from "./config.js";
 import { resetBoard } from "./game-logic.js";
-import { boardDimension } from "./board.js";
+import { setBoardDimension, getBoardDimension } from './board.js';
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const leaderboardButton = document.getElementById("leaderboard-btn");
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const dimension = document.getElementById("singleplayer-size").value;
       const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
 
-      boardDimension.dimension = parseInt(dimension);
+      setBoardDimension(parseInt(dimension)); // updates board olso
       const difficultyLevel = document.getElementById("display-difficulty");
       difficultyLevel.textContent = "Difficulty: " + difficulty ;
       const playerOne = document.getElementById("player-one-name");

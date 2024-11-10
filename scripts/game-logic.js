@@ -1,10 +1,10 @@
 import { setNotificationMessage } from "./config.js";
 import {
-  boardDimension,
+  getBoardDimension,
   board,
   boardIndex,
-  playerOnePiecesContainer,
-  playerTwoPiecesContainer,
+  
+
 } from "./board.js";
 import {
   firstPhaseMove,
@@ -20,9 +20,12 @@ import {
   isTupleInArray,
 } from "../backend/helpers.js";
 
+const playerOnePiecesContainer = document.getElementById("player-one-pieces-container");
+const playerTwoPiecesContainer = document.getElementById("player-two-pieces-container");
+
 ///////////////////////////////////
-let noOfPiecesP1 = 3 * boardDimension.dimension; //Important
-let noOfPiecesP2 = 3 * boardDimension.dimension; //Important
+let noOfPiecesP1 = 3 * getBoardDimension(); //Important
+let noOfPiecesP2 = 3 * getBoardDimension(); //Important
 let piecesOnBoardP1 = 0; //Important (Pieces that the player1 has put on the board)
 let piecesOnBoardP2 = 0; //Important (Pieces that the player2 has put on the board)
 
@@ -404,12 +407,12 @@ function handleMill(player, opponent, lastMove) {
 //RESETTING THE GAME
 export function resetBoard() {
   ////Resetting the no of pieces and pieces on board to initial values
-  noOfPiecesP1 = 3 * boardDimension.dimension;
-  noOfPiecesP2 = 3 * boardDimension.dimension;
+  noOfPiecesP1 = 3 * getBoardDimension();
+  noOfPiecesP2 = 3 * getBoardDimension();
   piecesOnBoardP1 = 0;
   piecesOnBoardP2 = 0;
   ////Resetting the board
-  for (let i = 0; i < boardDimension.dimension; i++) {
+  for (let i = 0; i < getBoardDimension(); i++) {
     board[i] = [];
     for (let j = 0; j < 8; j++) {
       board[i][j] = "e";

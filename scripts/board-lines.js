@@ -3,7 +3,10 @@
 // That is to create a pattern of lines
 // ## DO NOT CHANGE THIS CODE ##
 /////////////////////////////////////////////////
-import { rows, cols, centralRow, centralCol } from "./board.js";
+import { rows, cols } from "./board.js";
+
+const centralRow = Math.ceil(rows() / 2); 
+const centralCol = Math.ceil(cols() / 2); 
 
 function removeBorders(cellId, borders) {
   const cell = document.getElementById(cellId);
