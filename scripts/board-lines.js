@@ -1,3 +1,6 @@
+// OBSOLETE //
+
+
 /////////////////////////////////////////////////
 // Function to remove borders for specific cells
 // That is to create a pattern of lines

@@ -2,9 +2,7 @@ import { setNotificationMessage } from "./config.js";
 import {
   getBoardDimension,
   board,
-  boardIndex,
-  
-
+  boardIndex
 } from "./board.js";
 import {
   firstPhaseMove,
