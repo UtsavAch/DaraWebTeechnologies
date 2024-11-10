@@ -1,10 +1,11 @@
+import { setNotificationMessage } from "./config.js";
+
 document.addEventListener("DOMContentLoaded", (event) => {
-
   const leaderboardButton = document.getElementById("leaderboard-btn");
-  const closeLeaderboardButton = document.getElementById("close-leaderboard-btn");
+  const closeLeaderboardButton = document.getElementById(
+    "close-leaderboard-btn"
+  );
   const leaderboardContainer = document.getElementById("leaderboard-container");
-
-
 
   const startSingleplayerButton = document.getElementById(
     "start-singleplayer-btn"
@@ -27,51 +28,51 @@ document.addEventListener("DOMContentLoaded", (event) => {
   );
   const helpOverlay = document.getElementById("help-container");
 
-// player management
+  // player management
   class Player {
     constructor(name) {
-        this.name = name;
-        this.totalWins = 0;  // Total wins across all board sizes
-        this.victoriesByBoardSize = {
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0
-        };  // Object to store wins for each board size
+      this.name = name;
+      this.totalWins = 0; // Total wins across all board sizes
+      this.victoriesByBoardSize = {
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+      }; // Object to store wins for each board size
     }
 
     // Method to add a win for a specific board size
     addWin(boardSize) {
-        if (boardSize >= 2 && boardSize <= 5) {
-            this.victoriesByBoardSize[boardSize]++;
-            this.totalWins++;
-        } else {
-            console.log("Invalid board size. Must be between 2 and 5.");
-        }
+      if (boardSize >= 2 && boardSize <= 5) {
+        this.victoriesByBoardSize[boardSize]++;
+        this.totalWins++;
+      } else {
+        console.log("Invalid board size. Must be between 2 and 5.");
+      }
     }
 
     // Method to get the number of wins for a specific board size
     getWinsByBoardSize(boardSize) {
-        if (boardSize >= 2 && boardSize <= 5) {
-            return this.victoriesByBoardSize[boardSize];
-        } else {
-            console.log("Invalid board size. Must be between 2 and 5.");
-            return 0;
-        }
+      if (boardSize >= 2 && boardSize <= 5) {
+        return this.victoriesByBoardSize[boardSize];
+      } else {
+        console.log("Invalid board size. Must be between 2 and 5.");
+        return 0;
+      }
     }
   }
 
-// Leaderboard management
-class Leaderboard {
+  // Leaderboard management
+  class Leaderboard {
     constructor() {
-        this.players = [];
+      this.players = [];
     }
 
     // Add a new player to the leaderboard
     addPlayer(player) {
-      const existingPlayer = this.players.find(p => p.name === player.name);
+      const existingPlayer = this.players.find((p) => p.name === player.name);
 
-      if (existingPlayer){
+      if (existingPlayer) {
         console.log("Jogador já existe: " + player.name);
         return false;
       }
@@ -83,40 +84,39 @@ class Leaderboard {
 
     // Get the top players sorted by total wins
     getTopPlayers() {
-        return this.players.sort((a, b) => b.totalWins - a.totalWins);
+      return this.players.sort((a, b) => b.totalWins - a.totalWins);
     }
 
     // Display the leaderboard
     displayLeaderboard() {
-        const tableBody = document.querySelector("#leaderboard-table tbody");
+      const tableBody = document.querySelector("#leaderboard-table tbody");
 
-        console.log("Table Body:", tableBody); // Debug
+      console.log("Table Body:", tableBody); // Debug
 
-        tableBody.innerHTML = "";
+      tableBody.innerHTML = "";
 
-        const topPlayers = this.getTopPlayers();
-        console.log("Top Players:", topPlayers); // Debug
+      const topPlayers = this.getTopPlayers();
+      console.log("Top Players:", topPlayers); // Debug
 
-        topPlayers.forEach(player => {
-            const row = document.createElement("tr");
+      topPlayers.forEach((player) => {
+        const row = document.createElement("tr");
 
-            const nameCell = document.createElement("td");
-            nameCell.textContent = player.name;
-            row.appendChild(nameCell);
+        const nameCell = document.createElement("td");
+        nameCell.textContent = player.name;
+        row.appendChild(nameCell);
 
-            for(let size = 2; size <= 5; size++){
-                const winCell = document.createElement("td");
-                winCell.textContent = player.victoriesByBoardSize[size];
-                row.appendChild(winCell);
+        for (let size = 2; size <= 5; size++) {
+          const winCell = document.createElement("td");
+          winCell.textContent = player.victoriesByBoardSize[size];
+          row.appendChild(winCell);
+        }
 
-            }
+        const totalWinsCell = document.createElement("td");
+        totalWinsCell.textContent = player.totalWins;
+        row.appendChild(totalWinsCell);
 
-            const totalWinsCell = document.createElement("td");
-            totalWinsCell.textContent = player.totalWins;
-            row.appendChild(totalWinsCell);
-
-            tableBody.appendChild(row);
-        });
+        tableBody.appendChild(row);
+      });
     }
   }
 
@@ -136,8 +136,8 @@ class Leaderboard {
   startSingleplayerButton.addEventListener("click", () => {
     console.log("Start button clicked");
     var validation = validateSinglePlayerInput();
-    if(validation){
-
+    if (validation) {
+      setNotificationMessage("Let the battle begin !");
       const playerName = document.getElementById("name").value;
       const player = new Player(playerName);
       leaderboard.addPlayer(player);
@@ -151,6 +151,7 @@ class Leaderboard {
   });
 
   startMultiplayerButton.addEventListener("click", () => {
+    setNotificationMessage("Let the battle begin !");
     console.log("Start button clicked");
     gameContainer.style.display = "none";
     boardContainer.style.display = "block";
@@ -167,6 +168,7 @@ class Leaderboard {
   });
 
   overlayConfirmButton.addEventListener("click", () => {
+    setNotificationMessage("I hope you enjoyed the game :)");
     confirmExitContainer.style.display = "none";
     boardContainer.style.display = "none";
     gameContainer.style.display = "flex";
@@ -183,38 +185,40 @@ class Leaderboard {
   });
 });
 
-
-function validateSinglePlayerInput(){
+function validateSinglePlayerInput() {
   var message = [];
   var player = document.getElementById("name").value;
-  if(player == ""){
-      message.push("Please enter player name");
+  if (player == "") {
+    message.push("Please enter player name");
+    setNotificationMessage("Make sure if the form is filled !!");
   }
   var size = document.getElementById("singleplayer-size").value;
-  if(size < 2 || size > 5 ){
-      message.push("Please enter a valid board size");
+  if (size < 2 || size > 5) {
+    message.push("Please enter a valid board size");
+    setNotificationMessage("Make sure if the form is filled !!");
   }
   var easy = document.getElementById("easy");
   var medium = document.getElementById("medium");
   var hard = document.getElementById("hard");
-  if(!easy.checked && !medium.checked && !hard.checked){
+  if (!easy.checked && !medium.checked && !hard.checked) {
     message.push("Please select a difficulty level");
+    setNotificationMessage("Make sure if the form is filled !!");
   }
 
   var error = document.getElementById("error-messages-single");
-  
+
   // Clear any existing messages (it must be here where it was before was not working)
   error.innerHTML = "";
 
   console.log(message);
-  if(message.length > 0){
-      message.forEach(element => {
-          var p = document.createElement("p");
-          var text = document.createTextNode(element);
-          p.appendChild(text);
-          error.appendChild(p);
-      });
-      return false;
+  if (message.length > 0) {
+    message.forEach((element) => {
+      var p = document.createElement("p");
+      var text = document.createTextNode(element);
+      p.appendChild(text);
+      error.appendChild(p);
+    });
+    return false;
   }
   return true;
 }

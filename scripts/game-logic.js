@@ -1,3 +1,4 @@
+import { setNotificationMessage } from "./config.js";
 import {
   boardDimension,
   board,
@@ -50,14 +51,14 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
     //Checking for the winner
     if (isSecondPhase && winner(board, "p1")) {
-      console.log("Player one is the winner");
+      setNotificationMessage("Hurray, you won the game !!");
       const winnerContainer = document.getElementById("winner-container");
       winnerContainer.style.display = "flex";
       return;
     } else if (isSecondPhase && winner(board, "p2")) {
       const winnerContainer = document.getElementById("winner-container");
       winnerContainer.style.display = "flex";
-      console.log("Player two is the winner");
+      setNotificationMessage("Oh no! better luck next time !!");
       return;
     }
 
@@ -348,7 +349,7 @@ function handleComputerMill() {
   const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
   if (makesMillP2) {
     setTimeout(() => {
-      console.log("PlayerTwo makes mill");
+      setNotificationMessage(`Computer made a mill :()`);
       const [remRow, remCol] = selectOpponentPosition(board, "p2");
       const cellDivPosition = boardIndex[remRow][remCol];
       const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
@@ -366,7 +367,7 @@ function handleMill(player, opponent, lastMove) {
   const madeMill = makesMill(board, player, lastMove);
   if (madeMill) {
     CurrentPlayer = player;
-    console.log(`${player} makes mill`);
+    setNotificationMessage(`Yay !! you made a mill :)`);
     const opponentPositionsBoard = locate(board, opponent);
     // Track whether a piece has been removed
     let pieceRemoved = false;
