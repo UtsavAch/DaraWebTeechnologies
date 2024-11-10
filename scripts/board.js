@@ -119,8 +119,8 @@ import {
 } from "../backend/helpers.js";
 
 const player1 = "playerOne";
-// const player2 = "computer";
-const player2 = "playerTwo";
+const player2 = "computer";
+// const player2 = "playerTwo";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
@@ -295,7 +295,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
                 board[opponentPositionsBoard[i][0]][
                   opponentPositionsBoard[i][1]
                 ] = "e";
-                piecesOnBoardP2 -= 1;
+                piecesOnBoardP1 -= 1;
                 cellDiv.removeEventListener("click", handleClick);
               };
               cellDiv.addEventListener("click", handleClick);
@@ -332,10 +332,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           const moves = canMove([rowBoard, colBoard], board);
           canMoveInArray.push(...moves);
         }
-        //Step 2: The player then can select the positions where he can move the selected piece
-        //Step 3: Now set the position of the selected piece to "e"
-        //Step 4: Set the position he moved to "p1"
-        //Step 5: Check if he made a mill
+
         if (isTupleInArray(canMoveInArray, [rowBoard, colBoard])) {
           console.log(
             "From player1 phase two, player1 clicked:- " +
@@ -353,11 +350,40 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           board[rowBoard][colBoard] = "p1";
           board[lastMovePlayer1[0]][lastMovePlayer1[1]] = "e";
           console.log("From Div " + fromDiv + " To div " + toDiv);
+
+          //////////////////////
+          //////////////////////////////
+          //Check if playerOne makes mill
+          let makesMillP1 = makesMill(board, "p1", lastMovePlayer1);
+          if (makesMillP1) {
+            CurrentPlayer = player1;
+            console.log("PlayerOne makes mill- Second Phase");
+
+            const opponentPositionsBoard = locate(board, "p2");
+            for (let i = 0; i < opponentPositionsBoard.length; i++) {
+              const opponentPosition =
+                boardIndex[opponentPositionsBoard[i][0]][
+                  opponentPositionsBoard[i][1]
+                ];
+              const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
+              const cellDiv = document.getElementById(cellDivId);
+              const handleClick = () => {
+                cellDiv.style.backgroundColor = "#fff";
+                board[opponentPositionsBoard[i][0]][
+                  opponentPositionsBoard[i][1]
+                ] = "e";
+                piecesOnBoardP2 -= 1;
+                cellDiv.removeEventListener("click", handleClick);
+              };
+              cellDiv.addEventListener("click", handleClick);
+            }
+          }
+          ///////////////////////////////////
           ///Resetting canMoveInArray and lastMovePlayer1 to empty
           canMoveInArray.length = 0;
           lastMovePlayer1.length = 0;
           player1MadeMove = true;
-          //////////////////////
+
           playerOnePiecesContainer.classList.remove("active-pieces-container");
           playerTwoPiecesContainer.classList.add("active-pieces-container");
         }
@@ -464,14 +490,45 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
             board[rowBoard][colBoard] = "p2";
             board[lastMovePlayer2[0]][lastMovePlayer2[1]] = "e";
             console.log("From Div " + fromDiv + " To div " + toDiv);
+
+            //////////////////////////////
+            //Check if playerTwo makes mill
+            let makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
+            if (makesMillP2) {
+              CurrentPlayer = player2;
+              console.log("PlayerTwo makes mill");
+
+              const opponentPositionsBoard = locate(board, "p1");
+              for (let i = 0; i < opponentPositionsBoard.length; i++) {
+                const opponentPosition =
+                  boardIndex[opponentPositionsBoard[i][0]][
+                    opponentPositionsBoard[i][1]
+                  ];
+                const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
+                const cellDiv = document.getElementById(cellDivId);
+                const handleClick = () => {
+                  cellDiv.style.backgroundColor = "#fff";
+                  board[opponentPositionsBoard[i][0]][
+                    opponentPositionsBoard[i][1]
+                  ] = "e";
+                  piecesOnBoardP1 -= 1;
+                  cellDiv.removeEventListener("click", handleClick);
+                };
+                cellDiv.addEventListener("click", handleClick);
+              }
+            }
+            ///////////////////////////////////
+
             ///Resetting canMoveInArray and lastMovePlayer1 to empty
             canMoveInArray.length = 0;
             lastMovePlayer2.length = 0;
             player2MadeMove = true;
-          }
 
-          playerOnePiecesContainer.classList.add("active-pieces-container");
-          playerTwoPiecesContainer.classList.remove("active-pieces-container");
+            playerOnePiecesContainer.classList.add("active-pieces-container");
+            playerTwoPiecesContainer.classList.remove(
+              "active-pieces-container"
+            );
+          }
 
           if (player2MadeMove) {
             CurrentPlayer = player1;
