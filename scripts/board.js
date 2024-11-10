@@ -215,9 +215,9 @@ function rebuildBoard(numRows, numCols) {
 // Initialize the board array to represent the game state
 function initializeBoardState(numRows, numCols) {
   board.length = 0; // Clear existing content
-  for (let i = 0; i < numRows; i++) {
+  for (let i = 0; i < getBoardDimension(); i++) {
     board[i] = [];
-    for (let j = 0; j < numCols; j++) {
+    for (let j = 0; j < 8; j++) {
       board[i][j] = "e"; // 'e' represents an empty cell
     }
   }
