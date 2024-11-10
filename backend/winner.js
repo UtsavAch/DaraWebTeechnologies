@@ -95,6 +95,6 @@ export function makesMill(board, player, position) {
 }
 
 // Example usage
-const player = "p1";
-const position = [1, 1];
-console.log(makesMill(exampleBoard, player, position)); // Returns true if a mill is formed, false otherwise
+//const player = "p1";
+//const position = [1, 1];
+//console.log(makesMill(exampleBoard, player, position)); // Returns true if a mill is formed, false otherwise
