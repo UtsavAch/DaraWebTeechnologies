@@ -395,3 +395,43 @@ function handleMill(player, opponent, lastMove) {
     }
   }
 }
+
+/////////////////////////////////
+//RESETTING THE GAME
+export function resetBoard() {
+  ////Resetting the no of pieces and pieces on board to initial values
+  noOfPiecesP1 = 3 * boardDimension;
+  noOfPiecesP2 = 3 * boardDimension;
+  piecesOnBoardP1 = 0;
+  piecesOnBoardP2 = 0;
+  ////Resetting the board
+  for (let i = 0; i < boardDimension; i++) {
+    board[i] = [];
+    for (let j = 0; j < 8; j++) {
+      board[i][j] = "e";
+    }
+  }
+  document.querySelectorAll(".cell-div").forEach((cellDiv) => {
+    cellDiv.style.backgroundColor = "#fff";
+  });
+  ///Filling all the pieces of playerOne
+  const p1Pieces = document.querySelectorAll(".piece_p1");
+  if (p1Pieces.length < noOfPiecesP1) {
+    for (let i = p1Pieces.length; i < noOfPiecesP1; i++) {
+      const piece1 = document.createElement("span");
+      piece1.id = `p1_${i}`;
+      piece1.classList.add("piece", "piece_p1");
+      playerOnePiecesContainer.appendChild(piece1);
+    }
+  }
+  ///Filling all the pieces of playerTwo
+  const p2Pieces = document.querySelectorAll(".piece_p2");
+  if (p2Pieces.length < noOfPiecesP2) {
+    for (let i = p2Pieces.length; i < noOfPiecesP2; i++) {
+      const piece2 = document.createElement("span");
+      piece2.id = `p2_${i}`;
+      piece2.classList.add("piece", "piece_p2");
+      playerTwoPiecesContainer.appendChild(piece2);
+    }
+  }
+}
