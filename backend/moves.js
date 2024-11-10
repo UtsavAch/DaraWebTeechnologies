@@ -1,6 +1,6 @@
 //Nine mens moris MOVES
 // it locates te indexes of the given state in the board
-function locate(board, state) {
+export function locate(board, state) {
   const location = [];
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[row].length; col++) {
@@ -84,7 +84,7 @@ export function secondPhaseMove(board, player) {
   playerMens.forEach((piece) => {
     const possibleMoves = canMove(piece, board);
     if (possibleMoves.length > 0) {
-      movablePieces.push(piece); 
+      movablePieces.push(piece);
     }
   });
   //console.log(movablePieces); //debug
@@ -110,7 +110,7 @@ export function selectOpponentPosition(board, player) {
   const opponent = player === "p1" ? "p2" : "p1";
 
   // Collect positions of the opponent's pieces
-  const opponentPositions = locate(board,opponent);
+  const opponentPositions = locate(board, opponent);
   // unecessary locate function does this
   //for (let row = 0; row < board.length; row++) {
   //  for (let col = 0; col < board[row].length; col++) {

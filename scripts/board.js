@@ -108,6 +108,7 @@ import {
   firstPhaseMove,
   secondPhaseMove,
   canMove,
+  locate,
   selectOpponentPosition,
 } from "../backend/moves.js";
 import { winner, makesMill } from "../backend/winner.js";
@@ -164,11 +165,33 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
         //////////////////////////////
         //Check if playerOne makes mill
-        const makesMillP1 = makesMill(board, "p1", lastMovePlayer1);
+        let makesMillP1 = makesMill(board, "p1", lastMovePlayer1);
         if (makesMillP1) {
+          CurrentPlayer = player1;
           console.log("PlayerOne makes mill");
+
+          //////////////////////////////
+          //Check if playerOne makes mill
+          const opponentPositionsBoard = locate(board, "p2");
+          for (let i = 0; i < opponentPositionsBoard.length; i++) {
+            const opponentPosition =
+              boardIndex[opponentPositionsBoard[i][0]][
+                opponentPositionsBoard[i][1]
+              ];
+            const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
+            const cellDiv = document.getElementById(cellDivId);
+            const handleClick = () => {
+              cellDiv.style.backgroundColor = "#fff";
+              board[opponentPositionsBoard[i][0]][
+                opponentPositionsBoard[i][1]
+              ] = "e";
+              piecesOnBoardP2 -= 1;
+              cellDiv.removeEventListener("click", handleClick);
+            };
+            cellDiv.addEventListener("click", handleClick);
+          }
         }
-        ////////////////
+        ///////////////////////////////////
         playerTwoPiecesContainer.classList.add("active-pieces-container");
         playerOnePiecesContainer.classList.remove("active-pieces-container");
 
