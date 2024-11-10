@@ -1,18 +1,18 @@
-Validate the HTML:
-    check border="1" error and for in labels...
-
 Fix board size stuff
 
 To allow to count the wins of the player so it is added to leaderboard
 
-Change input to checkMills works correctly postion gives the OLD postion insted of new
 
 Complete the game logic:
+    Change input to checkMills works correctly postion gives the OLD postion insted of new
+
     End game once a one wins - I ACTUALLY DONT KNOW IF IT IS DONE I AM NOT ABLE TO FINISH....
+
     Make a draw possible (no valid moves? and both have 3 pieces and has passed 10 turns)
+    
     Make it so that you take the openent men when you made a mill before he moves
 
 AI:
     Either improve the random choices with somewhat smart choices, like it prioritizes a mill
-    Or make minimax
+    (Or make minimax)
 
