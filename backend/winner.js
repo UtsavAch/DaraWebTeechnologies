@@ -42,26 +42,34 @@ export function makesMill(board, player, position) {
   const row = position[0];
   const col = position[1];
 
-  // Check Horizontal Mill (cyclic within the row)
   function checkHorizontalMill(row, col) {
-    // Horizontal mill possibilities centered around the move
-    const left = (col - 1 + numCols) % numCols;
-    const right = (col + 1) % numCols;
+    if (col % 2 === 0) {
+      // For even columns, check wrap-around possibilities
+      const left1 = (col - 1 + numCols) % numCols;
+      const left2 = (col - 2 + numCols) % numCols;
+      const right1 = (col + 1) % numCols;
+      const right2 = (col + 2) % numCols;
 
-    // Check if this move completes a horizontal mill
-    return (
-      (board[row][left] === player && board[row][right] === player) ||
-      (board[row][(col + 2) % numCols] === player &&
-        board[row][right] === player) ||
-      (board[row][left] === player &&
-        board[row][(col - 2 + numCols) % numCols] === player)
-    );
+      return (
+        (board[row][left1] === player && board[row][left2] === player) ||
+        (board[row][right1] === player && board[row][right2] === player)
+      );
+    } else {
+      // For odd columns, only check adjacent cells
+      const left = col - 1;
+      const right = col + 1;
+
+      return (
+        (left >= 0 && board[row][left] === player && board[row][col] === player) &&
+        (right < numCols && board[row][right] === player && board[row][col] === player)
+      );
+    }
   }
 
   // Helper to check specific vertical mill around the latest move
   function checkVerticalMill(row, col) {
     if (col % 2 === 1) {
-      // Only vertical mills on odd columns
+      // Only vertical mills on odd columns by vertical mill i mean form diferent rows
       const up = row - 1;
       const down = row + 1;
 
@@ -88,13 +96,15 @@ export function makesMill(board, player, position) {
   const hasHorizontalMill = checkHorizontalMill(row, col);
   const hasVerticalMill = checkVerticalMill(row, col);
 
-  //console.log("horizonmtal: ",hasHorizontalMill);
-  //console.log("vertical: ",hasVerticalMill);
+  console.log("new position:",position);
+  console.log("new board:",board);
+  console.log("horizonmtal: ",hasHorizontalMill);
+  console.log("vertical: ",hasVerticalMill);
 
   return hasHorizontalMill || hasVerticalMill;
 }
 
 // Example usage
-//const player = "p1";
-//const position = [1, 1];
-//console.log(makesMill(exampleBoard, player, position)); // Returns true if a mill is formed, false otherwise
+const player = "p1";
+const position = [1, 1];
+console.log(makesMill(exampleBoard, player, position)); // Returns true if a mill is formed, false otherwise
