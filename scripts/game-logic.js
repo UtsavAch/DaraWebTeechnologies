@@ -83,30 +83,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
         //////////////////////////////
         //Check if playerOne makes mill
-        let makesMillP1 = makesMill(board, "p1", lastMovePlayer1);
-        if (makesMillP1) {
-          CurrentPlayer = player1;
-          console.log("PlayerOne makes mill");
-
-          const opponentPositionsBoard = locate(board, "p2");
-          for (let i = 0; i < opponentPositionsBoard.length; i++) {
-            const opponentPosition =
-              boardIndex[opponentPositionsBoard[i][0]][
-                opponentPositionsBoard[i][1]
-              ];
-            const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
-            const cellDiv = document.getElementById(cellDivId);
-            const handleClick = () => {
-              cellDiv.style.backgroundColor = "#fff";
-              board[opponentPositionsBoard[i][0]][
-                opponentPositionsBoard[i][1]
-              ] = "e";
-              piecesOnBoardP2 -= 1;
-              cellDiv.removeEventListener("click", handleClick);
-            };
-            cellDiv.addEventListener("click", handleClick);
-          }
-        }
+        handleMill("p1", "p2", lastMovePlayer1);
         ///////////////////////////////////
         playerTwoPiecesContainer.classList.add("active-pieces-container");
         playerOnePiecesContainer.classList.remove("active-pieces-container");
@@ -122,19 +99,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
             //////////////////////////////
             //Check if playerTwo(Computer) makes mill
-            const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
-            if (makesMillP2) {
-              setTimeout(() => {
-                console.log("PlayerTwo makes mill");
-                const [remRow, remCol] = selectOpponentPosition(board, "p2");
-                const cellDivPosition = boardIndex[remRow][remCol];
-                const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
-                const cellDiv = document.getElementById(cellDivId);
-                cellDiv.style.backgroundColor = "#fff";
-                board[remRow][remCol] = "e";
-                piecesOnBoardP1 -= 1;
-              }, 500);
-            }
+            handleComputerMill();
             ////////////////
 
             const cellDivPosition = boardIndex[rowBoard][colBoard];
@@ -190,32 +155,8 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
           //////////////////////////////
           //Check if playerTwo makes mill
-          let makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
-          if (makesMillP2) {
-            CurrentPlayer = player2;
-            console.log("PlayerTwo makes mill");
-
-            const opponentPositionsBoard = locate(board, "p1");
-            for (let i = 0; i < opponentPositionsBoard.length; i++) {
-              const opponentPosition =
-                boardIndex[opponentPositionsBoard[i][0]][
-                  opponentPositionsBoard[i][1]
-                ];
-              const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
-              const cellDiv = document.getElementById(cellDivId);
-              const handleClick = () => {
-                cellDiv.style.backgroundColor = "#fff";
-                board[opponentPositionsBoard[i][0]][
-                  opponentPositionsBoard[i][1]
-                ] = "e";
-                piecesOnBoardP1 -= 1;
-                cellDiv.removeEventListener("click", handleClick);
-              };
-              cellDiv.addEventListener("click", handleClick);
-            }
-          }
+          handleMill("p2", "p1", lastMovePlayer2);
           ///////////////////////////////////
-          ////////////////
           playerOnePiecesContainer.classList.add("active-pieces-container");
           playerTwoPiecesContainer.classList.remove("active-pieces-container");
           CurrentPlayer = player1;
@@ -267,30 +208,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           //////////////////////
           //////////////////////////////
           //Check if playerOne makes mill
-          let makesMillP1 = makesMill(board, "p1", lastMovePlayer1);
-          if (makesMillP1) {
-            CurrentPlayer = player1;
-            console.log("PlayerOne makes mill- Second Phase");
-
-            const opponentPositionsBoard = locate(board, "p2");
-            for (let i = 0; i < opponentPositionsBoard.length; i++) {
-              const opponentPosition =
-                boardIndex[opponentPositionsBoard[i][0]][
-                  opponentPositionsBoard[i][1]
-                ];
-              const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
-              const cellDiv = document.getElementById(cellDivId);
-              const handleClick = () => {
-                cellDiv.style.backgroundColor = "#fff";
-                board[opponentPositionsBoard[i][0]][
-                  opponentPositionsBoard[i][1]
-                ] = "e";
-                piecesOnBoardP2 -= 1;
-                cellDiv.removeEventListener("click", handleClick);
-              };
-              cellDiv.addEventListener("click", handleClick);
-            }
-          }
+          handleMill("p1", "p2", lastMovePlayer1);
           ///////////////////////////////////
           ///Resetting canMoveInArray and lastMovePlayer1 to empty
           canMoveInArray.length = 0;
@@ -331,19 +249,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
             //////////////////////////////
             //Check if playerTwo(Computer) makes mill
-            const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
-            if (makesMillP2) {
-              setTimeout(() => {
-                console.log("PlayerTwo makes mill - phaseTwo");
-                const [remRow, remCol] = selectOpponentPosition(board, "p2");
-                const cellDivPosition = boardIndex[remRow][remCol];
-                const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
-                const cellDiv = document.getElementById(cellDivId);
-                cellDiv.style.backgroundColor = "#fff";
-                board[remRow][remCol] = "e";
-                piecesOnBoardP1 -= 1;
-              }, 500);
-            }
+            handleComputerMill();
             ////////////////
             lastMovePlayer2.length = 0;
 
@@ -406,30 +312,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
             //////////////////////////////
             //Check if playerTwo makes mill
-            let makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
-            if (makesMillP2) {
-              CurrentPlayer = player2;
-              console.log("PlayerTwo makes mill");
-
-              const opponentPositionsBoard = locate(board, "p1");
-              for (let i = 0; i < opponentPositionsBoard.length; i++) {
-                const opponentPosition =
-                  boardIndex[opponentPositionsBoard[i][0]][
-                    opponentPositionsBoard[i][1]
-                  ];
-                const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
-                const cellDiv = document.getElementById(cellDivId);
-                const handleClick = () => {
-                  cellDiv.style.backgroundColor = "#fff";
-                  board[opponentPositionsBoard[i][0]][
-                    opponentPositionsBoard[i][1]
-                  ] = "e";
-                  piecesOnBoardP1 -= 1;
-                  cellDiv.removeEventListener("click", handleClick);
-                };
-                cellDiv.addEventListener("click", handleClick);
-              }
-            }
+            handleMill("p2", "p1", lastMovePlayer2);
             ///////////////////////////////////
 
             ///Resetting canMoveInArray and lastMovePlayer1 to empty
@@ -452,3 +335,58 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
     console.log(board);
   });
 });
+
+///////////////////////////
+//AUXILIARY FUNCTIONS
+
+///////////
+//Handle computer makes MILL
+function handleComputerMill() {
+  const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
+  if (makesMillP2) {
+    setTimeout(() => {
+      console.log("PlayerTwo makes mill");
+      const [remRow, remCol] = selectOpponentPosition(board, "p2");
+      const cellDivPosition = boardIndex[remRow][remCol];
+      const cellDivId = `cell-div-${cellDivPosition[0]}-${cellDivPosition[1]}`;
+      const cellDiv = document.getElementById(cellDivId);
+      cellDiv.style.backgroundColor = "#fff";
+      board[remRow][remCol] = "e";
+      piecesOnBoardP1 -= 1;
+    }, 500);
+  }
+}
+
+//////////////////////////////////////
+// Handle player makes mill
+function handleMill(player, opponent, lastMove) {
+  const madeMill = makesMill(board, player, lastMove);
+  if (madeMill) {
+    CurrentPlayer = player;
+    console.log(`${player} makes mill`);
+
+    const opponentPositionsBoard = locate(board, opponent);
+    for (let i = 0; i < opponentPositionsBoard.length; i++) {
+      const opponentPosition =
+        boardIndex[opponentPositionsBoard[i][0]][opponentPositionsBoard[i][1]];
+      const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
+      const cellDiv = document.getElementById(cellDivId);
+
+      const handleClick = () => {
+        cellDiv.style.backgroundColor = "#fff";
+        board[opponentPositionsBoard[i][0]][opponentPositionsBoard[i][1]] = "e";
+
+        // Adjust piece count based on opponent
+        if (opponent === "p1") {
+          piecesOnBoardP1 -= 1;
+        } else if (opponent === "p2") {
+          piecesOnBoardP2 -= 1;
+        }
+
+        cellDiv.removeEventListener("click", handleClick);
+      };
+
+      cellDiv.addEventListener("click", handleClick);
+    }
+  }
+}
