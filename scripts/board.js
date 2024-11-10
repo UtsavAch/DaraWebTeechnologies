@@ -119,8 +119,8 @@ import {
 } from "../backend/helpers.js";
 
 const player1 = "playerOne";
-const player2 = "computer";
-// const player2 = "playerTwo";
+// const player2 = "computer";
+const player2 = "playerTwo";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
@@ -175,8 +175,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           CurrentPlayer = player1;
           console.log("PlayerOne makes mill");
 
-          //////////////////////////////
-          //Check if playerOne makes mill
           const opponentPositionsBoard = locate(board, "p2");
           for (let i = 0; i < opponentPositionsBoard.length; i++) {
             const opponentPosition =
@@ -279,10 +277,31 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
 
           //////////////////////////////
           //Check if playerTwo makes mill
-          const makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
+          let makesMillP2 = makesMill(board, "p2", lastMovePlayer2);
           if (makesMillP2) {
+            CurrentPlayer = player2;
             console.log("PlayerTwo makes mill");
+
+            const opponentPositionsBoard = locate(board, "p1");
+            for (let i = 0; i < opponentPositionsBoard.length; i++) {
+              const opponentPosition =
+                boardIndex[opponentPositionsBoard[i][0]][
+                  opponentPositionsBoard[i][1]
+                ];
+              const cellDivId = `cell-div-${opponentPosition[0]}-${opponentPosition[1]}`;
+              const cellDiv = document.getElementById(cellDivId);
+              const handleClick = () => {
+                cellDiv.style.backgroundColor = "#fff";
+                board[opponentPositionsBoard[i][0]][
+                  opponentPositionsBoard[i][1]
+                ] = "e";
+                piecesOnBoardP2 -= 1;
+                cellDiv.removeEventListener("click", handleClick);
+              };
+              cellDiv.addEventListener("click", handleClick);
+            }
           }
+          ///////////////////////////////////
           ////////////////
           playerOnePiecesContainer.classList.add("active-pieces-container");
           playerTwoPiecesContainer.classList.remove("active-pieces-container");
