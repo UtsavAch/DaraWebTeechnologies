@@ -1,4 +1,5 @@
 import { setNotificationMessage } from "./config.js";
+import { resetBoard } from "./game-logic.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const leaderboardButton = document.getElementById("leaderboard-btn");
@@ -168,6 +169,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   overlayConfirmButton.addEventListener("click", () => {
+    resetBoard();
     setNotificationMessage("I hope you enjoyed the game :)");
     confirmExitContainer.style.display = "none";
     boardContainer.style.display = "none";
@@ -190,19 +192,19 @@ function validateSinglePlayerInput() {
   var player = document.getElementById("name").value;
   if (player == "") {
     message.push("Please enter player name");
-    setNotificationMessage("Make sure if the form is filled !!");
+    setNotificationMessage("Make sure if the form is filled correctly!!");
   }
   var size = document.getElementById("singleplayer-size").value;
   if (size < 2 || size > 5) {
     message.push("Please enter a valid board size");
-    setNotificationMessage("Make sure if the form is filled !!");
+    setNotificationMessage("Make sure if the form is filled correctly!!");
   }
   var easy = document.getElementById("easy");
   var medium = document.getElementById("medium");
   var hard = document.getElementById("hard");
   if (!easy.checked && !medium.checked && !hard.checked) {
     message.push("Please select a difficulty level");
-    setNotificationMessage("Make sure if the form is filled !!");
+    setNotificationMessage("Make sure if the form is filled correctly!!");
   }
 
   var error = document.getElementById("error-messages-single");
