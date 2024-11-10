@@ -49,6 +49,12 @@ let lastMovePlayer1 = [];
 let lastMovePlayer2 = [];
 const canMoveInArray = []; ////IMPORTANT IN SECOND PHASE
 
+console.log(`CurrentPlayer: ${CurrentPlayer}`);
+console.log(`Player 1 Pieces: ${noOfPiecesP1}, Player 2 Pieces: ${noOfPiecesP2}`);
+console.log("board",board);
+console.log("boartd indec:",boardIndex);
+
+
 //SWITCHING BETWEEN TWO PLAYERS
 document.querySelectorAll(".cell-div").forEach((cellDiv) => {
   cellDiv.addEventListener("click", () => {
@@ -421,24 +427,21 @@ export function resetBoard() {
   document.querySelectorAll(".cell-div").forEach((cellDiv) => {
     cellDiv.style.backgroundColor = "#fff";
   });
-  ///Filling all the pieces of playerOne
-  const p1Pieces = document.querySelectorAll(".piece_p1");
-  if (p1Pieces.length < noOfPiecesP1) {
-    for (let i = p1Pieces.length; i < noOfPiecesP1; i++) {
-      const piece1 = document.createElement("span");
-      piece1.id = `p1_${i}`;
-      piece1.classList.add("piece", "piece_p1");
-      playerOnePiecesContainer.appendChild(piece1);
-    }
-  }
-  ///Filling all the pieces of playerTwo
-  const p2Pieces = document.querySelectorAll(".piece_p2");
-  if (p2Pieces.length < noOfPiecesP2) {
-    for (let i = p2Pieces.length; i < noOfPiecesP2; i++) {
-      const piece2 = document.createElement("span");
-      piece2.id = `p2_${i}`;
-      piece2.classList.add("piece", "piece_p2");
-      playerTwoPiecesContainer.appendChild(piece2);
-    }
+
+  // Refill all the pieces of playerOne and playerTwo
+  fillPieces(playerOnePiecesContainer, "piece_p1", noOfPiecesP1);
+  fillPieces(playerTwoPiecesContainer, "piece_p2", noOfPiecesP2);
+}
+
+// Helper function to add pieces back to containers
+function fillPieces(container, pieceClass, numPieces) {
+  const currentPieces = document.querySelectorAll(`.${pieceClass}`);
+  const existingPiecesCount = currentPieces.length;
+
+  for (let i = existingPiecesCount; i < numPieces; i++) {
+    const piece = document.createElement("span");
+    piece.id = `${pieceClass}_${i}`;
+    piece.classList.add("piece", pieceClass);
+    container.appendChild(piece);
   }
 }

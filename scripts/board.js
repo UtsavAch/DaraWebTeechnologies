@@ -33,10 +33,11 @@ export function updateBoard() {
   const numCols = cols();
   console.log("Updated rows:", numRows, "Updated cols:", numCols);
 
-  initializeBoardState(numRows, numCols); // Initialize board state array
   rebuildBoard(numRows, numCols);         // Build board HTML structure
   applyBorderPatterns();                  // Apply border patterns
   drawPlayerPieces();                     // Redraw player pieces
+  initializeBoardState(); // Initialize board state array
+
 }
 
 // Function to remove specified borders from a cell
@@ -213,7 +214,7 @@ function rebuildBoard(numRows, numCols) {
 }
 
 // Initialize the board array to represent the game state
-function initializeBoardState(numRows, numCols) {
+function initializeBoardState() {
   board.length = 0; // Clear existing content
   for (let i = 0; i < getBoardDimension(); i++) {
     board[i] = [];
