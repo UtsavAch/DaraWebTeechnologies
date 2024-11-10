@@ -1,5 +1,5 @@
 export const boardDimension = {
-  dimension : 4,
+  dimension : 3,
 };
 
 export const rows = boardDimension.dimension * 2 + 1;
