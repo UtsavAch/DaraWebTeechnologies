@@ -156,21 +156,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
     if (validation) {
       setNotificationMessage("Let the battle begin !");
       event.preventDefault();
-      const playerName = document.getElementById("name").value;
-      const dimension = document.getElementById("singleplayer-size").value;
-      const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+      const playerName = document.getElementById("name");
+      const dimension = document.getElementById("singleplayer-size");
+      const difficulty = document.querySelector('input[name="difficulty"]:checked');
 
-      boardDimension.dimension = parseInt(dimension);
+      boardDimension.dimension = parseInt(dimension.value);
+      dimension.value = "";
       const difficultyLevel = document.getElementById("display-difficulty");
-      difficultyLevel.textContent = "Difficulty: " + difficulty ;
+      difficultyLevel.textContent = "Difficulty: " + difficulty.value;
       const playerOne = document.getElementById("player-one-name");
-      playerOne.textContent = playerName;
+      playerOne.textContent = playerName.value;
       const computer = document.getElementById("player-two-name");
       computer.textContent = "Computer";
 
-      const player = new Player(playerName);
+      const player = new Player(playerName.value);
       leaderboard.addPlayer(player);
       console.log("Player added:", player); //debug
+      playerName.value = "";
 
       gameContainer.style.display = "none";
       boardContainer.style.display = "block";
