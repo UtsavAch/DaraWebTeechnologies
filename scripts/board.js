@@ -112,6 +112,11 @@ import {
   selectOpponentPosition,
 } from "../backend/moves.js";
 import { winner, makesMill } from "../backend/winner.js";
+import {
+  findTuplePosition,
+  isPlayerInCell,
+  isTupleInArray,
+} from "../backend/helpers.js";
 
 const player1 = "playerOne";
 const player2 = "computer";
@@ -458,39 +463,3 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
     console.log(board);
   });
 });
-
-/////////////////////////////////////////////////////////////////////////
-//////HELPER FUNCTIONS
-function findTuplePosition(array, tuple) {
-  for (let outerIndex = 0; outerIndex < array.length; outerIndex++) {
-    for (
-      let innerIndex = 0;
-      innerIndex < array[outerIndex].length;
-      innerIndex++
-    ) {
-      const currentTuple = array[outerIndex][innerIndex];
-      if (currentTuple[0] === tuple[0] && currentTuple[1] === tuple[1]) {
-        return [outerIndex, innerIndex];
-      }
-    }
-  }
-  return null;
-}
-
-//Check if the provided player is in given index
-function isPlayerInCell(board, player, index) {
-  const [row, col] = index;
-
-  // Ensure the index is within bounds
-  if (row >= 0 && row < board.length && col >= 0 && col < board[0].length) {
-    return board[row][col] === player;
-  }
-
-  // If index is out of bounds, return false
-  return false;
-}
-
-//To check if a tuple is present in a given array
-function isTupleInArray(array, tuple) {
-  return array.some((item) => item[0] === tuple[0] && item[1] === tuple[1]);
-}
