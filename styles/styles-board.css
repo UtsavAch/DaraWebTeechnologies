@@ -15,11 +15,17 @@
 
 #myTable {
   margin: 20px 0 0 20px;
-  border-collapse: collapse;
+  border-collapse: collapse; /* Keeps table borders together */
   height: 100%;
   width: 100%;
-  border: none;
+  border: none; /* Ensures a thin solid black border */
 }
+
+#myTable th, #myTable td {
+  border: 3px solid black;  /* Adds a thin border around the table cells */
+  padding: 8px;  /* Adds some padding to make the table more readable */
+}
+
 
 .cell {
   border-color: black;
@@ -64,7 +70,9 @@
 }
 
 #board-btns-container .icon-btn,
-#confirm-exit-btns-container .icon-btn {
+#confirm-exit-btns-container-1 .icon-btn, 
+#confirm-exit-btns-container-2 .icon-btn, 
+#confirm-exit-btns-container-3 .icon-btn{
   width: 25px;
   height: 25px;
   border: none;
@@ -78,7 +86,9 @@
 }
 
 #board-btns-container .icon-btn:hover,
-#confirm-exit-btns-container .icon-btn:hover {
+#confirm-exit-btns-container-1 .icon-btn:hover,
+#confirm-exit-btns-container-2 .icon-btn:hover, 
+#confirm-exit-btns-container-3 .icon-btn:hover{
   background-color: #333;
   transform: scale(
     1.05
