@@ -51,8 +51,12 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
     //Checking for the winner
     if (isSecondPhase && winner(board, "p1")) {
       console.log("Player one is the winner");
+      const winnerContainer = document.getElementById("winner-container");
+      winnerContainer.style.display = "flex";
       return;
     } else if (isSecondPhase && winner(board, "p2")) {
+      const winnerContainer = document.getElementById("winner-container");
+      winnerContainer.style.display = "flex";
       console.log("Player two is the winner");
       return;
     }

@@ -80,17 +80,24 @@
 #board-btns-container .icon-btn:hover,
 #confirm-exit-btns-container .icon-btn:hover {
   background-color: #333;
-  transform: scale(1.05);  /* Use transform instead of 'scale' for better compatibility */
+  transform: scale(
+    1.05
+  ); /* Use transform instead of 'scale' for better compatibility */
   transition: ease-in-out 0.07s;
 }
-
 
 /* Confirm exit */
 #confirm-exit-container {
   display: none;
 }
 
-#confirm-exit {
+/* Winner */
+#winner-container {
+  display: none;
+}
+
+#confirm-exit,
+#winner-message {
   width: 350px;
   background-color: #f0f0f0;
   border-radius: 20px;
@@ -101,7 +108,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-#confirm-exit p {
+#confirm-exit p,
+#winner-message p {
   font-size: 20px;
   font-weight: 500;
 }
