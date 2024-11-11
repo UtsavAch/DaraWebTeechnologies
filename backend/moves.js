@@ -111,14 +111,6 @@ export function selectOpponentPosition(board, player) {
 
   // Collect positions of the opponent's pieces
   const opponentPositions = locate(board, opponent);
-  // unecessary locate function does this
-  //for (let row = 0; row < board.length; row++) {
-  //  for (let col = 0; col < board[row].length; col++) {
-  //    if (board[row][col] === opponent) {
-  //      opponentPositions.push([row, col]);
-  //    }
-  //  }
-  // }
 
   // If no opponent positions found, return null or handle as needed
   if (opponentPositions.length === 0) return null;

@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="styles/styles-main.css" />
-    <link rel="stylesheet" href="styles/styles-help-stats.css" />
-    <link rel="stylesheet" href="styles/styles-config.css" />
-    <link rel="stylesheet" href="styles/styles-board.css" />
-    <link rel="stylesheet" href="styles/styles-notification.css" />
-    <link rel="stylesheet" href="styles/styles-players.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles/styles-main.css">
+    <link rel="stylesheet" href="styles/styles-help-stats.css">
+    <link rel="stylesheet" href="styles/styles-config.css">
+    <link rel="stylesheet" href="styles/styles-board.css">
+    <link rel="stylesheet" href="styles/styles-notification.css">
+    <link rel="stylesheet" href="styles/styles-players.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
-    />
+    >
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-    />
+    >
     <title>Nine Men's Morris</title>
   </head>
   <body>
     <!-- Audios and sounds -->
     <!-- Audios from freemusicarchive.org -->
-    <section id="audio-section">
+    <div id="audio-section">
       <audio
         id="background-music"
         src="/audios/background-music.mp3"
@@ -31,11 +31,11 @@
       ></audio>
       <audio id="battle-music" src="/audios/battle-music.mp3" loop></audio>
       <audio id="button-click" src="/audios/button-click.mp3"></audio>
-    </section>
+    </div>
     <nav>
       <!--<button class="basic-btn">Login</button>-->
     </nav>
-    <section class="title">
+    <div class="title">
       <h1>Nine Men's Morris</h1>
       <div class="info">
         <span
@@ -57,9 +57,9 @@
           volume_off
         </span>
       </div>
-    </section>
+    </div>
 
-    <section id="leaderboard-container" class="overlay">
+    <div id="leaderboard-container" class="overlay">
       <div class="leaderboard-content">
         <h3>Leaderboard</h3>
         <table id="leaderboard-table">
@@ -84,7 +84,7 @@
           close
         </span>
       </div>
-    </section>
+    </div>
 
     <!--Help Container -->
     <section id="help-container" class="overlay">
@@ -132,11 +132,11 @@
     <!-- MAIN -->
     <main id="main-container">
       <!-- Notification -->
-      <section id="notification-container">
+      <div id="notification-container">
         <p id="notification-message">Hey there! What's going on?</p>
         <!--Gif is from iconscout-->
-        <img id="notification-img" src="/images/SpookyCat.gif" alt="SpookyCat"/>
-      </section>
+        <img id="notification-img" src="/images/SpookyCat.gif" alt="SpookyCat">
+      </div>
       <!-- Configuration -->
       <section id="game-container" class="game-container">
         <div class="config-container">
@@ -147,14 +147,14 @@
           <div id="singleplayer-view">
             <div class="input-group">
               <label for="name">Name:</label>
-              <input type="text" id="name" name="name" required />
+              <input type="text" id="name" name="name" required>
             </div>
             <div class="input-group">
               <label for="singleplayer-size">Board size:</label>
-              <input type="number" id="singleplayer-size" name="size" min="2" max="5" />
+              <input type="number" id="singleplayer-size" name="size" min="2" max="5">
             </div>
             <div class="radio-group">
-              <label for="difficulty">Difficulty:</label>
+              <label>Difficulty:</label>
               <div id="difficulty-radio" class="radio-options">
                 <!-- Easy Option -->
                 <div>
@@ -165,7 +165,7 @@
                     value="easy"
                     aria-labelledby="easy-label"
                     required
-                  />
+                  >
                   <label for="easy" id="easy-label">Easy</label>
                 </div>
                 
@@ -178,7 +178,7 @@
                     value="medium"
                     aria-labelledby="medium-label"
                     required
-                  />
+                  >
                   <label for="medium" id="medium-label">Medium</label>
                 </div>
                 
@@ -191,7 +191,7 @@
                     value="hard"
                     aria-labelledby="hard-label"
                     required
-                  />
+                  >
                   <label for="hard" id="hard-label">Hard</label>
                 </div>
               </div>
@@ -210,22 +210,22 @@
             <div id="login-form">
               <div class="input-group">
                 <label for="l-username">Username:</label>
-                <input type="text" id="l-username" name="l-username" />
+                <input type="text" id="l-username" name="l-username">
               </div>
               <div class="input-group">
                 <label for="l-password">Password:</label>
-                <input type="password" id="l-password" name="l-password" />
+                <input type="password" id="l-password" name="l-password">
               </div>
               <button id="login-submit" class="submit-btn btn">Login</button>
             </div>
             <div id="register-form">
               <div class="input-group">
                 <label for="r-username">Username:</label>
-                <input type="text" id="r-username" name="r-username" />
+                <input type="text" id="r-username" name="r-username">
               </div>
               <div class="input-group">
                 <label for="r-password">Password:</label>
-                <input type="password" id="r-password" name="r-password" />
+                <input type="password" id="r-password" name="r-password">
               </div>
               <button id="register-submit" class="submit-btn btn">
                 Register
@@ -235,23 +235,23 @@
           <div id="multiplayer-view">
             <div class="input-group">
               <label for="first">First Player:</label>
-              <input type="text" id="first" name="first" />
+              <input type="text" id="first" name="first">
             </div>
             <div class="input-group">
               <label for="second">Second Player:</label>
-              <input type="text" id="second" name="second" />
+              <input type="text" id="second" name="second">
             </div>
             <div class="input-group">
               <label for="multiplayer-size">Board size:</label>
-              <input type="number" id="multiplayer-size" name="name" max="10" />
+              <input type="number" id="multiplayer-size" name="name" max="10">
             </div>
             <div class="radio-group">
-              <label for="game-order">Who starts the game?</label>
+              <label>Who starts the game?</label>
               <div id="player-radio">
-                <input type="radio" id="p1" name="game-order" value="p1" />
-                <label for="p1">First Player</label><br />
-                <input type="radio" id="p2" name="game-order" value="p2" />
-                <label for="p2">Second Player</label><br />
+                <input type="radio" id="p1" name="game-order" value="p1">
+                <label for="p1">First Player</label><br>
+                <input type="radio" id="p2" name="game-order" value="p2">
+                <label for="p2">Second Player</label><br>
               </div>
             </div>
             <button id="start-multiplayer-btn" class="start-btn btn">
@@ -261,13 +261,13 @@
         </div>
       </section>
       <!-- Game Board -->
-      <section id="board-container">
+      <div id="board-container">
         <div id="table-container">
-          <table id="myTable" border="1"></table>
+          <table id="myTable"></table>
         </div>
-      </section>
+      </div>
       <!-- Players -->
-      <section id="players-container">
+      <div id="players-container">
         <div id="player-one-container">
           <div
             id="player-one-pieces-container"
@@ -277,7 +277,7 @@
           </div>
           <div id="player-one-name" class="player-name">Andre</div>
         </div>
-        <img id="versus-img" src="/images/Star.gif" alt="Battle" />
+        <img id="versus-img" src="/images/Star.gif" alt="Battle">
         <div id="player-two-container">
           <div id="player-two-name" class="player-name">Computer</div>
           <div id="player-two-pieces-container" class="pieces-container">
@@ -285,7 +285,7 @@
           </div>
         </div>
         <p id="display-difficulty">Difficulty: </p>
-      </section>
+      </div>
     </main>
     <!-- Game board buttons -->
     <div id="board-btns-container">
@@ -300,7 +300,7 @@
     <div id="confirm-exit-container" class="overlay">
       <div id="confirm-exit">
         <p>Are you sure?</p>
-        <div id="confirm-exit-btns-container">
+        <div id="confirm-exit-btns-container-1">
           <span
             id="overlay-cancel-btn"
             class="material-symbols-outlined icon-btn btn"
@@ -320,7 +320,7 @@
     <div id="winner-container" class="overlay">
       <div id="winner-message">
         <p id="announce-winner">Someone won the game!</p>
-        <div id="confirm-exit-btns-container">
+        <div id="confirm-exit-btns-container-2">
           <span
             id="overlay-replay-btn-winner"
             class="material-symbols-outlined icon-btn btn"
@@ -340,7 +340,7 @@
     <div id="replay-container" class="overlay">
       <div id="replay-message">
         <p>Do you want to replay?</p>
-        <div id="confirm-exit-btns-container">
+        <div id="confirm-exit-btns-container-3">
           <span
             id="overlay-cancel-btn-replay"
             class="material-symbols-outlined icon-btn btn"
@@ -356,7 +356,6 @@
         </div>
       </div>
     </div>
-  </body>
   <script type="module" src="/scripts/config.js"></script>
   <script type="module" src="/scripts/board.js"></script>
   <script type="module" src="/scripts/game-logic.js"></script>
