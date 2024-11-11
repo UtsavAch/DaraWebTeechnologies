@@ -221,7 +221,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
           //////////////////////
           //////////////////////////////
           //Check if playerOne makes mill
-          handleMill("p1", "p2", lastMovePlayer1);
+          handleMill("p1", "p2", [rowBoard, colBoard]);
           ///////////////////////////////////
           ///Resetting canMoveInArray and lastMovePlayer1 to empty
           canMoveInArray.length = 0;
@@ -384,11 +384,11 @@ function handleMill(player, opponent, lastMove) {
             piecesOnBoardP1 -= 1;
           } else if (opponent === "p2") {
             piecesOnBoardP2 -= 1;
+            setNotificationMessage("You captured computer's piece !! ");
           }
           pieceRemoved = true;
           cellDiv.removeEventListener("click", handleClick);
         }
-        setNotificationMessage("You captured computer's piece !! ");
       };
 
       cellDiv.addEventListener("click", handleClick);
@@ -404,6 +404,10 @@ export function resetBoard() {
   noOfPiecesP2 = 3 * boardDimension.dimension;
   piecesOnBoardP1 = 0;
   piecesOnBoardP2 = 0;
+  CurrentPlayer = player1;
+  isSecondPhase = false;
+  lastMovePlayer1.length = 0;
+  lastMovePlayer2.length = 0;
   ////Resetting the board
   for (let i = 0; i < boardDimension.dimension; i++) {
     board[i] = [];
