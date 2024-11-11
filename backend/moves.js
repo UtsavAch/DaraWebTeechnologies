@@ -129,14 +129,6 @@ const exampleBoard = [
 // Each inner array represent the squares of the board from outermost to the innermost board
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
 
-// const bestMove = firstPhaseMove(exampleBoard, "e");
-// console.log("First phase move -> " + bestMove);
-// const p1cells = locate(exampleBoard, "p1");
-// const move = secondPhaseMove(exampleBoard, "p1");
-// console.log("Seconf phase move -> " + move);
-// console.log(selectOpponentPosition(exampleBoard, "p1")); // Should return a position with "p2"
-// console.log(selectOpponentPosition(exampleBoard, "p2")); // Should return a position with "p1"
-
 /*
 
 0   ["e" , "e" , "p1", "e" , "p2", "e" , "e" , "p2"],

@@ -35,6 +35,7 @@ const exampleBoard = [
 // "e" means the position is empty, "p1" means occupied by player1, "p2" means occupied by player2
 
 // Mill checker, position is the new postion it moved to [row,col]
+// removes board[row][col] === player because its always true
 export function makesMill(board, player, position) {
   const numRows = board.length;
   const numCols = board[0].length;
@@ -60,8 +61,8 @@ export function makesMill(board, player, position) {
       const right = col + 1;
 
       return (
-        (left >= 0 && board[row][left] === player && board[row][col] === player) &&
-        (right < numCols && board[row][right] === player && board[row][col] === player)
+        (left >= 0 && board[row][left] === player) &&
+        (right < numCols && board[row][right] === player)
       );
     }
   }
@@ -80,11 +81,9 @@ export function makesMill(board, player, position) {
           board[up][col] === player &&
           board[down][col] === player) ||
         (down + 1 < numRows &&
-          board[row][col] === player &&
           board[down][col] === player &&
           board[down + 1][col] === player) ||
         (up - 1 >= 0 &&
-          board[row][col] === player &&
           board[up][col] === player &&
           board[up - 1][col] === player)
       );
