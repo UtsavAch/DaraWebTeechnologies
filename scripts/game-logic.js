@@ -181,16 +181,11 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
         }
       }
     } else if (
-      (CurrentPlayer === player1 &&
-        noOfPiecesP1 === 0 &&
-        piecesOnBoardP1 > 0) ||
-      (CurrentPlayer === player2 && noOfPiecesP2 === 0 && piecesOnBoardP2 > 0)
+      (CurrentPlayer === player1 && noOfPiecesP1 === 0) ||
+      (CurrentPlayer === player2 && noOfPiecesP2 === 0)
       //// SECOND PHASE LOGIC HERE
     ) {
       isSecondPhase = true;
-      console.log("Phase two has started!! ");
-      console.log(`${CurrentPlayer} is the current player`);
-
       if (CurrentPlayer === player1) {
         /////SECOND PHASE LOGIC FOR PLAYER ONE
         let player1MadeMove = false;
@@ -239,7 +234,6 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
         if (player2 === "computer" && player1MadeMove) {
           setTimeout(() => {
             /////SECOND PHASE LOGIC FOR COMPUTER
-            console.log("Now computer makes PhaseTwo move");
             let player2MadeMove = false;
 
             setTimeout(() => {
@@ -362,6 +356,7 @@ function handleComputerMill() {
       board[remRow][remCol] = "e";
       piecesOnBoardP1 -= 1;
     }, 500);
+    setNotificationMessage("No... Computer captured your piece !! ");
   }
 }
 
@@ -393,6 +388,7 @@ function handleMill(player, opponent, lastMove) {
           pieceRemoved = true;
           cellDiv.removeEventListener("click", handleClick);
         }
+        setNotificationMessage("You captured computer's piece !! ");
       };
 
       cellDiv.addEventListener("click", handleClick);

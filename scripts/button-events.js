@@ -158,11 +158,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
       event.preventDefault();
       const playerName = document.getElementById("name").value;
       const dimension = document.getElementById("singleplayer-size").value;
-      const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
+      const difficulty = document.querySelector(
+        'input[name="difficulty"]:checked'
+      ).value;
 
       boardDimension.dimension = parseInt(dimension);
       const difficultyLevel = document.getElementById("display-difficulty");
-      difficultyLevel.textContent = "Difficulty: " + difficulty ;
+      difficultyLevel.textContent = "Difficulty: " + difficulty;
       const playerOne = document.getElementById("player-one-name");
       playerOne.textContent = playerName;
       const computer = document.getElementById("player-two-name");
