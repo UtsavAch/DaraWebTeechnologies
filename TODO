@@ -16,3 +16,6 @@ AI:
     Either improve the random choices with somewhat smart choices, like it prioritizes a mill
     (Or make minimax)
 
+pieces should be on the side, once captured (visual aid for player to know how its going) DONE
+no mill in first phse
+mills formed only can be removed if no other pieces
