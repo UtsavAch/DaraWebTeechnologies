@@ -1,3 +1,5 @@
+const registered_games = [];
+
 function makeRequest(command, args) {
   // …
   const xhr = new XMLHttpRequest();
@@ -6,7 +8,15 @@ function makeRequest(command, args) {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4) {
       const data = JSON.parse(xhr.responseText);
+      if (command === "join") {
+        console.log("This is from join");
+        registered_games.push(data);
+      }
+      if (command === "leave") {
+        console.log("This is from leave");
+      }
       console.log(xhr.responseText);
+      console.log("Data:- " + data);
     }
   };
   xhr.send(JSON.stringify(args));
@@ -15,3 +25,23 @@ function makeRequest(command, args) {
 function register() {
   makeRequest("register", { nick: "kdsbcfkj", password: "kdvbskj" });
 }
+
+function join() {
+  makeRequest("join", {
+    group: 99,
+    nick: "kdsbcfkj",
+    password: "kdvbskj",
+    size: 4,
+  });
+}
+
+function leave(game) {
+  makeRequest("leave", {
+    nick: "kdsbcfkj",
+    password: "kdvbskj",
+    size: 4,
+    game: game,
+  });
+}
+
+// leave(registered_games[0].game)
