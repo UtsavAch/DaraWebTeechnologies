@@ -45,3 +45,10 @@ function leave(game) {
 }
 
 // leave(registered_games[0].game)
+
+function ranking() {
+  makeRequest("ranking", {
+    group: 99,
+    size: 4,
+  });
+}
