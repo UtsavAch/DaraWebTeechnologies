@@ -1,4 +1,4 @@
-const registered_games = [];
+let registered_game = -1;
 
 function makeRequest(command, args) {
   // …
@@ -10,7 +10,7 @@ function makeRequest(command, args) {
       const data = JSON.parse(xhr.responseText);
       if (command === "join") {
         console.log("This is from join");
-        registered_games.push(data);
+        registered_game = data.game;
       }
       if (command === "leave") {
         console.log("This is from leave");
@@ -21,42 +21,59 @@ function makeRequest(command, args) {
   xhr.send(JSON.stringify(args));
 }
 
-function register() {
-  makeRequest("register", { nick: "kdsbcfkj", password: "kdvbskj" });
+function makePermanentConn(args) {
+  var url = "ws://twserver.alunos.dcc.fc.up.pt:8008/update";
+  var webSocket = new WebSocket(url);
+  webSocket.onmessage = function (event) {
+    var data = JSON.parse(event.data);
+    console.log(data);
+    webSocket.close();
+  };
+  webSocket.send(JSON.stringify(args));
 }
 
-function join() {
+function register(nick, password) {
+  makeRequest("register", { nick: nick, password: password });
+}
+
+function join(group, nick, password, size) {
   makeRequest("join", {
-    group: 99,
-    nick: "kdsbcfkj",
-    password: "kdvbskj",
-    size: 4,
+    group: group,
+    nick: nick,
+    password: password,
+    size: size,
   });
 }
 
-function leave(game) {
+function leave(nick, password, size, game) {
   makeRequest("leave", {
-    nick: "kdsbcfkj",
-    password: "kdvbskj",
-    size: 4,
+    nick: nick,
+    password: password,
+    size: size,
     game: game,
   });
 }
 
-function notify(game){
-  makeRequest("notify",{
-    nick: "kdsbcfkj",
-    password: "kdvbskj",
+function notify(nick, password, game, cell) {
+  makeRequest("notify", {
+    nick: nick,
+    password: password,
     game: game,
-    cell: {square: 0, position: 0}
-  })
+    cell: cell,
+  });
+}
+// cell: { square: 0, position: 0 },
+
+function ranking(group, size) {
+  makeRequest("ranking", {
+    group: group,
+    size: size,
+  });
 }
 
-// leave(registered_games[0].game)
-
-function ranking() {
-  makeRequest("ranking", {
-    group: 99,
-    size: 4,
+function update(nick) {
+  makePermanentConn({
+    nick: nick,
+    game: registered_game, //Its a global variable
   });
 }
