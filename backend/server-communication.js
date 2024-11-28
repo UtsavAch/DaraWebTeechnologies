@@ -16,7 +16,6 @@ function makeRequest(command, args) {
         console.log("This is from leave");
       }
       console.log(xhr.responseText);
-      console.log("Data:- " + data);
     }
   };
   xhr.send(JSON.stringify(args));
@@ -42,6 +41,15 @@ function leave(game) {
     size: 4,
     game: game,
   });
+}
+
+function notify(game){
+  makeRequest("notify",{
+    nick: "kdsbcfkj",
+    password: "kdvbskj",
+    game: game,
+    cell: {square: 0, position: 0}
+  })
 }
 
 // leave(registered_games[0].game)
