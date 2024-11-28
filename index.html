@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="styles/styles-main.css">
-    <link rel="stylesheet" href="styles/styles-help-stats.css">
-    <link rel="stylesheet" href="styles/styles-config.css">
-    <link rel="stylesheet" href="styles/styles-board.css">
-    <link rel="stylesheet" href="styles/styles-notification.css">
-    <link rel="stylesheet" href="styles/styles-players.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/styles-main.css" />
+    <link rel="stylesheet" href="styles/styles-help-stats.css" />
+    <link rel="stylesheet" href="styles/styles-config.css" />
+    <link rel="stylesheet" href="styles/styles-board.css" />
+    <link rel="stylesheet" href="styles/styles-notification.css" />
+    <link rel="stylesheet" href="styles/styles-players.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
-    >
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
-    >
+    />
     <title>Nine Men's Morris</title>
   </head>
   <body>
@@ -98,9 +98,7 @@
         <p>The game is composed of 2 phases.</p>
         <ol class="phases">
           <li class="phases-item">
-            <span class="phase-title">
-              Phase 1:
-            </span>
+            <span class="phase-title"> Phase 1: </span>
             <p>Placing men on vacant points</p>
           </li>
           <li class="phase-item">
@@ -135,7 +133,11 @@
       <div id="notification-container">
         <p id="notification-message">Hey there! What's going on?</p>
         <!--Gif is from iconscout-->
-        <img id="notification-img" src="/images/SpookyCat.gif" alt="SpookyCat">
+        <img
+          id="notification-img"
+          src="/images/SpookyCat.gif"
+          alt="SpookyCat"
+        />
       </div>
       <!-- Configuration -->
       <section id="game-container" class="game-container">
@@ -147,11 +149,17 @@
           <div id="singleplayer-view">
             <div class="input-group">
               <label for="name">Name:</label>
-              <input type="text" id="name" name="name" required>
+              <input type="text" id="name" name="name" required />
             </div>
             <div class="input-group">
               <label for="singleplayer-size">Board size:</label>
-              <input type="number" id="singleplayer-size" name="size" min="2" max="5">
+              <input
+                type="number"
+                id="singleplayer-size"
+                name="size"
+                min="2"
+                max="5"
+              />
             </div>
             <div class="radio-group">
               <label>Difficulty:</label>
@@ -165,10 +173,10 @@
                     value="easy"
                     aria-labelledby="easy-label"
                     required
-                  >
+                  />
                   <label for="easy" id="easy-label">Easy</label>
                 </div>
-                
+
                 <!-- Medium Option -->
                 <div>
                   <input
@@ -178,10 +186,10 @@
                     value="medium"
                     aria-labelledby="medium-label"
                     required
-                  >
+                  />
                   <label for="medium" id="medium-label">Medium</label>
                 </div>
-                
+
                 <!-- Hard Option -->
                 <div>
                   <input
@@ -191,12 +199,12 @@
                     value="hard"
                     aria-labelledby="hard-label"
                     required
-                  >
+                  />
                   <label for="hard" id="hard-label">Hard</label>
                 </div>
               </div>
             </div>
-            
+
             <div id="error-messages-single" class="error-messages"></div>
             <button id="start-singleplayer-btn" class="start-btn btn">
               Start Game
@@ -210,22 +218,22 @@
             <div id="login-form">
               <div class="input-group">
                 <label for="l-username">Username:</label>
-                <input type="text" id="l-username" name="l-username">
+                <input type="text" id="l-username" name="l-username" />
               </div>
               <div class="input-group">
                 <label for="l-password">Password:</label>
-                <input type="password" id="l-password" name="l-password">
+                <input type="password" id="l-password" name="l-password" />
               </div>
               <button id="login-submit" class="submit-btn btn">Login</button>
             </div>
             <div id="register-form">
               <div class="input-group">
                 <label for="r-username">Username:</label>
-                <input type="text" id="r-username" name="r-username">
+                <input type="text" id="r-username" name="r-username" />
               </div>
               <div class="input-group">
                 <label for="r-password">Password:</label>
-                <input type="password" id="r-password" name="r-password">
+                <input type="password" id="r-password" name="r-password" />
               </div>
               <button id="register-submit" class="submit-btn btn">
                 Register
@@ -235,23 +243,23 @@
           <div id="multiplayer-view">
             <div class="input-group">
               <label for="first">First Player:</label>
-              <input type="text" id="first" name="first">
+              <input type="text" id="first" name="first" />
             </div>
             <div class="input-group">
               <label for="second">Second Player:</label>
-              <input type="text" id="second" name="second">
+              <input type="text" id="second" name="second" />
             </div>
             <div class="input-group">
               <label for="multiplayer-size">Board size:</label>
-              <input type="number" id="multiplayer-size" name="name" max="10">
+              <input type="number" id="multiplayer-size" name="name" max="10" />
             </div>
             <div class="radio-group">
               <label>Who starts the game?</label>
               <div id="player-radio">
-                <input type="radio" id="p1" name="game-order" value="p1">
-                <label for="p1">First Player</label><br>
-                <input type="radio" id="p2" name="game-order" value="p2">
-                <label for="p2">Second Player</label><br>
+                <input type="radio" id="p1" name="game-order" value="p1" />
+                <label for="p1">First Player</label><br />
+                <input type="radio" id="p2" name="game-order" value="p2" />
+                <label for="p2">Second Player</label><br />
               </div>
             </div>
             <button id="start-multiplayer-btn" class="start-btn btn">
@@ -277,14 +285,14 @@
           </div>
           <div id="player-one-name" class="player-name">Andre</div>
         </div>
-        <img id="versus-img" src="/images/Star.gif" alt="Battle">
+        <img id="versus-img" src="/images/Star.gif" alt="Battle" />
         <div id="player-two-container">
           <div id="player-two-name" class="player-name">Computer</div>
           <div id="player-two-pieces-container" class="pieces-container">
             <!-- <span id="p2_1" class="piece piece_p1"></span>  It is a piece-->
           </div>
         </div>
-        <p id="display-difficulty">Difficulty: </p>
+        <p id="display-difficulty">Difficulty:</p>
       </div>
     </main>
     <!-- Game board buttons -->
@@ -356,11 +364,12 @@
         </div>
       </div>
     </div>
-  <script type="module" src="/scripts/config.js"></script>
-  <script type="module" src="/scripts/board.js"></script>
-  <script type="module" src="/scripts/game-logic.js"></script>
-  <script type="module" src="/scripts/board-lines.js"></script>
-  <script type="module" src="/scripts/button-events.js"></script>
-  <script src="/scripts/sounds.js"></script>
+    <script type="module" src="/scripts/config.js"></script>
+    <script type="module" src="/scripts/board.js"></script>
+    <script type="module" src="/scripts/game-logic.js"></script>
+    <script type="module" src="/scripts/board-lines.js"></script>
+    <script type="module" src="/scripts/button-events.js"></script>
+    <script src="/scripts/sounds.js"></script>
+    <script src="/backend/server-communication.js"></script>
   </body>
 </html>
