@@ -23,7 +23,7 @@
   <body>
     <!-- Audios and sounds -->
     <!-- Audios from freemusicarchive.org -->
-    <section id="audio-section">
+    <div id="audio-section">
       <audio
         id="background-music"
         src="/audios/background-music.mp3"
@@ -31,11 +31,11 @@
       ></audio>
       <audio id="battle-music" src="/audios/battle-music.mp3" loop></audio>
       <audio id="button-click" src="/audios/button-click.mp3"></audio>
-    </section>
+    </div>
     <nav>
       <!--<button class="basic-btn">Login</button>-->
     </nav>
-    <section class="title">
+    <div class="title">
       <h1>Nine Men's Morris</h1>
       <div class="info">
         <span
@@ -57,9 +57,9 @@
           volume_off
         </span>
       </div>
-    </section>
+    </div>
 
-    <section id="leaderboard-container" class="overlay">
+    <div id="leaderboard-container" class="overlay">
       <div class="leaderboard-content">
         <h3>Leaderboard</h3>
         <table id="leaderboard-table">
@@ -84,7 +84,7 @@
           close
         </span>
       </div>
-    </section>
+    </div>
 
     <!--Help Container -->
     <section id="help-container" class="overlay">
@@ -98,9 +98,7 @@
         <p>The game is composed of 2 phases.</p>
         <ol class="phases">
           <li class="phases-item">
-            <span class="phase-title">
-              Phase 1:
-            </span>
+            <span class="phase-title"> Phase 1: </span>
             <p>Placing men on vacant points</p>
           </li>
           <li class="phase-item">
@@ -132,11 +130,15 @@
     <!-- MAIN -->
     <main id="main-container">
       <!-- Notification -->
-      <section id="notification-container">
+      <div id="notification-container">
         <p id="notification-message">Hey there! What's going on?</p>
         <!--Gif is from iconscout-->
-        <img id="notification-img" src="/images/SpookyCat.gif" alt="SpookyCat"/>
-      </section>
+        <img
+          id="notification-img"
+          src="/images/SpookyCat.gif"
+          alt="SpookyCat"
+        />
+      </div>
       <!-- Configuration -->
       <section id="game-container" class="game-container">
         <div class="config-container">
@@ -151,10 +153,16 @@
             </div>
             <div class="input-group">
               <label for="singleplayer-size">Board size:</label>
-              <input type="number" id="singleplayer-size" name="size" min="2" max="5" />
+              <input
+                type="number"
+                id="singleplayer-size"
+                name="size"
+                min="2"
+                max="5"
+              />
             </div>
             <div class="radio-group">
-              <label for="difficulty">Difficulty:</label>
+              <label>Difficulty:</label>
               <div id="difficulty-radio" class="radio-options">
                 <!-- Easy Option -->
                 <div>
@@ -168,7 +176,7 @@
                   />
                   <label for="easy" id="easy-label">Easy</label>
                 </div>
-                
+
                 <!-- Medium Option -->
                 <div>
                   <input
@@ -181,7 +189,7 @@
                   />
                   <label for="medium" id="medium-label">Medium</label>
                 </div>
-                
+
                 <!-- Hard Option -->
                 <div>
                   <input
@@ -196,7 +204,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div id="error-messages-single" class="error-messages"></div>
             <button id="start-singleplayer-btn" class="start-btn btn">
               Start Game
@@ -248,13 +256,13 @@
         </div>
       </section>
       <!-- Game Board -->
-      <section id="board-container">
+      <div id="board-container">
         <div id="table-container">
-          <table id="myTable" border="1"></table>
+          <table id="myTable"></table>
         </div>
-      </section>
+      </div>
       <!-- Players -->
-      <section id="players-container">
+      <div id="players-container">
         <div id="player-one-container">
           <div
             id="player-one-pieces-container"
@@ -271,8 +279,8 @@
             <!-- <span id="p2_1" class="piece piece_p1"></span>  It is a piece-->
           </div>
         </div>
-        <p id="display-difficulty">Difficulty: </p>
-      </section>
+        <p id="display-difficulty">Difficulty:</p>
+      </div>
     </main>
     <!-- Game board buttons -->
     <div id="board-btns-container">
@@ -287,7 +295,7 @@
     <div id="confirm-exit-container" class="overlay">
       <div id="confirm-exit">
         <p>Are you sure?</p>
-        <div id="confirm-exit-btns-container">
+        <div id="confirm-exit-btns-container-1">
           <span
             id="overlay-cancel-btn"
             class="material-symbols-outlined icon-btn btn"
@@ -307,7 +315,7 @@
     <div id="winner-container" class="overlay">
       <div id="winner-message">
         <p id="announce-winner">Someone won the game!</p>
-        <div id="confirm-exit-btns-container">
+        <div id="confirm-exit-btns-container-2">
           <span
             id="overlay-replay-btn-winner"
             class="material-symbols-outlined icon-btn btn"
@@ -327,7 +335,7 @@
     <div id="replay-container" class="overlay">
       <div id="replay-message">
         <p>Do you want to replay?</p>
-        <div id="confirm-exit-btns-container">
+        <div id="confirm-exit-btns-container-3">
           <span
             id="overlay-cancel-btn-replay"
             class="material-symbols-outlined icon-btn btn"
@@ -343,12 +351,12 @@
         </div>
       </div>
     </div>
-  </body>
-  <script type="module" src="/scripts/config.js"></script>
-  <script type="module" src="/scripts/board.js"></script>
-  <script type="module" src="/scripts/game-logic.js"></script>
-  <script type="module" src="/scripts/board-lines.js"></script>
-  <script type="module" src="/scripts/button-events.js"></script>
-  <script src="/scripts/sounds.js"></script>
+    <script type="module" src="/scripts/config.js"></script>
+    <script type="module" src="/scripts/board.js"></script>
+    <script type="module" src="/scripts/game-logic.js"></script>
+    <script type="module" src="/scripts/board-lines.js"></script>
+    <script type="module" src="/scripts/button-events.js"></script>
+    <script src="/scripts/sounds.js"></script>
+    <script src="/backend/server-communication.js"></script>
   </body>
 </html>

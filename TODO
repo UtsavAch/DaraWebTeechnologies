@@ -1,28 +1,21 @@
-Validate the HTML:
-    check border="1" error and for in labels...
-
 Fix board size stuff
 
 To allow to count the wins of the player so it is added to leaderboard
 
-Change input to checkMills works correctly (GAME LOGIC IN overall)
-
-Messages:
-    Saying its the player turn and machine
-    Move not possible
-    Winner message
-
 
 Complete the game logic:
-    End game once a one wins
-    Make a draw possible (no valid moves? and both have 3 pieces and has passed 10 turns)
-    Make it so that you take the openest men when you made a mill before he moves
+    Change input to checkMills works correctly postion gives the OLD postion insted of new
 
-Object-orientated (not strictly necessary):
-    Improve ou code to have sevaral classes and be better....
-    I think it would be better for example a board class to use instances of board, especially if going with minimax
+    End game once a one wins - I ACTUALLY DONT KNOW IF IT IS DONE I AM NOT ABLE TO FINISH....
+
+    Make a draw possible (no valid moves? and both have 3 pieces and has passed 10 turns)
+    
+    Make it so that you take the openent men when you made a mill before he moves
 
 AI:
     Either improve the random choices with somewhat smart choices, like it prioritizes a mill
-    Or make minimax
+    (Or make minimax)
 
+pieces should be on the side, once captured (visual aid for player to know how its going) DONE
+no mill in first phse
+mills formed only can be removed if no other pieces
