@@ -168,18 +168,28 @@ input:focus {
   transition: ease-in-out 0.07s;
 }
 
-
-
 #login-view {
-  display: none;
-}
-
-#login-form {
   display: none;
 }
 
 #register-form {
   display: none;
+}
+
+.register-actions{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+#login-link{
+  color: #000;
+  cursor: pointer;
+  transition: 0.07s ease-in-out;
+  &:hover{
+    color: #666;
+  }
 }
 
 .basic-btn {
@@ -202,7 +212,6 @@ input:focus {
 }
 
 .submit-btn {
-  margin-top: 20px;
   border: none;
   background-color: #000;
   border-radius: 5px;
@@ -227,4 +236,8 @@ input:focus {
 
 .error-messages > p {
   margin-bottom: 0;
+}
+
+#login-submit{
+  margin-top: 20px;
 }

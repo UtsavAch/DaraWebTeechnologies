@@ -203,10 +203,6 @@
             </button>
           </div>
           <div id="login-view">
-            <p>To play multiplayer, you should login first.</p>
-            <button id="login-btn" class="basic-btn btn">Login</button>
-            <p>You don't have an account?</p>
-            <button id="register-btn" class="basic-btn btn">Register</button>
             <div id="login-form">
               <div class="input-group">
                 <label for="l-username">Username:</label>
@@ -216,7 +212,21 @@
                 <label for="l-password">Password:</label>
                 <input type="password" id="l-password" name="l-password" />
               </div>
+              <div class="input-group">
+                <label for="multiplayer-size">Board size:</label>
+                <input
+                  type="number"
+                  id="multiplayer-size"
+                  name="mp-size"
+                  min="2"
+                  max="5"
+                />
+              </div>
               <button id="login-submit" class="submit-btn btn">Login</button>
+            </div>
+            <div id="register-question">
+              <p>You don't have an account?</p>
+              <button id="register-btn" class="basic-btn btn">Register</button>
             </div>
             <div id="register-form">
               <div class="input-group">
@@ -227,36 +237,13 @@
                 <label for="r-password">Password:</label>
                 <input type="password" id="r-password" name="r-password" />
               </div>
-              <button id="register-submit" class="submit-btn btn">
-                Register
-              </button>
-            </div>
-          </div>
-          <div id="multiplayer-view">
-            <div class="input-group">
-              <label for="first">First Player:</label>
-              <input type="text" id="first" name="first" />
-            </div>
-            <div class="input-group">
-              <label for="second">Second Player:</label>
-              <input type="text" id="second" name="second" />
-            </div>
-            <div class="input-group">
-              <label for="multiplayer-size">Board size:</label>
-              <input type="number" id="multiplayer-size" name="name" max="10" />
-            </div>
-            <div class="radio-group">
-              <label for="game-order">Who starts the game?</label>
-              <div id="player-radio">
-                <input type="radio" id="p1" name="game-order" value="p1" />
-                <label for="p1">First Player</label><br />
-                <input type="radio" id="p2" name="game-order" value="p2" />
-                <label for="p2">Second Player</label><br />
+              <div class="register-actions">
+                <p>Go back to <u id="login-link">Login</u></p>
+                <button id="register-submit" class="submit-btn btn">
+                  Register
+                </button>
               </div>
             </div>
-            <button id="start-multiplayer-btn" class="start-btn btn">
-              Start Game
-            </button>
           </div>
         </div>
       </section>
