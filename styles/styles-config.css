@@ -241,3 +241,7 @@ input:focus {
 #login-submit{
   margin-top: 20px;
 }
+
+#waiting-view {
+  display: none;
+}

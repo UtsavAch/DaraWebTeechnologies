@@ -1,4 +1,4 @@
-import { register, join, createWebsocketConnection, sendMessage } from "/backend/server-communication-fetch.js";
+import { register, join, createSSEConnection } from "/backend/server-communication-fetch.js";
 
 let gameId = -1;
 
@@ -6,9 +6,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const singlePlayerButton = document.getElementById("singleplayer-btn");
   const multiPlayerButton = document.getElementById("multiplayer-btn");
   const singlePlayerView = document.getElementById("singleplayer-view");
-  //const multiPlayerView = document.getElementById("multiplayer-view");
   const loginView = document.getElementById("login-view");
-  //const loginButton = document.getElementById("login-btn");
   const registerButton = document.getElementById("register-btn");
   const loginForm = document.getElementById("login-form");
   const registerForm = document.getElementById("register-form");
@@ -16,6 +14,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const registerQuestion = document.getElementById("register-question");
   const registerSubmit = document.getElementById("register-submit");
   const loginLink = document.getElementById("login-link");
+  const waitingView = document.getElementById("waiting-view");
 
   singlePlayerButton.addEventListener("click", () => {
     singlePlayerView.style.display = "block";
@@ -29,6 +28,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   multiPlayerButton.addEventListener("click", () => {
     singlePlayerView.style.display = "none";
+    waitingView.style.display = "none";
     //multiPlayerView.style.display = "none";
     multiPlayerButton.classList.remove("passive-mode");
     singlePlayerButton.classList.add("passive-mode");
@@ -56,10 +56,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     join(group, username, password, boardSize).then((response) => {
       response.json().then((data) => {
         gameId = data.game;
-        createWebsocketConnection();
-        //sendMessage(username, gameId);
+        createSSEConnection(username, gameId);
       });
       setNotificationMessage("Login successful");
+
     }).catch((error) => {
       if (error.message === "401") {
         setNotificationMessage("Invalid username or password");
@@ -70,7 +70,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });  
 
     loginForm.style.display = "none";
-    loginView.style.display = "none";
+    registerQuestion.style.display = "none";
+    waitingView.style.display = "block";
   });
 
   registerSubmit.addEventListener("click", () => {
