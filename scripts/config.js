@@ -1,3 +1,5 @@
+import { register } from "/backend/server-communication.js";
+
 document.addEventListener("DOMContentLoaded", (event) => {
   const singlePlayerButton = document.getElementById("singleplayer-btn");
   const multiPlayerButton = document.getElementById("multiplayer-btn");
@@ -52,7 +54,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   registerSubmit.addEventListener("click", () => {
-    //no validation for now
+    let username = document.getElementById("r-username").value;
+    let password = document.getElementById("r-password").value;
+    console.log(username, password);
+    register(username, password);
+  
     registerForm.style.display = "none";
     loginForm.style.display = "block";
     registerQuestion.style.display = "block";

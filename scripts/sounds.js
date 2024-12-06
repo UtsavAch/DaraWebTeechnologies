@@ -8,7 +8,7 @@ const volumeOffButton = document.getElementById("volume-off-btn");
 const startSingleplayerButton = document.getElementById(
   "start-singleplayer-btn"
 );
-const startMultiplayerButton = document.getElementById("start-multiplayer-btn");
+//const startMultiplayerButton = document.getElementById("start-multiplayer-btn");
 const closeGameButton = document.getElementById("close-game-btn");
 const overlayCancelButton = document.getElementById("overlay-cancel-btn");
 
@@ -60,10 +60,10 @@ volumeOffButton.addEventListener("click", () => {
 startSingleplayerButton.addEventListener("click", () => {
   playBattleMusic();
 });
-
+/*
 startMultiplayerButton.addEventListener("click", () => {
   playBattleMusic();
-});
+});*/
 
 closeGameButton.addEventListener("click", () => {
   playBackgroundMusic();

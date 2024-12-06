@@ -77,3 +77,12 @@ function update(nick) {
     game: registered_game, //Its a global variable
   });
 }
+
+export {
+  register,
+  join,
+  leave,
+  notify,
+  ranking,
+  update,
+};

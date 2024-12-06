@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const startSingleplayerButton = document.getElementById(
     "start-singleplayer-btn"
   );
+  /*
   const startMultiplayerButton = document.getElementById(
     "start-multiplayer-btn"
-  );
+  );*/
   const closeGameButton = document.getElementById("close-game-btn");
   const overlayCancelButton = document.getElementById("overlay-cancel-btn");
   const overlayConfirmButton = document.getElementById("overlay-confirm-btn");
@@ -180,7 +181,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       boardButtonsContainer.style.display = "flex";
     }
   });
-
+/*
   startMultiplayerButton.addEventListener("click", () => {
     setNotificationMessage("Let the battle begin !");
     console.log("Start button clicked");
@@ -188,7 +189,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     boardContainer.style.display = "block";
     playersContainer.style.display = "block";
     boardButtonsContainer.style.display = "flex";
-  });
+  });*/
 
   closeGameButton.addEventListener("click", () => {
     confirmExitContainer.style.display = "flex";
