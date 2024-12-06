@@ -1,4 +1,6 @@
-import { register } from "/backend/server-communication.js";
+import { register, join, createWebsocketConnection, sendMessage } from "/backend/server-communication-fetch.js";
+
+let gameId = -1;
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const singlePlayerButton = document.getElementById("singleplayer-btn");
@@ -47,17 +49,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   loginSubmit.addEventListener("click", () => {
-    //no validation for now
+    let username = document.getElementById("l-username").value;
+    let password = document.getElementById("l-password").value;
+    let boardSize = document.getElementById("multiplayer-size").value;
+    const group = 16;
+    join(group, username, password, boardSize).then((response) => {
+      response.json().then((data) => {
+        gameId = data.game;
+        createWebsocketConnection();
+        //sendMessage(username, gameId);
+      });
+      setNotificationMessage("Login successful");
+    }).catch((error) => {
+      if (error.message === "401") {
+        setNotificationMessage("Invalid username or password");
+      }
+      if(error.message === '400'){
+        setNotificationMessage("Invalid data");
+      }
+    });  
+
     loginForm.style.display = "none";
     loginView.style.display = "none";
-    //multiPlayerView.style.display = "block";
   });
 
   registerSubmit.addEventListener("click", () => {
     let username = document.getElementById("r-username").value;
     let password = document.getElementById("r-password").value;
-    console.log(username, password);
-    register(username, password);
+
+    register(username, password).then((_response) => {
+      setNotificationMessage("Registration successful");
+    }).catch((_error) => {
+      setNotificationMessage("Regstration failed");
+    });
   
     registerForm.style.display = "none";
     loginForm.style.display = "block";
