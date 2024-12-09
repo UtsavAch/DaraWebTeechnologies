@@ -62,14 +62,22 @@
     <div id="leaderboard-container" class="overlay">
       <div class="leaderboard-content">
         <h3>Leaderboard</h3>
+        <div class="leaderboard-imput-group">
+          <label for="leaderboard-size">Board size:</label>
+          <input
+            type="number"
+            id="leaderboard-size"
+            name="leaderboard-size"
+            min="2"
+            placeholder="Board dimension"
+            />
+          <button id="leaderboard-submit" class="submit-btn btn">Ok</button>
+        </div>
         <table id="leaderboard-table">
           <thead>
             <tr>
               <th>Player Name</th>
-              <th>Wins on Size 2</th>
-              <th>Wins on Size 3</th>
-              <th>Wins on Size 4</th>
-              <th>Wins on Size 5</th>
+              <th>Played Games</th>
               <th>Total Wins</th>
             </tr>
           </thead>
@@ -256,6 +264,7 @@
               <p>
                 Waiting for another player to join the game. Please wait...
               </p>
+              <button id="cancel-waiting-btn" class="basic-btn btn">Exit waiting</button>
             </div>
           </div>
         </div>

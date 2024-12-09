@@ -1,5 +1,7 @@
 //not used from here.....it is used in button-events
 
+import { ranking } from "./server-communication-fetch";
+
 class Player {
     constructor(name) {
         this.name = name;
@@ -74,4 +76,39 @@ class Leaderboard {
             row.appendChild(totalWinsCell);
         });
     }
+
+    getTopPlayersMultiplayer() {
+        let topPlayers;
+        ranking(16,3).then((response) => {
+            response.json().then((data) => {
+                console.log(data);
+                topPlayers = data;
+            });
+        });
+        return topPlayers;
+    }
+
+    displayLeaderboardMultiplayer() {
+        const tableBody = document.querySelector("#leaderboard-table tbody");
+        tableBody.innerHTML = "";
+        const topPlayers = this.getTopPlayersMultiplayer();
+
+        topPlayers.forEach(player => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = player.nick;
+            row.appendChild(nameCell);
+
+            const gamesCell = document.createElement("td");
+            gamesCell.textContent = player.games;
+            row.appendChild(gamesCell);
+
+            const totalWinsCell = document.createElement("td");
+            totalWinsCell.textContent = player.victories;
+            row.appendChild(totalWinsCell);
+        });
+    }
 }
+
+export{ Player, Leaderboard};

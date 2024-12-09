@@ -47,9 +47,51 @@ async function join(group, nick, password, size) {
   return status(response);
 }
 
+async function leave(nick, password, game) {
+  const response = await fetch(BASE_URL + "leave", {
+    method: "POST",
+    body: JSON.stringify({
+      nick: nick,
+      password: password,
+      game: game,
+    }),
+  });
+  return status(response);
+}
+
+async function notify(nick, password, game, square, position) {
+  const response = await fetch(BASE_URL + "notify", {
+    method: "POST",
+    body: JSON.stringify({
+      nick: nick,
+      password: password,
+      game: game,
+      cell: {
+        square: square,
+        position: position,
+      }
+    }),
+  });
+  return status(response);
+}
+
+async function ranking(group, size) {
+  const response = await fetch(BASE_URL + "ranking", {
+    method: "POST",
+    body: JSON.stringify({
+      group: group,
+      size: size,
+    }),
+  });
+  return status(response);
+}
+
 export {
   register,
   join,
+  leave,
+  notify,
+  ranking,
   createSSEConnection,
   closeSSEConnection
 };

@@ -1,6 +1,8 @@
-import { register, join, createSSEConnection } from "/backend/server-communication-fetch.js";
+import { register, join, leave, createSSEConnection } from "/backend/server-communication-fetch.js";
 
 let gameId = -1;
+let username = "";
+let password = "";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const singlePlayerButton = document.getElementById("singleplayer-btn");
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const registerSubmit = document.getElementById("register-submit");
   const loginLink = document.getElementById("login-link");
   const waitingView = document.getElementById("waiting-view");
+  const leaveWaitingButton = document.getElementById("cancel-waiting-btn");
 
   singlePlayerButton.addEventListener("click", () => {
     singlePlayerView.style.display = "block";
@@ -49,8 +52,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   loginSubmit.addEventListener("click", () => {
-    let username = document.getElementById("l-username").value;
-    let password = document.getElementById("l-password").value;
+    username = document.getElementById("l-username").value;
+    password = document.getElementById("l-password").value;
     let boardSize = document.getElementById("multiplayer-size").value;
     const group = 16;
     join(group, username, password, boardSize).then((response) => {
@@ -93,6 +96,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     loginForm.style.display = "block";
     registerForm.style.display = "none";
     registerQuestion.style.display = "block";
+  });
+
+  //leave the game when in waiting mode
+  leaveWaitingButton.addEventListener("click", () => {
+    leave(username, password, gameId).then((_response) => {
+      setNotificationMessage("You left the game");
+      waitingView.style.display = "none";
+      loginForm.style.display = "block";
+    }).catch((_error) => {
+      setNotificationMessage("Failed to leave the game");
+    });
   });
 });
 

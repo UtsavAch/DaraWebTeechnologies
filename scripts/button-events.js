@@ -1,9 +1,11 @@
 import { setNotificationMessage } from "./config.js";
 import { resetBoard } from "./game-logic.js";
 import { boardDimension } from "./board.js";
+import { ranking } from "../backend/server-communication-fetch.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const leaderboardButton = document.getElementById("leaderboard-btn");
+  const leaderboardSubmitButton = document.getElementById("leaderboard-submit");
   const closeLeaderboardButton = document.getElementById(
     "close-leaderboard-btn"
   );
@@ -136,14 +138,49 @@ document.addEventListener("DOMContentLoaded", (event) => {
         tableBody.appendChild(row);
       });
     }
+
+    displayLeaderboardMultiplayer(boardSize) {
+      const tableBody = document.querySelector("#leaderboard-table tbody");
+      tableBody.innerHTML = "";
+      ranking(16, boardSize).then((response) => {
+        response.json().then((data) => {
+          const topPlayers = data.ranking;
+          topPlayers.forEach((player) => {
+            const row = document.createElement("tr");
+
+            const nameCell = document.createElement("td");
+            nameCell.textContent = player.nick;
+            row.appendChild(nameCell);
+
+            const gamesCell = document.createElement("td");
+            gamesCell.textContent = player.games;
+            row.appendChild(gamesCell);
+
+            const totalWinsCell = document.createElement("td");
+            totalWinsCell.textContent = player.victories;
+            row.appendChild(totalWinsCell);
+
+            tableBody.appendChild(row);
+          });
+        });
+      }).catch((error) => {
+        console.log("Error:", error);
+        //N need to display an error message, the user will see an empty table
+      });
+    }
   }
 
   const leaderboard = new Leaderboard();
 
   // Display leaderboard header
   leaderboardButton.addEventListener("click", () => {
-    leaderboard.displayLeaderboard(); // displays the leaderboard with players
     leaderboardContainer.style.display = "block"; // Show leaderboard
+  });
+
+  leaderboardSubmitButton.addEventListener("click", () => {
+    let boardSize = document.getElementById("leaderboard-size").value;
+    console.log("Board size:", boardSize); // Debug
+    leaderboard.displayLeaderboardMultiplayer(boardSize);
   });
 
   // Close leaderboard when the close button is clicked
