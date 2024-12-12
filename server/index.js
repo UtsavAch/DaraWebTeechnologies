@@ -22,7 +22,7 @@ const headers = {
 function doGet(pathname, queryParams) {
     let answer = {};
 
-    switch(pathname) { //INCOMPLETE
+    switch(pathname) { //INCOMPLETE I JUST PUT SOME EXAMPLES OF WHAT MIGTH BE AND WHAT WE NEED TO DO 
         case '/update':
             if (!queryParams.nick || !queryParams.game){
                 answer.status = 400;
@@ -43,7 +43,7 @@ function doGet(pathname, queryParams) {
 function doPost(pathname, requestBody) {
     let answer = {};
 
-    switch (pathname) { //INCOMPLETE
+    switch (pathname) { //INCOMPLETE I JUST PUT SOME EXAMPLES OF WHAT MIGTH BE AND WHAT WE NEED TO DO WE SHOULD ALSO CREATE A FUNCTION HANDLER FOR EACH CASE
         case "/register":
             if (!requestBody.nick || !requestBody.password) {
                 answer.status = 400;
