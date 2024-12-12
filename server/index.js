@@ -118,7 +118,6 @@ function parseStreamBody(request, callback) {
         }
     });
 
-    // Trata erros durante a transmissão
     request.on("error", (error) => {
         callback(error, null);
     });
