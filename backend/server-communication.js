@@ -1,3 +1,8 @@
+// NOT BEING USED
+// USE server-communication-featch.js INSTEAD
+// THE NEW USES fetch 
+////////////////////////////////////////////////////
+
 let registered_game = -1;
 
 function makeRequest(command, args) {
