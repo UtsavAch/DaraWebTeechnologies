@@ -1,16 +1,14 @@
 "use strict";
 
-let PORT     = 8001;
+let PORT     = 8116; // it must match 81xx being xx our group number (16)
 
 let http     = require('http');
 let url      = require('url');
-const fs   = require('fs');
-/*
-let counter  = require('./model.js');
-let updater  = require('./updater.js');*/
+let fs       = require('fs');
+
 const registerHandler = require('./handlers/register');
 //const joinHandler = require('./handlers/join');
-//const rankingHandler = require('./handlers/ranking');
+const rankingHandler = require('./handlers/ranking');
 
 const headers = {
     plain: {
@@ -44,7 +42,8 @@ http.createServer(async function (request, response) {
                 answer = joinHandler(preq.query.group, preq.query.nick, preq.query.password, preq.query.size);
                 break;
             case '/ranking':
-                answer = rankingHandler(preq.query.group, preq.query.size);
+                answer = await rankingHandler(request);
+                console.log(answer);
                 break;
             default:
                 answer.status = 400;

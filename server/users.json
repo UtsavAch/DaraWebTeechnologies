@@ -1,1 +1,22 @@
-[{"nick":"alma","password":"alma"},{"nick":"körte","password":"körte"},{"nick":"barack","password":"körte"}]
+[
+  {
+    "nick": "alma",
+    "password": "alma"
+  },
+  {
+    "nick": "körte",
+    "password": "körte"
+  },
+  {
+    "nick": "barack",
+    "password": "körte"
+  },
+  {
+    "nick": "name1",
+    "password": "123"
+  },
+  {
+    "nick": "name2",
+    "password": "123"
+  }
+]

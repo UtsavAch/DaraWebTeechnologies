@@ -1,0 +1,29 @@
+[
+    {
+        "size": 2,
+        "ranking": []
+    },
+    {
+        "size": 3,
+        "ranking": [
+            {
+                "nick":"jpleal",
+                "victories":2,
+                "games":2
+            },
+            {
+                "nick":"zp",
+                "victories":0,
+                "games":2
+            }
+        ]
+    },
+    {
+        "size": 4,
+        "ranking": []
+    },
+    {
+        "size": 5,
+        "ranking": []
+    }
+]
