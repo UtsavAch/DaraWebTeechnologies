@@ -1,75 +1,95 @@
-const fsp = require('fs').promises;
+const fsp = require("fs").promises;
 
 // reads users file
-async function readUsersFile() { // TRY TO MODULDARIZE TO NEW METHOD with readRankingFile
-    try{
-        const data = await fsp.readFile('users.json');
-        return JSON.parse(data);
-    } catch (error) {
-        if (error.code === 'ENOENT'){
-            return [];
-        }
-        throw error; // if other kind of error
+async function readUsersFile() {
+  // TRY TO MODULDARIZE TO NEW METHOD with readRankingFile
+  try {
+    const data = await fsp.readFile("users.json");
+    return JSON.parse(data);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      return [];
     }
+    throw error; // if other kind of error
+  }
 }
 
 // it writes users in file
 async function writeUsersFile(users) {
-    try{
-        await fsp.writeFile('users.json', JSON.stringify(users, null, 2));
-    } catch (error) {
-        console.log('Error writing file: ',error.message);
-        throw error;
-    }
+  try {
+    await fsp.writeFile("users.json", JSON.stringify(users, null, 2));
+  } catch (error) {
+    console.log("Error writing file: ", error.message);
+    throw error;
+  }
 }
 
 // register user
 async function registerUser(nick, password) {
-    const users = await readUsersFile();
-    const user = users.find((u) => u.nick === nick);
+  const users = await readUsersFile();
+  const user = users.find((u) => u.nick === nick);
 
-    if (user){
-        if (user.password !== password){
-            console.log("User registration with different password");
-            return {status: 403, style: 'plain', message: {error: 'User registration with different password'}};
-        }
-        return { status: 200, style: 'plain' };
+  if (user) {
+    if (user.password !== password) {
+      console.log("User registration with different password");
+      return {
+        status: 403,
+        style: "plain",
+        message: { error: "User registration with different password" },
+      };
     }
+    return { status: 200, style: "plain" };
+  }
 
-    users.push({nick, password});
-    await writeUsersFile(users);
-    return { status: 200, style: 'plain' };
+  users.push({ nick, password });
+  await writeUsersFile(users);
+  return { status: 200, style: "plain" };
 }
 
 // method to register a user
-module.exports = async function(request){
-    let body = '';
-    try {
-        for await (const chunk of request){
-            body += chunk
-        }
-
-        const query = JSON.parse(body);
-
-        if (!query.nick){
-            return {status: 400, style: 'plain', message: {error: 'Nickname missing'}};
-        }
-
-        if (!query.password) {
-            return { status: 400, style: 'plain', message: { error: 'Password missing' } };
-        }
-
-        return await registerUser(query.nick, query.password);
-    } catch (error) {
-
-        if (error instanceof SyntaxError){
-            console.log("Invalid JSON");
-            return { status: 400, style: 'plain', message: { error: 'Invalid JSON' } };
-        }
-        
-        console.error('Internal error:', error.message);
-        return { status: 500, style: 'plain', message: { error: 'Internal error' } };
+module.exports = async function (request) {
+  let body = "";
+  try {
+    for await (const chunk of request) {
+      body += chunk;
     }
+
+    const query = JSON.parse(body);
+
+    if (!query.nick) {
+      return {
+        status: 400,
+        style: "plain",
+        message: { error: "Nickname missing" },
+      };
+    }
+
+    if (!query.password) {
+      return {
+        status: 400,
+        style: "plain",
+        message: { error: "Password missing" },
+      };
+    }
+
+    return await registerUser(query.nick, query.password);
+  } catch (error) {
+    if (error instanceof SyntaxError) {
+      console.log("Invalid JSON");
+      return {
+        status: 400,
+        style: "plain",
+        message: { error: "Invalid JSON" },
+      };
+    }
+
+    console.error("Internal error:", error.message);
+    return {
+      status: 500,
+      style: "plain",
+      message: { error: "Internal error" },
+    };
+  }
 };
 
 /* OLD CODE
@@ -148,4 +168,3 @@ module.exports = function(request){
     });
 }
 */
-

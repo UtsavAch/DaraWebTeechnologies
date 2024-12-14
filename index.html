@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="styles/styles-help-stats.css" />
     <link rel="stylesheet" href="styles/styles-config.css" />
     <link rel="stylesheet" href="styles/styles-board.css" />
+    <link rel="stylesheet" href="styles/styles-multiplayer-board.css" />
     <link rel="stylesheet" href="styles/styles-notification.css" />
     <link rel="stylesheet" href="styles/styles-players.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -70,7 +71,7 @@
             name="leaderboard-size"
             min="2"
             placeholder="Board dimension"
-            />
+          />
           <button id="leaderboard-submit" class="submit-btn btn">Ok</button>
         </div>
         <table id="leaderboard-table">
@@ -261,6 +262,12 @@
               </div>
             </div>
             <div id="waiting-view">
+
+              <p>Waiting for another player to join the game. Please wait...</p>
+              <button id="cancel-waiting-btn" class="basic-btn btn">
+                Exit waiting
+              </button>
+
               <p>
                 Waiting for another player to join the game. Please wait...
               </p>
@@ -268,6 +275,7 @@
                 <canvas id="waiting-canvas" width="100" height="100"></canvas>
               </div>
               <button id="cancel-waiting-btn" class="basic-btn btn">Exit waiting</button>
+
             </div>
           </div>
         </div>
@@ -278,6 +286,17 @@
           <table id="myTable"></table>
         </div>
       </div>
+
+      <!-- Game Board Multi player -->
+      <!--------------------------------->
+      <!--------------------------------->
+      <div id="board-container-multiplayer">
+        <div id="table-container-multiplayer">
+          <table id="myTableMultiplayer"></table>
+        </div>
+      </div>
+      <!--------------------------------->
+      <!--------------------------------->
       <!-- Players -->
       <div id="players-container">
         <div id="player-one-container">
@@ -370,6 +389,7 @@
     </div>
     <script type="module" src="/scripts/config.js"></script>
     <script type="module" src="/scripts/board.js"></script>
+    <!-- <script type="module" src="/scripts/board-multiplayer.js"></script> -->
     <script type="module" src="/scripts/game-logic.js"></script>
     <script type="module" src="/scripts/board-lines.js"></script>
     <script type="module" src="/scripts/button-events.js"></script>

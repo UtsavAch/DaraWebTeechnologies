@@ -19,6 +19,7 @@ import {
   isPlayerInCell,
   isTupleInArray,
 } from "../backend/helpers.js";
+import { notify } from "../backend/server-communication-fetch.js";
 
 ///////////////////////////////////
 let noOfPiecesP1 = 3 * boardDimension.dimension; //Important
@@ -33,8 +34,8 @@ let piecesOnBoardP2 = 0; //Important (Pieces that the player2 has put on the boa
 //Importing moves and winner functions
 
 const player1 = "playerOne";
-// const player2 = "computer";
-const player2 = "playerTwo";
+const player2 = "computer";
+// const player2 = "playerTwo";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
@@ -79,6 +80,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       (CurrentPlayer === player2 && noOfPiecesP2 > 0)
       //// FIRST PHASE LOGIC HERE
     ) {
+      notify();
       if (CurrentPlayer === player1) {
         cellDiv.style.backgroundColor = "#46769b";
         noOfPiecesP1 -= 1;
