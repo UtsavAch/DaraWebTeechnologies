@@ -19,6 +19,7 @@ import {
   isPlayerInCell,
   isTupleInArray,
 } from "../backend/helpers.js";
+import { notify } from "../backend/server-communication-fetch.js";
 
 ///////////////////////////////////
 let noOfPiecesP1 = 3 * boardDimension.dimension; //Important
@@ -79,6 +80,7 @@ document.querySelectorAll(".cell-div").forEach((cellDiv) => {
       (CurrentPlayer === player2 && noOfPiecesP2 > 0)
       //// FIRST PHASE LOGIC HERE
     ) {
+      notify();
       if (CurrentPlayer === player1) {
         cellDiv.style.backgroundColor = "#46769b";
         noOfPiecesP1 -= 1;

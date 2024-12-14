@@ -1,0 +1,13 @@
+#board-container-multiplayer {
+  display: none;
+}
+
+#myTableMultiplayer {
+  border: 1px solid black;
+}
+
+.cell-mult {
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+}

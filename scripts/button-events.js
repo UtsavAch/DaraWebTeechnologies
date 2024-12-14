@@ -142,31 +142,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
     displayLeaderboardMultiplayer(boardSize) {
       const tableBody = document.querySelector("#leaderboard-table tbody");
       tableBody.innerHTML = "";
-      ranking(16, boardSize).then((response) => {
-        response.json().then((data) => {
-          const topPlayers = data.ranking;
-          topPlayers.forEach((player) => {
-            const row = document.createElement("tr");
+      ranking(16, boardSize)
+        .then((response) => {
+          response.json().then((data) => {
+            const topPlayers = data.ranking;
+            topPlayers.forEach((player) => {
+              const row = document.createElement("tr");
 
-            const nameCell = document.createElement("td");
-            nameCell.textContent = player.nick;
-            row.appendChild(nameCell);
+              const nameCell = document.createElement("td");
+              nameCell.textContent = player.nick;
+              row.appendChild(nameCell);
 
-            const gamesCell = document.createElement("td");
-            gamesCell.textContent = player.games;
-            row.appendChild(gamesCell);
+              const gamesCell = document.createElement("td");
+              gamesCell.textContent = player.games;
+              row.appendChild(gamesCell);
 
-            const totalWinsCell = document.createElement("td");
-            totalWinsCell.textContent = player.victories;
-            row.appendChild(totalWinsCell);
+              const totalWinsCell = document.createElement("td");
+              totalWinsCell.textContent = player.victories;
+              row.appendChild(totalWinsCell);
 
-            tableBody.appendChild(row);
+              tableBody.appendChild(row);
+            });
           });
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+          //N need to display an error message, the user will see an empty table
         });
-      }).catch((error) => {
-        console.log("Error:", error);
-        //N need to display an error message, the user will see an empty table
-      });
     }
   }
 
@@ -218,7 +220,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       boardButtonsContainer.style.display = "flex";
     }
   });
-/*
+  /*
   startMultiplayerButton.addEventListener("click", () => {
     setNotificationMessage("Let the battle begin !");
     console.log("Start button clicked");
