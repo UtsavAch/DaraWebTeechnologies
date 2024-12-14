@@ -5,9 +5,12 @@ import {
   createSSEConnection,
 } from "/backend/server-communication-fetch.js";
 
-let gameId = -1;
-let username = "";
-let password = "";
+export let gameInfo = {
+  gameId: -1,
+  username: "",
+  password: ""
+};
+
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const singlePlayerButton = document.getElementById("singleplayer-btn");
@@ -57,10 +60,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   loginSubmit.addEventListener("click", () => {
-    username = document.getElementById("l-username").value;
-    password = document.getElementById("l-password").value;
+    gameInfo.username = document.getElementById("l-username").value;
+    gameInfo.password = document.getElementById("l-password").value;
     let boardSize = document.getElementById("multiplayer-size").value;
     const group = 16;
+
     join(group, username, password, boardSize)
       .then((response) => {
         response.json().then((data) => {
@@ -76,6 +80,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (error.message === "400") {
           setNotificationMessage("Invalid data");
         }
+
+    join(group, gameInfo.username, gameInfo.password, boardSize).then((response) => {
+      response.json().then((data) => {
+        gameInfo.gameId = data.game;
+        createSSEConnection(gameInfo.username, gameInfo.gameId);
+
       });
 
     loginForm.style.display = "none";
@@ -108,6 +118,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   //leave the game when in waiting mode
   leaveWaitingButton.addEventListener("click", () => {
+
     leave(username, password, gameId)
       .then((_response) => {
         setNotificationMessage("You left the game");
@@ -117,6 +128,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
       .catch((_error) => {
         setNotificationMessage("Failed to leave the game");
       });
+
+    leave(gameInfo.username, gameInfo.password, gameInfo.gameId).then((_response) => {
+      setNotificationMessage("You left the game");
+      waitingView.style.display = "none";
+      loginForm.style.display = "block";
+    }).catch((_error) => {
+      setNotificationMessage("Failed to leave the game");
+    });
+
   });
 });
 

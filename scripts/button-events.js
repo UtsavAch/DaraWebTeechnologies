@@ -1,7 +1,7 @@
-import { setNotificationMessage } from "./config.js";
+import { setNotificationMessage, gameInfo } from "./config.js";
 import { resetBoard } from "./game-logic.js";
 import { boardDimension } from "./board.js";
-import { ranking } from "../backend/server-communication-fetch.js";
+import { leave, ranking } from "../backend/server-communication-fetch.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const leaderboardButton = document.getElementById("leaderboard-btn");
@@ -263,13 +263,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
   });
 
   overlayConfirmButton.addEventListener("click", () => {
+    //Should we make it different for singleplayer and multiplayer?
+    leave(gameInfo.username, gameInfo.password, gameInfo.gameId).then( _response => {
+      setNotificationMessage("I hope you enjoyed the game :)");
+      confirmExitContainer.style.display = "none";
+      boardContainer.style.display = "none";
+      gameContainer.style.display = "flex";
+      playersContainer.style.display = "none";
+      boardButtonsContainer.style.display = "none";
+    }).catch((error) => {
+      setNotificationMessage("An error occurred while leaving the game");
+    });
+
+    //This belongs to single player
     resetBoard();
-    setNotificationMessage("I hope you enjoyed the game :)");
-    confirmExitContainer.style.display = "none";
-    boardContainer.style.display = "none";
-    gameContainer.style.display = "flex";
-    playersContainer.style.display = "none";
-    boardButtonsContainer.style.display = "none";
   });
 
   overlayReplayConfirmButton.addEventListener("click", () => {
