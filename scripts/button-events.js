@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     "close-leaderboard-btn"
   );
   const leaderboardContainer = document.getElementById("leaderboard-container");
+  const leaderboardSingleButton = document.getElementById("leaderboard-single-button");
+  const leaderboardMultiButton = document.getElementById("leaderboard-multi-button");
+  const leaderboardSingleplayer = document.getElementById("leaderboard-singleplayer");
+  const leaderboardMultiplayer = document.getElementById("leaderboard-multiplayer");
 
   const startSingleplayerButton = document.getElementById(
     "start-singleplayer-btn"
@@ -85,7 +89,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // Leaderboard management
   class Leaderboard {
     constructor() {
-      this.players = [];
+      addMockDataToLocalStorage();
+      this.players = JSON.parse(localStorage.getItem("players"));
+      if(!this.players) {
+        this.players = [];
+      }
     }
 
     // Add a new player to the leaderboard
@@ -109,14 +117,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Display the leaderboard
     displayLeaderboard() {
-      const tableBody = document.querySelector("#leaderboard-table tbody");
-
-      console.log("Table Body:", tableBody); // Debug
+      const tableBody = document.querySelector("#leaderboard-table-single tbody");
 
       tableBody.innerHTML = "";
 
       const topPlayers = this.getTopPlayers();
-      console.log("Top Players:", topPlayers); // Debug
 
       topPlayers.forEach((player) => {
         const row = document.createElement("tr");
@@ -165,9 +170,46 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
       }).catch((error) => {
         console.log("Error:", error);
-        //N need to display an error message, the user will see an empty table
+        //No need to display an error message, the user will see an empty table
       });
     }
+  }
+
+  // Add mock data to local storage
+  function addMockDataToLocalStorage() {
+    let players = [
+      {
+        name: "Player 1",
+        victoriesByBoardSize: {
+          2: 1,
+          3: 2,
+          4: 3,
+          5: 4,
+        },
+        totalWins: 10,
+      },
+      {
+        name: "Player 2",
+        victoriesByBoardSize: {
+          2: 2,
+          3: 3,
+          4: 4,
+          5: 5,
+        },
+        totalWins: 14,
+      },
+      {
+        name: "Player 3",
+        victoriesByBoardSize: {
+          2: 3,
+          3: 4,
+          4: 5,
+          5: 6,
+        },
+        totalWins: 18,
+      },
+    ];
+    localStorage.setItem("players", JSON.stringify(players));
   }
 
   const leaderboard = new Leaderboard();
@@ -175,6 +217,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // Display leaderboard header
   leaderboardButton.addEventListener("click", () => {
     leaderboardContainer.style.display = "block"; // Show leaderboard
+    leaderboard.displayLeaderboard();
+  });
+
+  leaderboardSingleButton.addEventListener("click", () => {
+    leaderboardSingleplayer.style.display = "block";
+    leaderboardMultiplayer.style.display = "none";
+    leaderboardSingleButton.classList.remove("passive-mode");
+    leaderboardMultiButton.classList.add("passive-mode");
+  });
+
+  leaderboardMultiButton.addEventListener("click", () => {
+    leaderboardSingleplayer.style.display = "none";
+    leaderboardMultiplayer.style.display = "block";
+    leaderboardSingleButton.classList.add("passive-mode");
+    leaderboardMultiButton.classList.remove("passive-mode");
   });
 
   leaderboardSubmitButton.addEventListener("click", () => {

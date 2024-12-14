@@ -22,6 +22,31 @@
   font-weight: bold;
 }
 
+.leaderboard-nav{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  color: black;
+  font-weight: 500;
+  font-size: 17px;
+}
+
+#leaderboard-table-single{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#leaderboard-table-single th, #leaderboard-table-single td{
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+#leaderboard-table-single th{
+  background-color: #f4f4f4;
+}
+
 #leaderboard-table {
   width: 100%;
   border-collapse: collapse;
@@ -36,6 +61,10 @@
 
 #leaderboard-table th {
   background-color: #f4f4f4;
+}
+
+#leaderboard-multiplayer{
+  display: none;
 }
 
 
