@@ -34,8 +34,8 @@ let piecesOnBoardP2 = 0; //Important (Pieces that the player2 has put on the boa
 //Importing moves and winner functions
 
 const player1 = "playerOne";
-// const player2 = "computer";
-const player2 = "playerTwo";
+const player2 = "computer";
+// const player2 = "playerTwo";
 
 ///////CurrentPlayer
 let CurrentPlayer = player1;
