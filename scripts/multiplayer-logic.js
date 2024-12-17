@@ -19,25 +19,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const receivedData = JSON.parse(event.detail);
     console.log("Parsed Data:", receivedData);
 
-    setNotificationMessage("Let the battle begin !");
+    setNotificationMessage("Let the battle begin!");
 
-    ////////////////////////////////////////////////////////////////
-    createTable(receivedData);
-    ////////////////////////////////////////////////////////////////
+    // Create the table only once when players are paired
+    createTable(receivedData); // This should only be called once
 
-    //!!we should check first what type of data is coming from server
     const playerBlueField = Object.keys(receivedData.players)[0];
     const playerRedField = Object.keys(receivedData.players)[1];
-    //const dimension
-    //boardDimension.dimension = parseInt(dimension);
     const playerOne = document.getElementById("player-one-name");
     playerOne.textContent = playerBlueField;
     const playerTwo = document.getElementById("player-two-name");
     playerTwo.textContent = playerRedField;
-
-    /*const player = new Player(playerName);
-        leaderboard.addPlayer(player);
-        console.log("Player added:", player); //debug*/
 
     gameContainer.style.display = "none";
     boardContainerMultiplayer.style.display = "block";
@@ -118,49 +110,43 @@ const createTable = (receivedData) => {
   table.addEventListener("click", (event) => {
     const target = event.target;
 
-    // Check if the clicked element is a cellDiv
+    // Check if the clicked element is a cellDiv and not a table re-creation
     if (target && target.classList.contains("cell-div-mult")) {
-      let clickedCellId = target.id; // Update clickedCellId with the ID of the clicked div
-      let clickedCellCoord = extractCoordinates(clickedCellId); // Coordinates of the clicked cell
-      let clickedCellIndex = findTuplePosition(indexTable, clickedCellCoord); // Find the index of the clicked cell
+      let clickedCellId = target.id;
+      let clickedCellCoord = extractCoordinates(clickedCellId);
+      let clickedCellIndex = findTuplePosition(indexTable, clickedCellCoord);
 
-      console.log(
-        "Player 1 = " +
-          player1 +
-          " Player 2 = " +
-          player2 +
-          "\n" +
-          " Turn = " +
-          turn +
-          " Phase = " +
-          phase
-      );
+      console.log("Cell clicked: ", clickedCellId);
 
-      console.log("cellDiv just clicked: " + clickedCellId); // Use the updated value of clickedCellId
-      console.log("Coordinates of the cell clicked: " + clickedCellCoord); // Use the updated value of clickedCellId
-      console.log("Index of the cell clicked: " + clickedCellIndex); // Use the updated value of clickedCellId
-
-      console.log("This is game Info from Multiplayer logic"); // Log game information
-      console.log(gameInfo); // Display the gameInfo object
-
-      //////////
-      // Notify args(nick, password, game, square, position)
-      // Returns ()
-      //////////
-      //Phase 1:-
-      notify(
-        gameInfo.username,
-        gameInfo.password,
-        gameInfo.gameId,
-        clickedCellIndex[0],
-        clickedCellIndex[1]
-      )
-        .then((_response) => {
-          setNotificationMessage("Notify successful");
-        })
-        .catch((_error) => {
-          setNotificationMessage("Notify failed");
-        });
+      // Only handle the turn and UI update, not table creation
+      if (receivedData.turn == gameInfo.username) {
+        notify(
+          gameInfo.username,
+          gameInfo.password,
+          gameInfo.gameId,
+          clickedCellIndex[0],
+          clickedCellIndex[1]
+        )
+          .then((data) => {
+            console.log("Response from server:", data);
+            if (Object.keys(data).length === 0) {
+              receivedData.turn =
+                gameInfo.username === player1 ? player2 : player1;
+              console.log("Turn updated to: " + receivedData.turn);
+              receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
+                player1 ? "blue" : "red";
+              target.style.backgroundColor = player1 ? "#46769b" : "#bb3f3f";
+            }
+            console.log(receivedData.board);
+            setNotificationMessage("Notify successful");
+          })
+          .catch((error) => {
+            console.error("Notify failed:", error.message);
+            setNotificationMessage("Notify failed");
+          });
+      } else {
+        console.log("It's not your turn");
+      }
     }
   });
 };
