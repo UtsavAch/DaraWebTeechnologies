@@ -24,6 +24,30 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create the table only once when players are paired
     createTable(receivedData); // This should only be called once
 
+    const indexTabl = generateSquares(gameInfo.boardSize);
+    console.log(receivedData.table);
+    for (let i = 0; i < gameInfo.boardSize; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (receivedData.board[i][j] == "blue") {
+          let x_coord = indexTabl[i][j][0];
+          let y_coord = indexTabl[i][j][1];
+          console.log(
+            "Cell Div Blue Id created = " +
+              `cell-div-mult-${x_coord}-${y_coord}`
+          );
+          document.getElementById(
+            `cell-div-mult-${x_coord}-${y_coord}`
+          ).style.backgroundColor = "#46769b";
+        } else if (receivedData.board[i][j] == "red") {
+          let x_coord = indexTabl[i][j][0];
+          let y_coord = indexTabl[i][j][1];
+          document.getElementById(
+            `cell-div-mult-${x_coord}-${y_coord}`
+          ).style.backgroundColor = "#bb3f3f";
+        }
+      }
+    }
+
     const playerBlueField = Object.keys(receivedData.players)[0];
     const playerRedField = Object.keys(receivedData.players)[1];
     const playerOne = document.getElementById("player-one-name");
@@ -135,8 +159,6 @@ const createTable = (receivedData) => {
               console.log(receivedData.turn + "'s turn");
               receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
                 gameInfo.username === player1 ? "blue" : "red";
-              target.style.backgroundColor =
-                gameInfo.username === player1 ? "#46769b" : "#bb3f3f";
             }
             console.log(receivedData.board);
             setNotificationMessage(
@@ -145,7 +167,7 @@ const createTable = (receivedData) => {
           })
           .catch((error) => {
             console.error("Notify failed:", error.message);
-            setNotificationMessage("Not a valid move");
+            setNotificationMessage(error.message);
           });
       } else {
         setNotificationMessage("It's not your turn");
