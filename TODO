@@ -12,6 +12,19 @@
 
 # THIRD PART
 
+## Error types:
+
+- 400 error in request (validation of arguments)
+- 401 unautherized request
+- 404 unknown request
+
+## Functions:
+
+- join **Almost done**
+- leave
+- notify
+- update
+
 
 # FIRST PART PROBLEMS TO FIX LATER (if we have time)
 
