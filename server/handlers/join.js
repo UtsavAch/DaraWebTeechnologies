@@ -1,8 +1,9 @@
 const fsp = require('fs').promises;
 const crypto = require('crypto');
+const { games } = require('../games'); // module so is better acced to every one who needs it
 
 // In-memory games array
-let games = [];
+//let games = [];
 
 // Read users file (similar to register handler)
 async function readUsersFile() {
