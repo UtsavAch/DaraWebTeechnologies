@@ -14,10 +14,10 @@ async function readMyFile(fileName) {
 }
 
 
-function isValidMove(game, move) {
+function isValidMove(game, cell) {
     const { board, phase } = game; // we only need this 2
 
-    const [square, position] = move;
+    const {square, position} = cell;
 
     if ( // if is in bounds
         square < 0 || square >= board.length || 
@@ -27,7 +27,7 @@ function isValidMove(game, move) {
     }
 
     // if its empty (valid)
-    if (phase === "drop" && board[row][col] !== "empty") {
+    if (phase === "drop" && board[square][position] !== "empty") {
         return "Invalid move: Cell is not empty.";
     }
 
@@ -79,7 +79,7 @@ module.exports = async function(request) { //TODO: IMPLEMENT
             return { status: 400, message: { error: moveError } };
         }
 
-        const [square, position] = cell;
+        const {square, position} = cell;
         if (currentGame.players[0] === nick){
             currentGame.board[square][position] = "blue";
         } else {
@@ -89,6 +89,7 @@ module.exports = async function(request) { //TODO: IMPLEMENT
         const otherPlayer = currentGame.players.find(p => p !== nick);
         currentGame.turn = otherPlayer;
 
+        console.log(currentGame.board);
         return { status: 200, message: {} }; // valid answer
 
 

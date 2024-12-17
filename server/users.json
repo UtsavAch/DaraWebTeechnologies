@@ -18,5 +18,13 @@
   {
     "nick": "name2",
     "password": "123"
+  },
+  {
+    "nick": "player1",
+    "password": "1234"
+  },
+  {
+    "nick": "player2",
+    "password": "5678"
   }
 ]
