@@ -7,7 +7,7 @@ let url      = require('url');
 let fs       = require('fs');
 
 const registerHandler = require('./handlers/register');
-//const joinHandler = require('./handlers/join');
+const joinHandler = require('./handlers/join');
 const rankingHandler = require('./handlers/ranking');
 
 const headers = {
@@ -39,7 +39,7 @@ http.createServer(async function (request, response) {
                 answer = await registerHandler(request);
                 break;
             case '/join':
-                answer = joinHandler(preq.query.group, preq.query.nick, preq.query.password, preq.query.size);
+                answer = joinHandler(request);
                 break;
             case '/ranking':
                 answer = await rankingHandler(request);
