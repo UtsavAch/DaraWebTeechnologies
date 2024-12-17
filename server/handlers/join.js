@@ -64,6 +64,8 @@ async function joinGame(nick, password, group, size) {
         size: size,
         players: [nick],
         winner: null, 
+        turn: nick, // added i dont think it messes with the other logic
+        phase: "drop", // added i dont think it messes with the other logic
         board: []
     };
 
