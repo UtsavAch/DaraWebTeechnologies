@@ -135,7 +135,8 @@ const createTable = (receivedData) => {
               console.log("Turn updated to: " + receivedData.turn);
               receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
                 player1 ? "blue" : "red";
-              target.style.backgroundColor = player1 ? "#46769b" : "#bb3f3f";
+              target.style.backgroundColor =
+                gameInfo.username === player1 ? "#46769b" : "#bb3f3f";
             }
             console.log(receivedData.board);
             setNotificationMessage("Notify successful");
