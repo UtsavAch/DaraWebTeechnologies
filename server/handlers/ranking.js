@@ -13,12 +13,36 @@ async function readRankingFile() { // TRY TO MODULDARIZE TO NEW METHOD with read
 }
 
 async function getRanking(group, size) {
-    const rankings = await readRankingFile();
-    const aux = rankings.find((r) => r.size === size)
-    if (aux) {
-        return { status: 200, style: 'plain', rank: aux.ranking };
-    } else {
-        return { status: 404, style: 'plain', message: { error: `Size ${size} not found in group ${group}` } };
+    try {
+        const rankings = await readRankingFile(); 
+        const aux = rankings.find((r) => r.size === size);
+        
+        if (aux) {
+            const sortedRanking = aux.ranking
+                .sort((a, b) => {
+                    if (b.victories === a.victories) {
+                        return a.games - b.games; // if victories are the same uses games played to see
+                    }
+                    return b.victories - a.victories; 
+                })
+                .slice(0, 10); // fisrt 10 players
+
+                console.log(sortedRanking);
+            return { status: 200, style: 'plain', message: {ranking: sortedRanking} };
+        } else {
+            return { 
+                status: 404, 
+                style: 'plain', 
+                message: { error: `Size ${size} not found in group ${group}` } 
+            };
+        }
+    } catch (error) {
+        console.error('Error fetching ranking:', error.message);
+        return { 
+            status: 500, 
+            style: 'plain', 
+            message: { error: 'Internal server error' } 
+        };
     }
 }
 
