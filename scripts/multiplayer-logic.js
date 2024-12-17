@@ -154,25 +154,13 @@ const createTable = (receivedData) => {
         gameInfo.gameId,
         clickedCellIndex[0],
         clickedCellIndex[1]
-      );
-
-      ////////////
-      //For reference
-      // join(group, gameInfo.username, gameInfo.password, gameInfo.boardSize).then((response) => {
-      //   response.json().then((data) => {
-      //     gameInfo.gameId = data.game;
-      //     createSSEConnection(gameInfo.username, gameInfo.gameId);
-      //   });
-      //   setNotificationMessage("Login successful");
-
-      // }).catch((error) => {
-      //   if (error.message === "401") {
-      //     setNotificationMessage("Invalid username or password");
-      //   }
-      //   if(error.message === '400'){
-      //     setNotificationMessage("Invalid data");
-      //   }
-      // });
+      )
+        .then((_response) => {
+          setNotificationMessage("Notify successful");
+        })
+        .catch((_error) => {
+          setNotificationMessage("Notify failed");
+        });
     }
   });
 };
