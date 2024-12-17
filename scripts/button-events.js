@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const gameContainer = document.getElementById("game-container");
   const boardContainer = document.getElementById("board-container");
+  const boardContainerMultiplayer = document.getElementById(
+    "board-container-multiplayer"
+  );
   const boardButtonsContainer = document.getElementById("board-btns-container");
   const playersContainer = document.getElementById("players-container");
   const confirmExitContainer = document.getElementById(
@@ -312,6 +315,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     setNotificationMessage("I hope you enjoyed the game :)");
     winnerContainer.style.display = "none";
     boardContainer.style.display = "none";
+    boardContainerMultiplayer.style.display = "none";
     gameContainer.style.display = "flex";
     playersContainer.style.display = "none";
     boardButtonsContainer.style.display = "none";

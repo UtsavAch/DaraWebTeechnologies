@@ -3,7 +3,8 @@ import { register, join, leave, createSSEConnection } from "/backend/server-comm
 export let gameInfo = {
   gameId: -1,
   username: "",
-  password: ""
+  password: "",
+  boardSize: 0,
 };
 
 
@@ -57,9 +58,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   loginSubmit.addEventListener("click", () => {
     gameInfo.username = document.getElementById("l-username").value;
     gameInfo.password = document.getElementById("l-password").value;
-    let boardSize = document.getElementById("multiplayer-size").value;
+    gameInfo.boardSize = document.getElementById("multiplayer-size").value;
     const group = 16;
-    join(group, gameInfo.username, gameInfo.password, boardSize).then((response) => {
+    join(group, gameInfo.username, gameInfo.password, gameInfo.boardSize).then((response) => {
       response.json().then((data) => {
         gameInfo.gameId = data.game;
         createSSEConnection(gameInfo.username, gameInfo.gameId);

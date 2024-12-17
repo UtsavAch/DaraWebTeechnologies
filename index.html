@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles/styles-board.css" />
     <link rel="stylesheet" href="styles/styles-notification.css" />
     <link rel="stylesheet" href="styles/styles-players.css" />
+    <link rel="stylesheet" href="styles/styles-multiplayer.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -92,7 +93,7 @@
               name="leaderboard-size"
               min="2"
               placeholder="Board dimension"
-              />
+            />
             <button id="leaderboard-submit" class="submit-btn btn">Ok</button>
           </div>
           <table id="leaderboard-table">
@@ -284,13 +285,13 @@
               </div>
             </div>
             <div id="waiting-view">
-              <p>
-                Waiting for another player to join the game. Please wait...
-              </p>
+              <p>Waiting for another player to join the game. Please wait...</p>
               <div>
                 <canvas id="waiting-canvas" width="100" height="100"></canvas>
               </div>
-              <button id="cancel-waiting-btn" class="basic-btn btn">Exit waiting</button>
+              <button id="cancel-waiting-btn" class="basic-btn btn">
+                Exit waiting
+              </button>
             </div>
           </div>
         </div>
@@ -301,6 +302,16 @@
           <table id="myTable"></table>
         </div>
       </div>
+      <!-- Game Board Multi player -->
+      <!--------------------------------->
+      <!--------------------------------->
+      <div id="board-container-multiplayer">
+        <div id="table-container-multiplayer">
+          <table id="myTableMultiplayer"></table>
+        </div>
+      </div>
+      <!--------------------------------->
+      <!--------------------------------->
       <!-- Players -->
       <div id="players-container">
         <div id="player-one-container">
@@ -400,5 +411,6 @@
     <script type="module" src="/backend/server-communication-fetch.js"></script>
     <script type="module" src="/scripts/multiplayer-logic.js"></script>
     <script type="module" src="/scripts/canvas-animation.js"></script>
+    <script type="module" src="/scripts/board-multiplayer.js"></script>
   </body>
 </html>
