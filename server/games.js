@@ -12,4 +12,6 @@ id
 group
 size 
 players[] (one if waiting, two if playing)
+winner (null) ? may not be necessary
+board[] initially is [] after is ["empty", "empty",....]
 */ 

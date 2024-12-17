@@ -18,6 +18,13 @@ async function readUsersFile() {
     }
 }
 
+function createEmptyBoard(size) {
+    return Array(size) 
+        .fill()        
+        .map(() => Array(8).fill("empty")); 
+}
+
+
 // Join game logic
 async function joinGame(nick, password, group, size) {
     // Validate user
@@ -38,7 +45,8 @@ async function joinGame(nick, password, group, size) {
     if (existingGame) {
         // Add player to existing game
         existingGame.players.push(nick);
-
+        existingGame.board = createEmptyBoard(existingGame.size); // creates the board
+        console.log(existingGame);
         return { 
             status: 200, 
             style: 'plain', 
@@ -54,7 +62,9 @@ async function joinGame(nick, password, group, size) {
         id: newGameId,
         group: group,
         size: size,
-        players: [nick]
+        players: [nick],
+        winner: null, 
+        board: []
     };
 
     // Add new game to games array

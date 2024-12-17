@@ -9,6 +9,7 @@ let fs       = require('fs');
 const registerHandler = require('./handlers/register');
 const joinHandler = require('./handlers/join');
 const rankingHandler = require('./handlers/ranking');
+const leaveHandler = require('./handlers/leave')
 
 const headers = {
     plain: {
@@ -43,6 +44,9 @@ http.createServer(async function (request, response) {
                 break;
             case '/ranking':
                 answer = await rankingHandler(request);
+                break;
+            case '/leave':
+                answer = await leaveHandler(request);
                 break;
             default:
                 answer.status = 400;

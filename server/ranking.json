@@ -1,29 +1,39 @@
 [
-    {
-        "size": 2,
-        "ranking": []
-    },
-    {
-        "size": 3,
-        "ranking": [
-            {
-                "nick":"jpleal",
-                "victories":2,
-                "games":2
-            },
-            {
-                "nick":"zp",
-                "victories":0,
-                "games":2
-            }
-        ]
-    },
-    {
-        "size": 4,
-        "ranking": []
-    },
-    {
-        "size": 5,
-        "ranking": []
-    }
+  {
+    "size": 2,
+    "ranking": []
+  },
+  {
+    "size": 3,
+    "ranking": [
+      {
+        "nick": "jpleal",
+        "victories": 2,
+        "games": 2
+      },
+      {
+        "nick": "zp",
+        "victories": 0,
+        "games": 2
+      },
+      {
+        "nick": "name2",
+        "victories": 1,
+        "games": 1
+      },
+      {
+        "nick": "name1",
+        "victories": 0,
+        "games": 1
+      }
+    ]
+  },
+  {
+    "size": 4,
+    "ranking": []
+  },
+  {
+    "size": 5,
+    "ranking": []
+  }
 ]
