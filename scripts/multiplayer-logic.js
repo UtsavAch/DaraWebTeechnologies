@@ -132,21 +132,23 @@ const createTable = (receivedData) => {
             if (Object.keys(data).length === 0) {
               receivedData.turn =
                 gameInfo.username === player1 ? player2 : player1;
-              console.log("Turn updated to: " + receivedData.turn);
+              console.log(receivedData.turn + "'s turn");
               receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
                 gameInfo.username === player1 ? "blue" : "red";
               target.style.backgroundColor =
                 gameInfo.username === player1 ? "#46769b" : "#bb3f3f";
             }
             console.log(receivedData.board);
-            setNotificationMessage("Notify successful");
+            setNotificationMessage(
+              gameInfo.username + " moved to " + clickedCellIndex
+            );
           })
           .catch((error) => {
             console.error("Notify failed:", error.message);
-            setNotificationMessage("Notify failed");
+            setNotificationMessage("Not a valid move");
           });
       } else {
-        console.log("It's not your turn");
+        setNotificationMessage("It's not your turn");
       }
     }
   });
