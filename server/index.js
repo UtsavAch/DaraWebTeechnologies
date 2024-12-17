@@ -39,11 +39,10 @@ http.createServer(async function (request, response) {
                 answer = await registerHandler(request);
                 break;
             case '/join':
-                answer = joinHandler(request);
+                answer = await joinHandler(request);
                 break;
             case '/ranking':
                 answer = await rankingHandler(request);
-                console.log(answer);
                 break;
             default:
                 answer.status = 400;

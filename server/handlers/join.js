@@ -27,9 +27,6 @@ async function joinGame(nick, password, group, size) {
         return { status: 403, style: 'plain', message: { error: 'User not registered or incorrect password' } };
     }
 
-    // Read existing games
-    let games = await readGamesFile();
-
     // Try to find an existing game with space
     let existingGame = games.find(game => 
         game.group === group && 
@@ -66,8 +63,7 @@ async function joinGame(nick, password, group, size) {
         status: 200, 
         style: 'plain', 
         message: { 
-            gameId: newGameId, 
-            players: [nick] 
+            game: newGameId,
         } 
     };
 }
@@ -95,7 +91,7 @@ module.exports = async function(request) {
             return { status: 400, style: 'plain', message: { error: 'Password missing' } };
         }
 
-        if (!size || isNaN(size) || size < 2 || size > 5) {
+        if (!query.size || isNaN(query.size) || query.size < 2 || query.size > 5) {
             return { status: 400, style: 'plain', message: { error: 'Invalid game size' } };
         }
 
