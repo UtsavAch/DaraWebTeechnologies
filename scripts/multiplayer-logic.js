@@ -42,6 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // CREATE TABLE
 //////////////////////////
 const createTable = (receivedData) => {
+  // Clear the existing table if any
+  const existingTable = document.getElementById("myTableMultiplayer");
+  if (existingTable) {
+    existingTable.innerHTML = ""; // Clear all content of the existing table
+  }
+
   // Creating a table for multiplayer
   const table = document.getElementById("myTableMultiplayer");
   const usefulCells = [];
@@ -95,16 +101,10 @@ const createTable = (receivedData) => {
   console.log("Index Table Mult:", indexTable); // Log the generated index table
   console.log("Board Mult:", board); // Log the board information
 
-  ///Phase, 1:-
-  // Player1 makes move  -> browser notifies the server -> server sends updated board -> update the UI of the board for both players -> Player 2 makes move -> browser notifies to the server  ->  server sends the updated board -> Update the board for both players -> ...
-  //Phase 2:-
-  //Player one selects piece -> browser notifies to the server -> server sends back the same board -> User clicks empty field where he wants to make move -> browser notifies to the server -> server checks if it is a correct move -> If not gives error else new board -> player 2 makes move ...
-  //Make resetBoard function to reset the board
+  // Other game logic continues...
 
   let player1 = Object.keys(receivedData.players)[0]; // Extract player 1 from received data
   let player2 = Object.keys(receivedData.players)[1]; // Extract player 2 from received data
-  let turn = receivedData.turn; // Get the current turn
-  let phase = receivedData.phase; // Get the current game phase
 
   // Handle clicks on the table dynamically using event delegation
   table.addEventListener("click", (event) => {
@@ -134,7 +134,7 @@ const createTable = (receivedData) => {
                 gameInfo.username === player1 ? player2 : player1;
               console.log("Turn updated to: " + receivedData.turn);
               receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
-                player1 ? "blue" : "red";
+                gameInfo.username === player1 ? "blue" : "red";
               target.style.backgroundColor =
                 gameInfo.username === player1 ? "#46769b" : "#bb3f3f";
             }
