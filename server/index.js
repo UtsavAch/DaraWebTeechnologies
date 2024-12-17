@@ -46,11 +46,11 @@ http.createServer(async function (request, response) {
                 console.log(answer);
                 break;
             default:
-                answer.status = 400;
+                answer.status = 404; // unknown request
         }
         break;
     default:
-        answer.status = 400;
+        answer.status = 400; // error on request (argument validation)
     }
 
     if(answer.status === undefined)

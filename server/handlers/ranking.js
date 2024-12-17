@@ -1,6 +1,6 @@
 const fsp = require('fs').promises;
 
-async function readRankingFile() { // TRY TO MODULDARIZE TO NEW METHOD with readUsersFile
+async function readRankingFile() { // TRY TO MODULDARIZE TO NEW METHOD with readUsersFile, it would receive fileName and use it, the rest is the same
     try{
         const data = await fsp.readFile('ranking.json');
         return JSON.parse(data);

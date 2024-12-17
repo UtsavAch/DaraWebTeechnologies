@@ -1,7 +1,7 @@
 const fsp = require('fs').promises;
 
 // reads users file
-async function readUsersFile() { // TRY TO MODULDARIZE TO NEW METHOD with readRankingFile
+async function readUsersFile() { // TRY TO MODULDARIZE TO NEW METHOD with readRankingFile, it would receive fileName and use it, the rest is the same
     try{
         const data = await fsp.readFile('users.json');
         return JSON.parse(data);
@@ -31,7 +31,7 @@ async function registerUser(nick, password) {
     if (user){
         if (user.password !== password){
             console.log("User registration with different password");
-            return {status: 403, style: 'plain', message: {error: 'User registration with different password'}};
+            return {status: 400, style: 'plain', message: {error: 'User registration with different password'}};
         }
         return { status: 200, style: 'plain' };
     }

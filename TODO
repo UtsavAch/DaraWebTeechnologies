@@ -12,6 +12,19 @@
 
 # THIRD PART
 
+## ERRORS:
+- 200 for everything OK
+- 400 for errors from request , arguments validation
+- 401 for unauthorized requests (nick/pass invalid)
+- 404 for unknown
+
+## Functions:
+- Join 
+- Leave
+- Notify
+- Update
+
+
 
 # FIRST PART PROBLEMS TO FIX LATER (if we have time)
 
