@@ -1,4 +1,6 @@
 import { setNotificationMessage, gameInfo } from "./config.js";
+import { notify } from "../backend/server-communication-fetch.js";
+import { findTuplePosition } from "../backend/helpers.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const waitingView = document.getElementById("waiting-view");
@@ -19,10 +21,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setNotificationMessage("Let the battle begin !");
 
+    ////////////////////////////////////////////////////////////////
+    createTable(receivedData);
+    ////////////////////////////////////////////////////////////////
+
     //!!we should check first what type of data is coming from server
-
-    createTable(receivedData.board);
-
     const playerBlueField = Object.keys(receivedData.players)[0];
     const playerRedField = Object.keys(receivedData.players)[1];
     //const dimension
@@ -43,8 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-const createTable = (serverBoard) => {
-  //Creating a tables for multiplayer
+//////////////////////////
+// CREATE TABLE
+//////////////////////////
+const createTable = (receivedData) => {
+  // Creating a table for multiplayer
   const table = document.getElementById("myTableMultiplayer");
   const usefulCells = [];
 
@@ -60,14 +66,14 @@ const createTable = (serverBoard) => {
 
     for (let y = 1; y <= cols; y++) {
       const cell = document.createElement("td");
-      cell.id = `c-${x}-${y}`;
+      cell.id = `c-${x}-${y}`; // ID of each cell
       cell.className = "cell-mult";
 
       let cellDiv = document.createElement("div");
-      cellDiv.className = "cell-div-mult";
+      cellDiv.className = "cell-div-mult"; // Div inside the cell
       cellDiv.id = `cell-div-mult-${x}-${y}`;
 
-      //identify useful cells and exclude the central cell
+      // Add to usefulCells if applicable
       if (
         (x === y ||
           x + y === rows + 1 ||
@@ -75,32 +81,108 @@ const createTable = (serverBoard) => {
           y === centralCol) &&
         !(x === centralRow && y === centralCol)
       ) {
-        usefulCells.push([x, y]);
+        usefulCells.push([x, y]); // Useful cells
         cell.classList.add("useful-cell-mult");
       }
 
+      // Append the div to the cell and the cell to the row
       cell.appendChild(cellDiv);
       row.appendChild(cell);
     }
 
-    table.appendChild(row);
-    removeAllBorders(rows, cols, centralRow, centralCol);
+    table.appendChild(row); // Append the row to the table
+    removeAllBorders(rows, cols, centralRow, centralCol); // Remove unnecessary borders
   }
 
-  table.style.display = "block";
+  table.style.display = "block"; // Ensure the table is visible
 
-  //Generate the index table for the board, given the dimension
+  // Generate the index table for the board, given the dimension
   const indexTable = generateSquares(dimension);
-  const board = serverBoard;
+  const board = receivedData.board;
 
-  console.log("Index Table:", indexTable);
-  console.log("Board:", board);
+  console.log("Index Table Mult:", indexTable); // Log the generated index table
+  console.log("Board Mult:", board); // Log the board information
 
   ///Phase, 1:-
   // Player1 makes move  -> browser notifies the server -> server sends updated board -> update the UI of the board for both players -> Player 2 makes move -> browser notifies to the server  ->  server sends the updated board -> Update the board for both players -> ...
   //Phase 2:-
-  //Player one selects piece -> browser notifies to the server -> server sends back the ame board -> User clicks empty field where he wants to make move -> browser notifies to the server -> server checks if it is a correct move -> If not gives error else new board -> player 2 makes move ...
+  //Player one selects piece -> browser notifies to the server -> server sends back the same board -> User clicks empty field where he wants to make move -> browser notifies to the server -> server checks if it is a correct move -> If not gives error else new board -> player 2 makes move ...
   //Make resetBoard function to reset the board
+
+  let player1 = Object.keys(receivedData.players)[0]; // Extract player 1 from received data
+  let player2 = Object.keys(receivedData.players)[1]; // Extract player 2 from received data
+  let turn = receivedData.turn; // Get the current turn
+  let phase = receivedData.phase; // Get the current game phase
+
+  // Handle clicks on the table dynamically using event delegation
+  table.addEventListener("click", (event) => {
+    const target = event.target;
+
+    // Check if the clicked element is a cellDiv
+    if (target && target.classList.contains("cell-div-mult")) {
+      let clickedCellId = target.id; // Update clickedCellId with the ID of the clicked div
+      let clickedCellCoord = extractCoordinates(clickedCellId); // Coordinates of the clicked cell
+      let clickedCellIndex = findTuplePosition(indexTable, clickedCellCoord); // Find the index of the clicked cell
+
+      console.log(
+        "Player 1 = " +
+          player1 +
+          " Player 2 = " +
+          player2 +
+          "\n" +
+          " Turn = " +
+          turn +
+          " Phase = " +
+          phase
+      );
+
+      console.log("cellDiv just clicked: " + clickedCellId); // Use the updated value of clickedCellId
+      console.log("Coordinates of the cell clicked: " + clickedCellCoord); // Use the updated value of clickedCellId
+      console.log("Index of the cell clicked: " + clickedCellIndex); // Use the updated value of clickedCellId
+
+      console.log("This is game Info from Multiplayer logic"); // Log game information
+      console.log(gameInfo); // Display the gameInfo object
+
+      //////////
+      // Notify args(nick, password, game, square, position)
+      // Returns ()
+      //////////
+      //Phase 1:-
+      notify(
+        gameInfo.username,
+        gameInfo.password,
+        gameInfo.gameId,
+        clickedCellIndex[0],
+        clickedCellIndex[1]
+      );
+
+      ////////////
+      //For reference
+      // join(group, gameInfo.username, gameInfo.password, gameInfo.boardSize).then((response) => {
+      //   response.json().then((data) => {
+      //     gameInfo.gameId = data.game;
+      //     createSSEConnection(gameInfo.username, gameInfo.gameId);
+      //   });
+      //   setNotificationMessage("Login successful");
+
+      // }).catch((error) => {
+      //   if (error.message === "401") {
+      //     setNotificationMessage("Invalid username or password");
+      //   }
+      //   if(error.message === '400'){
+      //     setNotificationMessage("Invalid data");
+      //   }
+      // });
+    }
+  });
+};
+
+// Extracting the coordinates from the cellDiv ID
+const extractCoordinates = (cellId) => {
+  const parts = cellId.split("-");
+  const x = parseInt(parts[3], 10);
+  const y = parseInt(parts[4], 10);
+  return [x, y];
 };
 
 const generateSquares = (n) => {
@@ -131,6 +213,8 @@ const generateSquares = (n) => {
   return squares;
 };
 
+///////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////
 function removeBorders(cellId, borders) {
   const cell = document.getElementById(cellId);
   if (cell) {
