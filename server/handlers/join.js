@@ -94,12 +94,24 @@ module.exports = async function(request) {
             return { status: 400, style: 'plain', message: { error: 'Group missing' } };
         }
 
+        if (isNaN(query.group)) {
+            return { status: 400, style: 'plain', message: { error: 'Group not a number' } };
+        }
+
         if (!query.nick) {
             return { status: 400, style: 'plain', message: { error: 'Nickname missing' } };
         }
 
+        if ((typeof query.nick) !== "string"){
+            return {status: 400, style: 'plain', message: {error: 'Nickname is not string'}};
+        }
+
         if (!query.password) {
             return { status: 400, style: 'plain', message: { error: 'Password missing' } };
+        }
+
+        if ((typeof query.password) !== "string"){
+            return {status: 400, style: 'plain', message: {error: 'Password is not string'}};
         }
 
         if (!query.size || isNaN(query.size) || query.size < 2 || query.size > 5) {

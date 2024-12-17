@@ -7,11 +7,12 @@ let url      = require('url');
 let fs       = require('fs');
 
 const registerHandler = require('./handlers/register');
-const joinHandler = require('./handlers/join');
-const rankingHandler = require('./handlers/ranking');
-const leaveHandler = require('./handlers/leave')
+const joinHandler     = require('./handlers/join');
+const rankingHandler  = require('./handlers/ranking');
+const leaveHandler    = require('./handlers/leave');
+const notifyHandler   = require('./handlers/notify'); 
 
-const headers = {
+const headers = { // SHOULD WE USE THEM ON THE MESSAGES?
     plain: {
         'Content-Type': 'application/json',
         'Cache-Control': 'no-cache',
@@ -33,6 +34,13 @@ http.createServer(async function (request, response) {
 
     switch(request.method) {
     case 'GET':
+        switch (pathname) {
+            case '/update':
+                //TODO: IMPLEMENT 
+                break;
+            default:
+                break;
+        }
         break;
     case 'POST':
         switch(pathname) {
@@ -47,6 +55,9 @@ http.createServer(async function (request, response) {
                 break;
             case '/leave':
                 answer = await leaveHandler(request);
+                break;
+            case '/notify':
+                answer = await notifyHandler(request);
                 break;
             default:
                 answer.status = 400;

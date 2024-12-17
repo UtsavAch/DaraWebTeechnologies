@@ -27,7 +27,7 @@ async function getRanking(group, size) {
                 })
                 .slice(0, 10); // fisrt 10 players
 
-                console.log(sortedRanking);
+                //console.log(sortedRanking); //debug
             return { status: 200, style: 'plain', message: {ranking: sortedRanking} };
         } else {
             return { 

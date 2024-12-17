@@ -33,15 +33,23 @@ module.exports = async function(request){
             body += chunk
         }
 
-        console.log('Request Body:', body);
+        //console.log('Request Body:', body);//debug
 
         //const query = JSON.parse(body);
         const { nick, password, game } = JSON.parse(body); // using this way i think is easier and more readble
 
-        console.log('Parsed Params:', { nick, password, game });
+        //console.log('Parsed Params:', { nick, password, game });//debug
 
         if (!nick || !password || !game){ // i dont think that we need to check evry error at a time
             return { status: 400, style: 'plain', message: { error: 'Invalid arguments' } };
+        }
+
+        if ((typeof nick) !== "string"){
+            return {status: 400, style: 'plain', message: {error: 'Nickname is not string'}};
+        }
+
+        if ((typeof password) !== "string"){
+            return {status: 400, style: 'plain', message: {error: 'Password is not string'}};
         }
 
         const users = await readMyFile('users.json');
@@ -50,14 +58,14 @@ module.exports = async function(request){
             return { status: 401, message: { error: "Invalid authentication." } };
         }
 
-        console.log('User Found:', user);
+        //console.log('User Found:', user);//debug
 
         const currentGame = games.find(g => g.id === game);
         if (!currentGame) {
             return { status: 404, message: { error: "Game not found." } };
         }
 
-        console.log('Current Game:', currentGame);
+        //console.log('Current Game:', currentGame);//debug
 
         let winner = null;
         if (currentGame.board.length === 0) {

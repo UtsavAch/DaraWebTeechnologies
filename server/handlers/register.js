@@ -55,8 +55,16 @@ module.exports = async function(request){
             return {status: 400, style: 'plain', message: {error: 'Nickname missing'}};
         }
 
-        if (!query.password) {
+        if ((typeof query.nick) !== "string"){
+            return {status: 400, style: 'plain', message: {error: 'Nickname is not string'}};
+        }
+
+        if (!query.password ) {
             return { status: 400, style: 'plain', message: { error: 'Password missing' } };
+        }
+
+        if ((typeof query.password) !== "string"){
+            return {status: 400, style: 'plain', message: {error: 'Password is not string'}};
         }
 
         return await registerUser(query.nick, query.password);

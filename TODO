@@ -12,6 +12,8 @@
 
 # THIRD PART
 
+- We need to test it with the twserver-be
+
 ## Error types:
 
 - 400 error in request (validation of arguments)
@@ -20,7 +22,7 @@
 
 ## Functions:
 
-- join **Almost done**
+- join **Should be done**
 - leave **Should be done**
 - notify
 - update
