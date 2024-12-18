@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "board-container-multiplayer"
   );
 
+  const playerOnePiecesContainer = document.getElementById(
+    "player-one-pieces-container"
+  );
+  const playerTwoPiecesContainer = document.getElementById(
+    "player-two-pieces-container"
+  );
+
   const playersContainer = document.getElementById("players-container");
   const boardButtonsContainer = document.getElementById("board-btns-container");
 
@@ -26,19 +33,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const indexTabl = generateSquares(gameInfo.boardSize);
     console.log(receivedData.table);
+
+    let bluePiecesOnBoard = 0;
+    let redPiecesOnBoard = 0;
+
     for (let i = 0; i < gameInfo.boardSize; i++) {
       for (let j = 0; j < 8; j++) {
         if (receivedData.board[i][j] == "blue") {
+          bluePiecesOnBoard += 1;
           let x_coord = indexTabl[i][j][0];
           let y_coord = indexTabl[i][j][1];
-          console.log(
-            "Cell Div Blue Id created = " +
-              `cell-div-mult-${x_coord}-${y_coord}`
-          );
           document.getElementById(
             `cell-div-mult-${x_coord}-${y_coord}`
           ).style.backgroundColor = "#46769b";
         } else if (receivedData.board[i][j] == "red") {
+          redPiecesOnBoard += 1;
           let x_coord = indexTabl[i][j][0];
           let y_coord = indexTabl[i][j][1];
           document.getElementById(
@@ -47,6 +56,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
     }
+
+    // const p1Pieces = document.querySelectorAll(".piece_p1");
+    // if (p1Pieces.length > 0) {
+    //   playerOnePiecesContainer.removeChild(
+    //     p1Pieces[p1Pieces.length - bluePiecesOnBoard]
+    //   );
+    // }
 
     const playerBlueField = Object.keys(receivedData.players)[0];
     const playerRedField = Object.keys(receivedData.players)[1];
@@ -140,10 +156,7 @@ const createTable = (receivedData) => {
       let clickedCellCoord = extractCoordinates(clickedCellId);
       let clickedCellIndex = findTuplePosition(indexTable, clickedCellCoord);
 
-      console.log("Cell clicked: ", clickedCellId);
-
-      // Only handle the turn and UI update, not table creation
-      if (receivedData.turn == gameInfo.username) {
+      if (receivedData.turn === gameInfo.username) {
         notify(
           gameInfo.username,
           gameInfo.password,
@@ -153,24 +166,46 @@ const createTable = (receivedData) => {
         )
           .then((data) => {
             console.log("Response from server:", data);
-            if (Object.keys(data).length === 0) {
-              receivedData.turn =
-                gameInfo.username === player1 ? player2 : player1;
-              console.log(receivedData.turn + "'s turn");
-              receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
-                gameInfo.username === player1 ? "blue" : "red";
+            if (receivedData.phase === "drop") {
+              /////////DROP PHASE///////////////
+              if (Object.keys(data).length === 0) {
+                receivedData.turn =
+                  gameInfo.username === player1 ? player2 : player1;
+                receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
+                  gameInfo.username === player1 ? "blue" : "red";
+              }
+              setNotificationMessage(
+                gameInfo.username + " moved to " + clickedCellIndex
+              );
+            } else if (receivedData.phase === "move") {
+              //////////MOVE PHASE//////////////
+              console.log("This is move phase");
+              if (Object.keys(data).length === 0) {
+                if (receivedData.step === "from") {
+                  /////////////STEP FROM//////
+                  console.log("Piece selected = " + clickedCellIndex);
+                } else if (receivedData.step === "to") {
+                  ////////////STEP TO/////////
+                  if (Object.keys(data).length === 0) {
+                    receivedData.turn =
+                      gameInfo.username === player1 ? player2 : player1;
+                    receivedData.board[clickedCellIndex[0]][
+                      clickedCellIndex[1]
+                    ] = gameInfo.username === player1 ? "blue" : "red";
+                  }
+                  setNotificationMessage(
+                    gameInfo.username + " moved to " + clickedCellIndex
+                  );
+                }
+              }
             }
-            console.log(receivedData.board);
-            setNotificationMessage(
-              gameInfo.username + " moved to " + clickedCellIndex
-            );
           })
           .catch((error) => {
             console.error("Notify failed:", error.message);
             setNotificationMessage(error.message);
           });
       } else {
-        setNotificationMessage("It's not your turn");
+        console.log("It's not your turn! ");
       }
     }
   });
