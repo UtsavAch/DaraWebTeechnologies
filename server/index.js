@@ -11,6 +11,7 @@ const joinHandler     = require('./handlers/join');
 const rankingHandler  = require('./handlers/ranking');
 const leaveHandler    = require('./handlers/leave');
 const notifyHandler   = require('./handlers/notify'); 
+const updateHandler   = require('./handlers/update');
 
 const headers = { // SHOULD WE USE THEM ON THE MESSAGES?
     plain: {
@@ -36,6 +37,7 @@ http.createServer(async function (request, response) {
     case 'GET':
         switch (pathname) {
             case '/update':
+                answer = updateHandler(request);
                 //TODO: IMPLEMENT 
                 break;
             default:
