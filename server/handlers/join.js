@@ -66,7 +66,9 @@ async function joinGame(nick, password, group, size) {
         winner: null, 
         turn: nick, // added i dont think it messes with the other logic
         phase: "drop", // added i dont think it messes with the other logic
-        board: []
+        board: [],
+        step: "from", // only usefull later 
+        last: {square:0, position:0} // I DONT KNOW IF IL USE IT
     };
 
     // Add new game to games array

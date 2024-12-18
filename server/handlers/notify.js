@@ -14,10 +14,16 @@ async function readMyFile(fileName) {
 }
 
 
-function isValidMove(game, cell) {
-    const { board, phase } = game; // we only need this 2
+function playersColour(players, nick){
+    if (players[0] === nick) return "blue";
+    return "red";
+}
 
-    const {square, position} = cell;
+function isValidMove(game, cell, nick) {//FIXME: THIS ONLY WORKS IF IN MOVE PHASE
+    const {players, board, turn, phase, step, last } = game; // we only need this 2
+
+    const {square, position} = cell; // to move to
+    const {lastSquare, lastPosition} = last
 
     if ( // if is in bounds
         square < 0 || square >= board.length || 
@@ -31,12 +37,29 @@ function isValidMove(game, cell) {
         return "Invalid move: Cell is not empty.";
     }
 
+    if (phase === "move"){ // CHECK IF MOVES ARE VALID IN MOVE TODO: finish up the logic
+        
+        if (step === "from" && board[square][position] !== playersColour(players, nick)){ // WE SELECT OUR PIECE TO MOVE
+            return "Invalid move: Cell is not yors to move"
+        }
+
+        if (step === "to" && lastSquare !== square && lastPosition !== position && board[square][position] !== "empty"){ // WE CANNOT MOVE TO AN NON EMPTY PIECE
+            return "Invalid move: Cell is not empty." // last position is valid?
+        }
+
+        if (step === "capture" && board[square][position] === playersColour(players, nick)){ 
+            return "Invalid move: Cell needs to be from opponent"
+        }
+
+
+    }
+
     return null; // its correct
 }
 
 
 
-module.exports = async function(request) { //TODO: IMPLEMENT 
+module.exports = async function(request) { //TODO: COMPLETE 
     let body = '';
     try {
         for await (const chunk of request){
@@ -74,20 +97,51 @@ module.exports = async function(request) { //TODO: IMPLEMENT
             return { status: 403, message: { error: "Not your turn to play" } };
         }
 
-        const moveError = isValidMove(currentGame, cell);
+        const moveError = isValidMove(currentGame, cell, nick);
         if (moveError) { // does not check if null
             return { status: 400, message: { error: moveError } };
         }
 
-        const {square, position} = cell;
-        if (currentGame.players[0] === nick){
+        const {square, position} = cell; 
+
+        if (phase === "drop"){
+            currentGame.board[square][position] = playersColour(players, nick);
+            const otherPlayer = currentGame.players.find(p => p !== nick);
+            currentGame.turn = otherPlayer;
+        }
+
+        if (phase === "move"){ //TODO: FINISH UP IMPLEMENTING
+            // do somethiing....
+            if (currentGame.step === "from"){
+                currentGame.last.square = square;
+                currentGame.last.position = position;
+                currentGame.step = "to";
+            }
+            // the player is still playing
+
+            if(currentGame.step === "to"){
+                if (square === currentGame.last.square &&  position === currentGame.last.position){
+                    // it stays the same goes back to from step
+                    currentGame.step = "from"
+                } else {
+                    currentGame.board[square][position] = playersColour(players, nick);
+                }
+            }
+
+            if (currentGame.step === "capture"){ // capture the piece
+                currentGame.board[square][position] = "empty"
+            }
+        }
+
+
+        /*if (currentGame.players[0] === nick){
             currentGame.board[square][position] = "blue";
         } else {
             currentGame.board[square][position] = "red"; // we defined blue for first player to join, red for other
-        }
+        }*/
 
-        const otherPlayer = currentGame.players.find(p => p !== nick);
-        currentGame.turn = otherPlayer;
+        //const otherPlayer = currentGame.players.find(p => p !== nick);
+        //currentGame.turn = otherPlayer;
 
         console.log(currentGame.board);
         return { status: 200, message: {} }; // valid answer

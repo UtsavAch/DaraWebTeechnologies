@@ -18,6 +18,8 @@
 
 - the check users as well? (as above)
 
+- WE CAN MAKE A COUNT TIL MOVE PHASE IS OVER
+
 ## Error types:
 
 - 400 error in request (validation of arguments)
