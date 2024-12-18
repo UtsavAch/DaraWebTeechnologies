@@ -6,12 +6,12 @@ let http     = require('http');
 let url      = require('url');
 let fs       = require('fs');
 
-const registerHandler = require('./handlers/register');
-const joinHandler     = require('./handlers/join');
-const rankingHandler  = require('./handlers/ranking');
-const leaveHandler    = require('./handlers/leave');
-const notifyHandler   = require('./handlers/notify'); 
-const updateHandler   = require('./handlers/update');
+const registerHandler = require('./server/handlers/register');
+const joinHandler     = require('./server/handlers/join');
+const rankingHandler  = require('./server/handlers/ranking');
+const leaveHandler    = require('./server/handlers/leave');
+const notifyHandler   = require('./server/handlers/notify'); 
+const updateHandler   = require('./server/handlers/update');
 
 const headers = { // SHOULD WE USE THEM ON THE MESSAGES?
     plain: {
