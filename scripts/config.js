@@ -1,4 +1,9 @@
-import { register, join, leave, createSSEConnection } from "/backend/server-communication-fetch.js";
+import {
+  register,
+  join,
+  leave,
+  createSSEConnection,
+} from "/backend/server-communication-fetch.js";
 
 export let gameInfo = {
   gameId: -1,
@@ -6,7 +11,6 @@ export let gameInfo = {
   password: "",
   boardSize: 0,
 };
-
 
 document.addEventListener("DOMContentLoaded", (event) => {
   const singlePlayerButton = document.getElementById("singleplayer-btn");
@@ -44,7 +48,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     registerQuestion.style.display = "block";
   });
 
-/*  loginButton.addEventListener("click", () => {
+  /*  loginButton.addEventListener("click", () => {
     registerForm.style.display = "none";
     loginForm.style.display = "block";
   });*/
@@ -60,21 +64,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gameInfo.password = document.getElementById("l-password").value;
     gameInfo.boardSize = document.getElementById("multiplayer-size").value;
     const group = 16;
-    join(group, gameInfo.username, gameInfo.password, gameInfo.boardSize).then((response) => {
-      response.json().then((data) => {
-        gameInfo.gameId = data.game;
-        createSSEConnection(gameInfo.username, gameInfo.gameId);
+    join(group, gameInfo.username, gameInfo.password, gameInfo.boardSize)
+      .then((response) => {
+        response.json().then((data) => {
+          gameInfo.gameId = data.game;
+          createSSEConnection(gameInfo.username, gameInfo.gameId);
+        });
+        setNotificationMessage("Login successful");
+      })
+      .catch((error) => {
+        if (error.message === "401") {
+          setNotificationMessage("Invalid username or password");
+        }
+        if (error.message === "400") {
+          setNotificationMessage("Invalid data");
+        }
       });
-      setNotificationMessage("Login successful");
-
-    }).catch((error) => {
-      if (error.message === "401") {
-        setNotificationMessage("Invalid username or password");
-      }
-      if(error.message === '400'){
-        setNotificationMessage("Invalid data");
-      }
-    });  
 
     loginForm.style.display = "none";
     registerQuestion.style.display = "none";
@@ -85,12 +90,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let username = document.getElementById("r-username").value;
     let password = document.getElementById("r-password").value;
 
-    register(username, password).then((_response) => {
-      setNotificationMessage("Registration successful");
-    }).catch((_error) => {
-      setNotificationMessage("Regstration failed");
-    });
-  
+    register(username, password)
+      .then((_response) => {
+        setNotificationMessage("Registration successful");
+      })
+      .catch((_error) => {
+        setNotificationMessage("Regstration failed");
+      });
+
     registerForm.style.display = "none";
     loginForm.style.display = "block";
     registerQuestion.style.display = "block";
@@ -104,13 +111,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   //leave the game when in waiting mode
   leaveWaitingButton.addEventListener("click", () => {
-    leave(gameInfo.username, gameInfo.password, gameInfo.gameId).then((_response) => {
-      setNotificationMessage("You left the game");
-      waitingView.style.display = "none";
-      loginForm.style.display = "block";
-    }).catch((_error) => {
-      setNotificationMessage("Failed to leave the game");
-    });
+    leave(gameInfo.username, gameInfo.password, gameInfo.gameId)
+      .then((_response) => {
+        setNotificationMessage("You left the game");
+        waitingView.style.display = "none";
+        loginForm.style.display = "block";
+      })
+      .catch((_error) => {
+        setNotificationMessage("Failed to leave the game");
+      });
   });
 });
 

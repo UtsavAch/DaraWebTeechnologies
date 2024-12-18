@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const playerTwoPiecesContainer = document.getElementById(
     "player-two-pieces-container"
   );
+  const leaveConfirmButton = document.getElementById("overlay-confirm-btn");
+  const repalyConfirmButton = document.getElementById(
+    "overlay-confirm-btn-replay"
+  );
 
   const playersContainer = document.getElementById("players-container");
   const boardButtonsContainer = document.getElementById("board-btns-container");
@@ -25,8 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const receivedData = JSON.parse(event.detail);
     console.log("Parsed Data:", receivedData);
-
-    setNotificationMessage("Let the battle begin!");
 
     // Create the table only once when players are paired
     createTable(receivedData); // This should only be called once
@@ -57,12 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    // const p1Pieces = document.querySelectorAll(".piece_p1");
-    // if (p1Pieces.length > 0) {
-    //   playerOnePiecesContainer.removeChild(
-    //     p1Pieces[p1Pieces.length - bluePiecesOnBoard]
-    //   );
-    // }
+    // leaveConfirmButton.addEventListener("click", () => {
+    //   boardContainerMultiplayer.style.display = "none";
+    //   bluePiecesOnBoard = 0;
+    //   redPiecesOnBoard = 0;
+    // });
 
     const playerBlueField = Object.keys(receivedData.players)[0];
     const playerRedField = Object.keys(receivedData.players)[1];
@@ -75,6 +76,15 @@ document.addEventListener("DOMContentLoaded", () => {
     boardContainerMultiplayer.style.display = "block";
     playersContainer.style.display = "block";
     boardButtonsContainer.style.display = "flex";
+
+    // const totalPieces = 3 * gameInfo.size;
+    // const p1Pieces = document.querySelectorAll(".piece_p1");
+    // playerOnePiecesContainer.removeChild(
+    //   p1Pieces[totalPieces - bluePiecesOnBoard]
+    // );
+    // playerTwoPiecesContainer.removeChild(
+    //   p1Pieces[totalPieces - bluePiecesOnBoard]
+    // );
   });
 });
 
@@ -147,65 +157,93 @@ const createTable = (receivedData) => {
   let player2 = Object.keys(receivedData.players)[1]; // Extract player 2 from received data
 
   // Handle clicks on the table dynamically using event delegation
-  table.addEventListener("click", (event) => {
+  // Handle clicks on the table dynamically using event delegation
+  table.addEventListener("click", async (event) => {
     const target = event.target;
 
-    // Check if the clicked element is a cellDiv and not a table re-creation
+    // Ensure the clicked element is a cellDiv and not part of table re-creation
     if (target && target.classList.contains("cell-div-mult")) {
-      let clickedCellId = target.id;
-      let clickedCellCoord = extractCoordinates(clickedCellId);
-      let clickedCellIndex = findTuplePosition(indexTable, clickedCellCoord);
+      const clickedCellId = target.id;
+      const clickedCellCoord = extractCoordinates(clickedCellId);
+      const clickedCellIndex = findTuplePosition(indexTable, clickedCellCoord);
 
-      if (receivedData.turn === gameInfo.username) {
-        notify(
+      if (receivedData.turn !== gameInfo.username) {
+        setNotificationMessage("It's not your turn!");
+        return;
+      }
+
+      try {
+        const data = await notify(
           gameInfo.username,
           gameInfo.password,
           gameInfo.gameId,
           clickedCellIndex[0],
           clickedCellIndex[1]
-        )
-          .then((data) => {
-            console.log("Response from server:", data);
-            if (receivedData.phase === "drop") {
-              /////////DROP PHASE///////////////
-              if (Object.keys(data).length === 0) {
-                receivedData.turn =
-                  gameInfo.username === player1 ? player2 : player1;
-                receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
-                  gameInfo.username === player1 ? "blue" : "red";
-              }
+        );
+
+        console.log("Response from server:", data);
+
+        if (receivedData.winner) {
+          setNotificationMessage(receivedData.winner + " won!");
+          const winnerContainer = document.getElementById("winner-container");
+          winnerContainer.style.display = "flex";
+        }
+
+        // Handle Drop Phase
+        else if (receivedData.phase === "drop") {
+          setNotificationMessage("This is the drop phase.");
+          if (Object.keys(data).length === 0) {
+            // receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
+            //   gameInfo.username === player1 ? "blue" : "red";
+            // receivedData.turn =
+            //   gameInfo.username === player1 ? player2 : player1;
+            setNotificationMessage(
+              `${gameInfo.username} placed a piece at ${clickedCellIndex}`
+            );
+          } else {
+            setNotificationMessage("Move not allowed during drop phase.");
+          }
+        }
+        // Handle Move Phase
+        else if (receivedData.phase === "move") {
+          setNotificationMessage("This is the move phase.");
+
+          if (receivedData.step === "from") {
+            if (Object.keys(data).length === 0) {
+              receivedData.selectedCell = clickedCellIndex;
               setNotificationMessage(
-                gameInfo.username + " moved to " + clickedCellIndex
+                `${gameInfo.username} selected ${clickedCellIndex} to move from.`
               );
-            } else if (receivedData.phase === "move") {
-              //////////MOVE PHASE//////////////
-              console.log("This is move phase");
-              if (Object.keys(data).length === 0) {
-                if (receivedData.step === "from") {
-                  /////////////STEP FROM//////
-                  console.log("Piece selected = " + clickedCellIndex);
-                } else if (receivedData.step === "to") {
-                  ////////////STEP TO/////////
-                  if (Object.keys(data).length === 0) {
-                    receivedData.turn =
-                      gameInfo.username === player1 ? player2 : player1;
-                    receivedData.board[clickedCellIndex[0]][
-                      clickedCellIndex[1]
-                    ] = gameInfo.username === player1 ? "blue" : "red";
-                  }
-                  setNotificationMessage(
-                    gameInfo.username + " moved to " + clickedCellIndex
-                  );
-                }
-              }
+            } else {
+              setNotificationMessage("Invalid move selection.");
             }
-          })
-          .catch((error) => {
-            console.error("Notify failed:", error.message);
-            setNotificationMessage(error.message);
-          });
-      } else {
-        console.log("It's not your turn! ");
+          } else if (receivedData.step === "to") {
+            if (Object.keys(data).length === 0) {
+              // receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
+              //   gameInfo.username === player1 ? "blue" : "red";
+              // receivedData.turn =
+              //   gameInfo.username === player1 ? player2 : player1;
+              setNotificationMessage(
+                `${gameInfo.username} moved to ${clickedCellIndex}.`
+              );
+            } else {
+              setNotificationMessage("Move not allowed to the target cell.");
+            }
+          } else if (receivedData.step === "take") {
+            if (Object.keys(data).length === 0) {
+              setNotificationMessage(
+                `${gameInfo.username} captured a piece at ${clickedCellIndex}.`
+              );
+            } else {
+              setNotificationMessage("Capture not allowed.");
+            }
+          }
+        } else {
+          setNotificationMessage("Unexpected game phase.");
+        }
+      } catch (error) {
+        console.error("Notify failed:", error.message);
+        setNotificationMessage(`Something went wrong: ${error.message}`);
       }
     }
   });
