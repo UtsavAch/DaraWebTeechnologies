@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const loginLink = document.getElementById("login-link");
   const waitingView = document.getElementById("waiting-view");
   const leaveWaitingButton = document.getElementById("cancel-waiting-btn");
+  const playersContainer = document.getElementById("players-container");
 
   singlePlayerButton.addEventListener("click", () => {
     singlePlayerView.style.display = "block";
@@ -40,6 +41,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   multiPlayerButton.addEventListener("click", () => {
     singlePlayerView.style.display = "none";
     waitingView.style.display = "none";
+    playersContainer.style.display = "none";
     //multiPlayerView.style.display = "none";
     multiPlayerButton.classList.remove("passive-mode");
     singlePlayerButton.classList.add("passive-mode");
@@ -71,6 +73,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
           createSSEConnection(gameInfo.username, gameInfo.gameId);
         });
         setNotificationMessage("Login successful");
+        playersContainer.style.display = "none";
       })
       .catch((error) => {
         if (error.message === "401") {

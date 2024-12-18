@@ -54,3 +54,27 @@
 }
 
 /*Board Buttons */
+
+#players-container {
+  display: none !important;
+}
+
+#multiplayer-score-board span {
+  font-weight: 600;
+}
+
+#player-one-pieces,
+#player-two-pieces {
+  margin-left: 50px;
+}
+
+#player-one-pieces-remain,
+#player-one-pieces-captured,
+#player-two-pieces-remain,
+#player-two-pieces-captured {
+  color: orangered;
+}
+
+.multiplayer-score-board-hidden {
+  display: none;
+}

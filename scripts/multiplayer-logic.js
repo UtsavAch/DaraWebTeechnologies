@@ -8,13 +8,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const boardContainerMultiplayer = document.getElementById(
     "board-container-multiplayer"
   );
+  const playerOnePiecesRemain = document.getElementById(
+    "player-one-pieces-remain"
+  );
+  const playerTwoPiecesRemain = document.getElementById(
+    "player-two-pieces-remain"
+  );
+  const playerOnePiecesCaptured = document.getElementById(
+    "player-one-pieces-captured"
+  );
+  const playerTwoPiecesCaptured = document.getElementById(
+    "player-two-pieces-captured"
+  );
+  const multiplayerScoreBoard = document.getElementById(
+    "multiplayer-score-board"
+  );
 
-  const playerOnePiecesContainer = document.getElementById(
-    "player-one-pieces-container"
-  );
-  const playerTwoPiecesContainer = document.getElementById(
-    "player-two-pieces-container"
-  );
   const leaveConfirmButton = document.getElementById("overlay-confirm-btn");
   const repalyConfirmButton = document.getElementById(
     "overlay-confirm-btn-replay"
@@ -57,6 +66,27 @@ document.addEventListener("DOMContentLoaded", () => {
           ).style.backgroundColor = "#bb3f3f";
         }
       }
+    }
+
+    multiplayerScoreBoard.classList.remove("multiplayer-score-board-hidden");
+
+    if (receivedData.phase === "drop") {
+      let playerOnePieces = gameInfo.boardSize * 3 - bluePiecesOnBoard;
+      playerOnePiecesRemain.textContent = playerOnePieces;
+
+      let playerTwoPieces = gameInfo.boardSize * 3 - redPiecesOnBoard;
+      playerTwoPiecesRemain.textContent = playerTwoPieces;
+    }
+
+    if (receivedData.phase === "move") {
+      playerOnePiecesRemain.textContent = 0;
+      playerTwoPiecesRemain.textContent = 0;
+
+      let playerOneCaptured = gameInfo.boardSize * 3 - bluePiecesOnBoard;
+      playerOnePiecesCaptured.textContent = playerOneCaptured;
+
+      let playerTwoCaptured = gameInfo.boardSize * 3 - redPiecesOnBoard;
+      playerTwoPiecesCaptured.textContent = playerTwoCaptured;
     }
 
     // leaveConfirmButton.addEventListener("click", () => {
@@ -193,10 +223,10 @@ const createTable = (receivedData) => {
         else if (receivedData.phase === "drop") {
           setNotificationMessage("This is the drop phase.");
           if (Object.keys(data).length === 0) {
-            // receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
-            //   gameInfo.username === player1 ? "blue" : "red";
-            // receivedData.turn =
-            //   gameInfo.username === player1 ? player2 : player1;
+            receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
+              gameInfo.username === player1 ? "blue" : "red";
+            receivedData.turn =
+              gameInfo.username === player1 ? player2 : player1;
             setNotificationMessage(
               `${gameInfo.username} placed a piece at ${clickedCellIndex}`
             );
@@ -219,10 +249,10 @@ const createTable = (receivedData) => {
             }
           } else if (receivedData.step === "to") {
             if (Object.keys(data).length === 0) {
-              // receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
-              //   gameInfo.username === player1 ? "blue" : "red";
-              // receivedData.turn =
-              //   gameInfo.username === player1 ? player2 : player1;
+              receivedData.board[clickedCellIndex[0]][clickedCellIndex[1]] =
+                gameInfo.username === player1 ? "blue" : "red";
+              receivedData.turn =
+                gameInfo.username === player1 ? player2 : player1;
               setNotificationMessage(
                 `${gameInfo.username} moved to ${clickedCellIndex}.`
               );

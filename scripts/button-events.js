@@ -10,10 +10,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
     "close-leaderboard-btn"
   );
   const leaderboardContainer = document.getElementById("leaderboard-container");
-  const leaderboardSingleButton = document.getElementById("leaderboard-single-button");
-  const leaderboardMultiButton = document.getElementById("leaderboard-multi-button");
-  const leaderboardSingleplayer = document.getElementById("leaderboard-singleplayer");
-  const leaderboardMultiplayer = document.getElementById("leaderboard-multiplayer");
+  const leaderboardSingleButton = document.getElementById(
+    "leaderboard-single-button"
+  );
+  const leaderboardMultiButton = document.getElementById(
+    "leaderboard-multi-button"
+  );
+  const leaderboardSingleplayer = document.getElementById(
+    "leaderboard-singleplayer"
+  );
+  const leaderboardMultiplayer = document.getElementById(
+    "leaderboard-multiplayer"
+  );
 
   const startSingleplayerButton = document.getElementById(
     "start-singleplayer-btn"
@@ -94,7 +102,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     constructor() {
       addMockDataToLocalStorage();
       this.players = JSON.parse(localStorage.getItem("players"));
-      if(!this.players) {
+      if (!this.players) {
         this.players = [];
       }
     }
@@ -120,7 +128,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Display the leaderboard
     displayLeaderboard() {
-      const tableBody = document.querySelector("#leaderboard-table-single tbody");
+      const tableBody = document.querySelector(
+        "#leaderboard-table-single tbody"
+      );
 
       tableBody.innerHTML = "";
 
@@ -150,31 +160,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
     displayLeaderboardMultiplayer(boardSize) {
       const tableBody = document.querySelector("#leaderboard-table tbody");
       tableBody.innerHTML = "";
-      ranking(16, boardSize).then((response) => {
-        response.json().then((data) => {
-          const topPlayers = data.ranking;
-          topPlayers.forEach((player) => {
-            const row = document.createElement("tr");
+      ranking(16, boardSize)
+        .then((response) => {
+          response.json().then((data) => {
+            const topPlayers = data.ranking;
+            topPlayers.forEach((player) => {
+              const row = document.createElement("tr");
 
-            const nameCell = document.createElement("td");
-            nameCell.textContent = player.nick;
-            row.appendChild(nameCell);
+              const nameCell = document.createElement("td");
+              nameCell.textContent = player.nick;
+              row.appendChild(nameCell);
 
-            const gamesCell = document.createElement("td");
-            gamesCell.textContent = player.games;
-            row.appendChild(gamesCell);
+              const gamesCell = document.createElement("td");
+              gamesCell.textContent = player.games;
+              row.appendChild(gamesCell);
 
-            const totalWinsCell = document.createElement("td");
-            totalWinsCell.textContent = player.victories;
-            row.appendChild(totalWinsCell);
+              const totalWinsCell = document.createElement("td");
+              totalWinsCell.textContent = player.victories;
+              row.appendChild(totalWinsCell);
 
-            tableBody.appendChild(row);
+              tableBody.appendChild(row);
+            });
           });
+        })
+        .catch((error) => {
+          console.log("Error:", error);
+          //No need to display an error message, the user will see an empty table
         });
-      }).catch((error) => {
-        console.log("Error:", error);
-        //No need to display an error message, the user will see an empty table
-      });
     }
   }
 
@@ -278,7 +290,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       boardButtonsContainer.style.display = "flex";
     }
   });
-/*
+  /*
   startMultiplayerButton.addEventListener("click", () => {
     setNotificationMessage("Let the battle begin !");
     console.log("Start button clicked");
@@ -323,16 +335,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   overlayConfirmButton.addEventListener("click", () => {
     //Should we make it different for singleplayer and multiplayer?
-    leave(gameInfo.username, gameInfo.password, gameInfo.gameId).then( _response => {
-      setNotificationMessage("I hope you enjoyed the game :)");
-      confirmExitContainer.style.display = "none";
-      boardContainer.style.display = "none";
-      gameContainer.style.display = "flex";
-      playersContainer.style.display = "none";
-      boardButtonsContainer.style.display = "none";
-    }).catch((error) => {
-      setNotificationMessage("An error occurred while leaving the game");
-    });
+    leave(gameInfo.username, gameInfo.password, gameInfo.gameId)
+      .then((_response) => {
+        setNotificationMessage("I hope you enjoyed the game :)");
+        confirmExitContainer.style.display = "none";
+        boardContainer.style.display = "none";
+        gameContainer.style.display = "flex";
+        playersContainer.style.display = "none";
+        boardButtonsContainer.style.display = "none";
+      })
+      .catch((error) => {
+        setNotificationMessage("An error occurred while leaving the game");
+      });
 
     //This belongs to single player
     resetBoard();
